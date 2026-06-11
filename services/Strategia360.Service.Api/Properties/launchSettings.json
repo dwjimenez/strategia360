@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "DFast.Seguridad.Api": {
+    "Strategia360.Service.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
@@ -17,7 +17,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://192.168.1.30:4002"
+      "applicationUrl": "http://localhost:4002"
     }
   }
 }

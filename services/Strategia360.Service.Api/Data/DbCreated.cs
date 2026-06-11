@@ -1,6 +1,6 @@
-﻿using DFast.Seguridad.Api.Persistences;
+﻿using Strategia360.Service.Api.Persistences;
 
-namespace DFast.Seguridad.Api.Data;
+namespace Strategia360.Service.Api.Data;
 
 public static class DbCreated
 {

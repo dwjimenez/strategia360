@@ -1,4 +1,4 @@
-namespace DFast.Seguridad.Api.Helper
+namespace Strategia360.Service.Api.Helper
 {
     public static class Codes
     {

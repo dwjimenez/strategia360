@@ -3,11 +3,10 @@ using DFast.Common.DataBaseSQL;
 using DFast.Common.Http.Src;
 using DFast.Common.Mvc;
 using DFast.Common.RestEase;
-using DFast.Seguridad.Api.Data;
-using DFast.Seguridad.Api.Persistences;
-using DFast.Seguridad.Api.Repositories;
-using DFast.Seguridad.Api.Services;
-using DFast.Seguridad.Api.Proxy;
+using Strategia360.Service.Api.Data;
+using Strategia360.Service.Api.Persistences;
+using Strategia360.Service.Api.Repositories;
+using Strategia360.Service.Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -42,21 +41,15 @@ builder.Services.AddScoped<ISqlAccess, SqlAccess>();
 builder.Services.AddSPSql();
 
 // Servicios espec�ficos
-builder.Services.AddScoped<IIdentityService, IdentityService>();
-builder.Services.AddScoped<IRegistroService, RegistroService>();
+
+builder.Services.AddScoped<IVisitaService, VisitaService>();
 
 // Repositorios
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserSistemaRepository, UserSistemaRepository>();
-builder.Services.AddScoped<IOtpRepository, OtpRepository>();
-builder.Services.AddScoped<IMenuRepository, MenuRepository>();
-builder.Services.AddScoped<IRolRepository, RolRepository>();
-builder.Services.AddScoped<ILogSeguridadRepository, LogSeguridadRepository>();
-builder.Services.AddScoped<IRegistroRepository, RegistroRepository>();
+builder.Services.AddScoped<IVisitaRepository, VisitaRepository>();
+
 //**FIN MANEJO DE BDD
 
-
-builder.Services.AddScoped<INotificacionService, NotificacionService>();
+builder.Services.AddScoped<IVisitaService, VisitaService>();
 
 
 //PARA EL MANEJO DEL MONITOR DE LOGS 06/12/2024
@@ -80,8 +73,7 @@ builder.Logging.AddSerilog();
 
 
 // PROXY PARA SALIR A OTRO SERVICIO
-builder.Services.RegisterServiceForwarder<ISendNotificationService>("dfast-notification");
-builder.Services.RegisterServiceForwarder<IConfiguracionService>("dfast-configuracion");
+
 
 ////**REDIS PARA MANEJO DE CACHE 
 //builder.Services.AddRedis();

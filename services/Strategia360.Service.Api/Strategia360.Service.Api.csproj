@@ -8,12 +8,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Controllers\IdentityController.cs" />
+	  <Compile Remove="Services\Implementation\IdentityService.cs" />
+	  <Compile Remove="Services\Implementation\RegistroService.cs" />
+	  <Compile Remove="Services\Interface\IIdentityService.cs" />
+	  <Compile Remove="Services\Interface\IRegistroService.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="16.1.1" />
 		<PackageReference Include="MediatR" Version="12.5.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.6" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
 		<PackageReference Include="Minio" Version="5.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
 		<PackageReference Include="RestEase" Version="1.6.4" />
 		<PackageReference Include="Serilog" Version="4.3.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -31,7 +40,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="DTOs\ProxyInput\Configuracion\" />
+	  <Folder Include="Controllers\" />
+	  <Folder Include="DTOs\Output\" />
+	  <Folder Include="DTOs\ProxyInput\" />
+	  <Folder Include="Proxy\" />
+	  <Folder Include="Services\Implementation\" />
+	  <Folder Include="Services\Interface\" />
 	</ItemGroup>
 
 	<ProjectExtensions>
