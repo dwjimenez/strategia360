@@ -34,6 +34,15 @@ public class VisitaController : ControllerBase
         [FromQuery] string? apellidos)
         => Ok(await _visitaService.ConsultarCiudadanosAsync(tienda, ciudad, nombres, apellidos));
 
+    [HttpGet("consultarciudadanoscercanos")]
+    public async Task<IActionResult> ConsultarCiudadanosCercanos(
+        [FromQuery] string tienda,
+        [FromQuery] string ciudad,
+        [FromQuery] decimal posX,
+        [FromQuery] decimal posY,
+        [FromQuery] double distanciaMetros)
+        => Ok(await _visitaService.ConsultarCiudadanosCercanosAsync(tienda, ciudad, posX, posY, distanciaMetros));
+
 
     // [HttpGet("obtenertodos")]
     // public IActionResult ObtenerTodos(string institucion)

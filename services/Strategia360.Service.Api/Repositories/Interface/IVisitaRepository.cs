@@ -17,5 +17,6 @@ namespace Strategia360.Service.Api.Repositories
         List<VisitaIntencionVoto> nuevasIntencionesVoto);
 
         Task<List<Ciudadano>> ConsultarCiudadanosAsync(string tienda, string ciudad, string? nombres, string? apellidos);
+        Task<List<Ciudadano>> ConsultarCiudadanosCercanosAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros);
     }
 }

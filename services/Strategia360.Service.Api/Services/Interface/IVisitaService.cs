@@ -11,5 +11,6 @@ namespace Strategia360.Service.Api.Services
         Task<bool> ActualizarAsync(RegistrarCiudadanoVisitaRequest request);
 
         Task<List<CiudadanoDto>> ConsultarCiudadanosAsync(string tienda, string ciudad, string? nombres, string? apellidos);
+        Task<List<CiudadanoDto>> ConsultarCiudadanosCercanosAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros);
     }
 }

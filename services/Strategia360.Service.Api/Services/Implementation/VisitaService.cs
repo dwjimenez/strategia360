@@ -242,5 +242,21 @@ namespace Strategia360.Service.Api.Services
 
             return _mapper.Map<List<CiudadanoDto>>(ciudadanos);
         }
+
+        public async Task<List<CiudadanoDto>> ConsultarCiudadanosCercanosAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros)
+        {
+            if (string.IsNullOrWhiteSpace(tienda))
+                throw new Exception("La tienda es obligatoria.");
+
+            if (string.IsNullOrWhiteSpace(ciudad))
+                throw new Exception("La ciudad es obligatoria.");
+
+            if (distanciaMetros <= 0)
+                throw new Exception("La distancia en metros debe ser mayor a cero.");
+
+            var ciudadanos = await _visitaRepository.ConsultarCiudadanosCercanosAsync(tienda, ciudad, posX, posY, distanciaMetros);
+
+            return _mapper.Map<List<CiudadanoDto>>(ciudadanos);
+        }
     }
 }

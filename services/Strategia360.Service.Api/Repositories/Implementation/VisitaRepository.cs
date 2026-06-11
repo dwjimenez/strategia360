@@ -134,6 +134,58 @@ namespace Strategia360.Service.Api.Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Ciudadano>> ConsultarCiudadanosCercanosAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros)
+        {
+            var tiendaNormalizada = tienda.Trim();
+            var ciudadNormalizada = ciudad.Trim();
+
+            var ciudadanos = await _Context.Ciudadano
+                .AsNoTracking()
+                .Where(x => x.Tienda == tiendaNormalizada
+                    && x.Ciudad == ciudadNormalizada
+                    && x.Activo == true
+                    && x.PosX.HasValue
+                    && x.PosY.HasValue)
+                .ToListAsync();
+
+            return ciudadanos
+                .Where(x => CalcularDistanciaMetros(
+                    (double)posX,
+                    (double)posY,
+                    (double)x.PosX!.Value,
+                    (double)x.PosY!.Value) <= distanciaMetros)
+                .OrderBy(x => CalcularDistanciaMetros(
+                    (double)posX,
+                    (double)posY,
+                    (double)x.PosX!.Value,
+                    (double)x.PosY!.Value))
+                .ThenBy(x => x.Apellidos)
+                .ThenBy(x => x.Nombres)
+                .ToList();
+        }
+
+        private static double CalcularDistanciaMetros(double lat1, double lon1, double lat2, double lon2)
+        {
+            const double radioTierraMetros = 6371000d;
+            var dLat = GradosARadianes(lat2 - lat1);
+            var dLon = GradosARadianes(lon2 - lon1);
+            var origenLat = GradosARadianes(lat1);
+            var destinoLat = GradosARadianes(lat2);
+
+            var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                    Math.Cos(origenLat) * Math.Cos(destinoLat) *
+                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+            return radioTierraMetros * c;
+        }
+
+        private static double GradosARadianes(double grados)
+        {
+            return grados * (Math.PI / 180d);
+        }
+
 
     }
 }
