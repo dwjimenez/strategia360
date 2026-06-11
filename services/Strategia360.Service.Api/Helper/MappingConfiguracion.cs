@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Strategia360.Service.Api.Models;
-using Strategia360.Service.Api.DTOs;
+
 using static DFast.Common.General.CommonAutoMapper;
+using Strategia360.Service.Api.Dtos;
 
 
 namespace Strategia360.Service.Api.Helper
@@ -16,9 +17,12 @@ namespace Strategia360.Service.Api.Helper
             //CreateMap<UsuarioSistema, UsuarioSistemaDto>().ReverseMap();
             //CreateMap<Menu, MenuDto>().ReverseMap();
             //CreateMap<UsuarioSistema, UsuarioSistemaDto>().ReverseMap();
-            
 
-           
+            CreateMap<Visita, VisitaDto>().ReverseMap();
+            CreateMap<Ciudadano, CiudadanoDto>().ReverseMap();
+            CreateMap<VisitaIntencionVoto, VisitaIntencionVotoDto>().ReverseMap();
+
+
 
 
             CreateMap<DateTime, long>().ConvertUsing(new DateTimeLongTypeConverter());

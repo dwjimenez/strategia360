@@ -104,6 +104,36 @@ namespace Strategia360.Service.Api.Repositories
             }
         }
 
+        public async Task<List<Ciudadano>> ConsultarCiudadanosAsync(string tienda, string ciudad, string? nombres, string? apellidos)
+        {
+            var tiendaNormalizada = tienda.Trim();
+            var ciudadNormalizada = ciudad.Trim();
+            var nombresNormalizados = nombres?.Trim();
+            var apellidosNormalizados = apellidos?.Trim();
+
+            var query = _Context.Ciudadano
+                .AsNoTracking()
+                .Where(x => x.Tienda == tiendaNormalizada
+                    && x.Ciudad == ciudadNormalizada
+                    && x.Activo == true);
+
+            if (!string.IsNullOrWhiteSpace(nombresNormalizados))
+            {
+                query = query.Where(x => EF.Functions.Like(x.Nombres, $"%{nombresNormalizados}%"));
+            }
+
+            if (!string.IsNullOrWhiteSpace(apellidosNormalizados))
+            {
+                query = query.Where(x => x.Apellidos != null
+                    && EF.Functions.Like(x.Apellidos, $"%{apellidosNormalizados}%"));
+            }
+
+            return await query
+                .OrderBy(x => x.Apellidos)
+                .ThenBy(x => x.Nombres)
+                .ToListAsync();
+        }
+
 
     }
 }

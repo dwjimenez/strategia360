@@ -26,6 +26,14 @@ public class VisitaController : ControllerBase
     public async Task<IActionResult> ActualizarVisita(RegistrarCiudadanoVisitaRequest command)
         => Ok(await _visitaService.ActualizarAsync(command));
 
+    [HttpGet("consultarciudadanos")]
+    public async Task<IActionResult> ConsultarCiudadanos(
+        [FromQuery] string tienda,
+        [FromQuery] string ciudad,
+        [FromQuery] string? nombres,
+        [FromQuery] string? apellidos)
+        => Ok(await _visitaService.ConsultarCiudadanosAsync(tienda, ciudad, nombres, apellidos));
+
 
     // [HttpGet("obtenertodos")]
     // public IActionResult ObtenerTodos(string institucion)
@@ -124,4 +132,5 @@ public class VisitaController : ControllerBase
     // }
 
 }
+
 

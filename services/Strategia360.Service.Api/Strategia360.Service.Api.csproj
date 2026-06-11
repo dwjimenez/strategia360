@@ -41,7 +41,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Controllers\" />
-	  <Folder Include="DTOs\Output\" />
 	  <Folder Include="DTOs\ProxyInput\" />
 	  <Folder Include="Proxy\" />
 	  <Folder Include="Services\Implementation\" />

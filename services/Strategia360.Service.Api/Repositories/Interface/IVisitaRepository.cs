@@ -15,5 +15,7 @@ namespace Strategia360.Service.Api.Repositories
         Task<Visita> ActualizarAsync(Ciudadano ciudadanoEditado,
         Visita nuevaVisita,
         List<VisitaIntencionVoto> nuevasIntencionesVoto);
+
+        Task<List<Ciudadano>> ConsultarCiudadanosAsync(string tienda, string ciudad, string? nombres, string? apellidos);
     }
 }
