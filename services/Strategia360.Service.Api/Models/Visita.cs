@@ -10,22 +10,16 @@ namespace Strategia360.Service.Api.Models
             VisitaIntencionVotos = new HashSet<VisitaIntencionVoto>();
         }
 
-        public long IdVisita { get; set; }
-        public long IdCiudadano { get; set; }
+        public int IdVisita { get; set; }
+        public int IdCiudadano { get; set; }
         public string Tienda { get; set; } = null!;
         public string Ciudad { get; set; } = null!;
         public string? CodigoUsuario { get; set; }
         public string? CodigoCenturia { get; set; }
         public string? CodigoTerritorio { get; set; }
         public DateTime FechaVisita { get; set; }
-        public int? PersonasMayoresCasa { get; set; }
-        public string? ProblemaPrincipal { get; set; }
         public string? ProblemaTexto { get; set; }
-        public string? ResultadoVisita { get; set; }
-        public string? RazonNoIndeciso { get; set; }
-        public string TemasInteres { get; set; } = null!;
         public string? TemaInteresReal { get; set; }
-        public bool TieneReferido { get; set; }
         public string? ReferidoNombres { get; set; }
         public string? ReferidoTelefono { get; set; }
         public string? NotaEncuestador { get; set; }

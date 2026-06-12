@@ -191,7 +191,7 @@ public partial class ContextDatabase : CommonContext
 
             entity.HasIndex(e => new { e.Tienda, e.Ciudad, e.CodigoCenturia, e.CodigoTerritorio, e.Parroquia, e.Barrio }, "IX_Ciudadano_Ubicacion");
 
-            entity.HasIndex(e => new { e.Tienda, e.Ciudad, e.NumeroCelular }, "UX_Ciudadano_Ciudad_NumeroCelular")
+            entity.HasIndex(e => new { e.Tienda, e.Ciudad, e.Codigo }, "UX_Ciudadano_Ciudad_NumeroCelular")
                 .IsUnique()
                 .HasFilter("([Activo]=(1))");
 
@@ -1072,22 +1072,12 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
 
-            entity.Property(e => e.PersonasMayoresCasa).HasDefaultValueSql("((0))");
-
             entity.Property(e => e.PosX).HasColumnType("decimal(18, 10)");
 
             entity.Property(e => e.PosY).HasColumnType("decimal(18, 10)");
 
-            entity.Property(e => e.ProblemaPrincipal)
-                .HasMaxLength(32)
-                .IsUnicode(false);
-
             entity.Property(e => e.ProblemaTexto)
                 .HasMaxLength(300)
-                .IsUnicode(false);
-
-            entity.Property(e => e.RazonNoIndeciso)
-                .HasMaxLength(32)
                 .IsUnicode(false);
 
             entity.Property(e => e.ReferidoNombres)
@@ -1098,15 +1088,7 @@ public partial class ContextDatabase : CommonContext
                 .HasMaxLength(16)
                 .IsUnicode(false);
 
-            entity.Property(e => e.ResultadoVisita)
-                .HasMaxLength(32)
-                .IsUnicode(false);
-
             entity.Property(e => e.TemaInteresReal)
-                .HasMaxLength(500)
-                .IsUnicode(false);
-
-            entity.Property(e => e.TemasInteres)
                 .HasMaxLength(500)
                 .IsUnicode(false);
 

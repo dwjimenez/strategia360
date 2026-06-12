@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     6/10/2026 9:21:26 PM                         */
+/* Created on:     6/11/2026 10:09:31 PM                        */
 /*==============================================================*/
 
 
@@ -318,7 +318,7 @@ go
 /* Table: AccionRecomendada                                     */
 /*==============================================================*/
 create table dbo.AccionRecomendada (
-   IdAccionRecomendada  bigint               identity(1,1),
+   IdAccionRecomendada  int                  identity(1,1),
    Tienda               varchar(32)          not null,
    Ciudad               varchar(64)          not null,
    FechaGeneracion      datetime             not null constraint DF_AccionRecomendada_FechaGeneracion default getdate(),
@@ -339,8 +339,7 @@ create table dbo.AccionRecomendada (
    UsuarioModificacion  varchar(32)          null,
    OficinaModificacion  int                  null,
    EstacionModificacion varchar(32)          null,
-   constraint PK_AccionRecomendada primary key (IdAccionRecomendada),
-   constraint CK_AccionRecomendada_Estado check (Estado in ('PENDIENTE','APLICADA','DESCARTADA','CERRADA'))
+   constraint PK_AccionRecomendada primary key (IdAccionRecomendada)
 )
 go
 
@@ -650,12 +649,12 @@ go
 /* Table: Ciudadano                                             */
 /*==============================================================*/
 create table dbo.Ciudadano (
-   IdCiudadano          bigint               identity(1,1),
+   IdCiudadano          int                  identity(1,1),
    Tienda               varchar(32)          not null,
    Ciudad               varchar(64)          not null constraint DF_Ciudadano_Ciudad default 'PEDERNALES',
    CodigoCenturia       varchar(32)          null,
    CodigoTerritorio     varchar(32)          null,
-   Codigo               varchar(32)          null,
+   Codigo               varchar(32)          not null,
    Nombres              varchar(128)         not null,
    Apellidos            varchar(128)         null,
    NumeroCelular        varchar(16)          not null,
@@ -677,8 +676,7 @@ create table dbo.Ciudadano (
    UsuarioModificacion  varchar(32)          null,
    OficinaModificacion  int                  null,
    EstacionModificacion varchar(32)          null,
-   constraint PK_Ciudadano primary key (IdCiudadano),
-   constraint CK_Ciudadano_Genero check (Genero in ('masculino','femenino'))
+   constraint PK_Ciudadano primary key (IdCiudadano)
 )
 go
 
@@ -816,7 +814,7 @@ go
 create unique index UX_Ciudadano_Ciudad_NumeroCelular on dbo.Ciudadano (
 Tienda ASC,
 Ciudad ASC,
-NumeroCelular ASC
+Codigo ASC
 )
 where Activo = 1
 go
@@ -838,7 +836,7 @@ go
 /* Table: DashboardContador                                     */
 /*==============================================================*/
 create table dbo.DashboardContador (
-   IdDashboardContador  bigint               identity(1,1),
+   IdDashboardContador  int                  identity(1,1),
    Tienda               varchar(32)          not null,
    Ciudad               varchar(64)          not null,
    TipoCorte            varchar(32)          not null,
@@ -860,19 +858,7 @@ create table dbo.DashboardContador (
    UsuarioModificacion  varchar(32)          null,
    OficinaModificacion  int                  null,
    EstacionModificacion varchar(32)          null,
-   constraint PK_DashboardContador primary key (IdDashboardContador),
-   constraint CK_DashboardContador_TipoCorte check (TipoCorte in ('DIARIO','SEMANAL','MENSUAL','ACUMULADO')),
-   constraint CK_DashboardContador_TipoContador check (TipoContador in (
-      'CIUDADANO',
-      'VISITA',
-      'VISITA_CON_GPS',
-      'GENERO',
-      'MIEMBROS_FAMILIA',
-      'MIEMBROS_VOTAN',
-      'MIEMBROS_DISCAPACIDAD',
-      'REFERIDO',
-      'INTENCION_VOTO'
-    ))
+   constraint PK_DashboardContador primary key (IdDashboardContador)
 )
 go
 
@@ -1042,8 +1028,7 @@ create table dbo.IntencionVotoOpcion (
    UsuarioModificacion  varchar(32)          null,
    OficinaModificacion  int                  null,
    EstacionModificacion varchar(32)          null,
-   constraint PK_IntencionVotoOpcion primary key (IdIntencionVotoOpcion),
-   constraint CK_IntencionVotoOpcion_Dignidad check (CodigoDignidad in ('ALCALDE','CONCEJAL','VOCALES'))
+   constraint PK_IntencionVotoOpcion primary key (IdIntencionVotoOpcion)
 )
 go
 
@@ -1199,7 +1184,7 @@ go
 /* Table: PoliticaAprendida                                     */
 /*==============================================================*/
 create table dbo.PoliticaAprendida (
-   IdPoliticaAprendida  bigint               identity(1,1),
+   IdPoliticaAprendida  int                  identity(1,1),
    Tienda               varchar(32)          not null,
    Ciudad               varchar(64)          not null,
    TipoEstado           varchar(32)          not null,
@@ -1366,7 +1351,7 @@ go
 /* Table: ReporteOrganizacional                                 */
 /*==============================================================*/
 create table dbo.ReporteOrganizacional (
-   IdReporteOrganizacional bigint               identity(1,1),
+   IdReporteOrganizacional int                  identity(1,1),
    Tienda               varchar(32)          not null,
    Ciudad               varchar(64)          not null,
    CodigoReporte        varchar(32)          not null,
@@ -1411,11 +1396,7 @@ create table dbo.ReporteOrganizacional (
    UsuarioModificacion  varchar(32)          null,
    OficinaModificacion  int                  null,
    EstacionModificacion varchar(32)          null,
-   constraint PK_ReporteOrganizacional primary key (IdReporteOrganizacional),
-   constraint CK_ReporteOrganizacional_TipoReporte check (TipoReporte in ('F_EXP','F_CEN')),
-   constraint CK_ReporteOrganizacional_TendenciaVAH check (TendenciaVAH is null or TendenciaVAH in ('SUBIO','IGUAL','BAJO','SIN_DATO')),
-   constraint CK_ReporteOrganizacional_NivelAlerta check (NivelAlerta is null or NivelAlerta in ('VERDE','AMARILLO','ROJO')),
-   constraint CK_ReporteOrganizacional_Estado check (Estado in ('BORRADOR','ENVIADO','EDITADO','ANULADO'))
+   constraint PK_ReporteOrganizacional primary key (IdReporteOrganizacional)
 )
 go
 
@@ -1583,8 +1564,8 @@ go
 /* Table: ResultadoAccion                                       */
 /*==============================================================*/
 create table dbo.ResultadoAccion (
-   IdResultadoAccion    bigint               identity(1,1),
-   IdAccionRecomendada  bigint               not null,
+   IdResultadoAccion    int                  identity(1,1),
+   IdAccionRecomendada  int                  not null,
    FechaResultado       datetime             not null constraint DF_ResultadoAccion_FechaResultado default getdate(),
    TipoMetrica          varchar(32)          not null,
    TotalAntes           int                  not null constraint DF_ResultadoAccion_TotalAntes default 0,
@@ -1924,9 +1905,7 @@ create table dbo.Territorio (
    UsuarioModificacion  varchar(32)          null,
    OficinaModificacion  int                  null,
    EstacionModificacion varchar(32)          null,
-   constraint PK_Territorio primary key (IdTerritorio),
-   constraint CK_Territorio_TipoTerritorio check (TipoTerritorio in ('PARROQUIA','BARRIO','COMUNIDAD')),
-   constraint CK_Territorio_EstadoCobertura check (EstadoCobertura in ('CUBIERTO','EN_PROCESO','SIN_CONTACTO','CRITICO'))
+   constraint PK_Territorio primary key (IdTerritorio)
 )
 go
 
@@ -2259,22 +2238,16 @@ go
 /* Table: Visita                                                */
 /*==============================================================*/
 create table dbo.Visita (
-   IdVisita             bigint               identity(1,1),
-   IdCiudadano          bigint               not null,
+   IdVisita             int                  identity(1,1),
+   IdCiudadano          int                  not null,
    Tienda               varchar(32)          not null,
    Ciudad               varchar(64)          not null,
    CodigoUsuario        varchar(32)          null,
    CodigoCenturia       varchar(32)          null,
    CodigoTerritorio     varchar(32)          null,
    FechaVisita          datetime             not null constraint DF_Visita_FechaVisita default getdate(),
-   PersonasMayoresCasa  int                  null constraint DF_Visita_PersonasMayoresCasa default 0,
-   ProblemaPrincipal    varchar(32)          null,
    ProblemaTexto        varchar(300)         null,
-   ResultadoVisita      varchar(32)          null,
-   RazonNoIndeciso      varchar(32)          null,
-   TemasInteres         varchar(500)         not null,
    TemaInteresReal      varchar(500)         null,
-   TieneReferido        bit                  not null constraint DF_Visita_TieneReferido default 0,
    ReferidoNombres      varchar(128)         null,
    ReferidoTelefono     varchar(16)          null,
    NotaEncuestador      varchar(500)         null,
@@ -2290,9 +2263,7 @@ create table dbo.Visita (
    UsuarioModificacion  varchar(32)          null,
    OficinaModificacion  int                  null,
    EstacionModificacion varchar(32)          null,
-   constraint PK_Visita primary key (IdVisita),
-   constraint CK_Visita_ResultadoVisita check (ResultadoVisita is null or ResultadoVisita in ('PROMOVIDO','INDECISO','NO')),
-   constraint CK_Visita_EstadoSync check (EstadoSync in ('PENDIENTE','SINCRONIZADO','ERROR'))
+   constraint PK_Visita primary key (IdVisita)
 )
 go
 
@@ -2449,8 +2420,8 @@ go
 /* Table: VisitaIntencionVoto                                   */
 /*==============================================================*/
 create table dbo.VisitaIntencionVoto (
-   IdVisitaIntencionVoto bigint               identity(1,1),
-   IdVisita             bigint               not null,
+   IdVisitaIntencionVoto int                  identity(1,1),
+   IdVisita             int                  not null,
    CodigoDignidad       varchar(32)          not null,
    CodigoIntencionVotoOpcion varchar(32)          not null,
    Observacion          varchar(500)         null,
@@ -2462,8 +2433,7 @@ create table dbo.VisitaIntencionVoto (
    UsuarioModificacion  varchar(32)          null,
    OficinaModificacion  int                  null,
    EstacionModificacion varchar(32)          null,
-   constraint PK_VisitaIntencionVoto primary key (IdVisitaIntencionVoto),
-   constraint CK_VisitaIntencionVoto_Dignidad check (CodigoDignidad in ('ALCALDE','CONCEJAL','VOCALES'))
+   constraint PK_VisitaIntencionVoto primary key (IdVisitaIntencionVoto)
 )
 go
 

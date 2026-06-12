@@ -10,12 +10,12 @@ namespace Strategia360.Service.Api.Models
             Visita = new HashSet<Visita>();
         }
 
-        public long IdCiudadano { get; set; }
+        public int IdCiudadano { get; set; }
         public string Tienda { get; set; } = null!;
         public string Ciudad { get; set; } = null!;
         public string? CodigoCenturia { get; set; }
         public string? CodigoTerritorio { get; set; }
-        public string? Codigo { get; set; }
+        public string Codigo { get; set; } = null!;
         public string Nombres { get; set; } = null!;
         public string? Apellidos { get; set; }
         public string NumeroCelular { get; set; } = null!;

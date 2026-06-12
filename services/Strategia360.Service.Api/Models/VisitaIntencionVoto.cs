@@ -5,8 +5,8 @@ namespace Strategia360.Service.Api.Models
 {
     public partial class VisitaIntencionVoto
     {
-        public long IdVisitaIntencionVoto { get; set; }
-        public long IdVisita { get; set; }
+        public int IdVisitaIntencionVoto { get; set; }
+        public int IdVisita { get; set; }
         public string CodigoDignidad { get; set; } = null!;
         public string CodigoIntencionVotoOpcion { get; set; } = null!;
         public string? Observacion { get; set; }

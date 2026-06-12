@@ -28,6 +28,9 @@ namespace Strategia360.Service.Api.Services
             if (string.IsNullOrWhiteSpace(request.Tienda))
                 throw new Exception("La tienda es obligatoria.");
 
+            if (string.IsNullOrWhiteSpace(request.Ciudad))
+                throw new Exception("La ciudad es obligatoria.");
+
             if (string.IsNullOrWhiteSpace(request.Nombres))
                 throw new Exception("El nombre del ciudadano es obligatorio.");
 
@@ -67,10 +70,21 @@ namespace Strategia360.Service.Api.Services
 
             var dignidadesPermitidas = new[] { "ALCALDE", "CONCEJAL", "VOCALES" };
 
-            foreach (var item in request.IntencionesVoto)
+            var intencionesVoto = request.IntencionesVoto ?? new List<RegistrarIntencionVotoRequest>();
+
+            foreach (var item in intencionesVoto)
             {
                 if (!dignidadesPermitidas.Contains(item.CodigoDignidad))
                     throw new Exception($"La dignidad {item.CodigoDignidad} no es valida.");
+            }
+
+            if (request.TieneReferido)
+            {
+                if (string.IsNullOrWhiteSpace(request.ReferidoNombres))
+                    throw new Exception("El nombre del referido es obligatorio cuando TieneReferido es verdadero.");
+
+                if (string.IsNullOrWhiteSpace(request.ReferidoTelefono))
+                    throw new Exception("El telefono del referido es obligatorio cuando TieneReferido es verdadero.");
             }
         }
 
@@ -99,6 +113,7 @@ namespace Strategia360.Service.Api.Services
                 Direccion = request.Direccion,
                 PosX = request.PosX,
                 PosY = request.PosY,
+               
                 Activo = true,
             };
 
@@ -110,26 +125,21 @@ namespace Strategia360.Service.Api.Services
                 CodigoCenturia = request.CodigoCenturia,
                 CodigoTerritorio = request.CodigoTerritorio,
                 FechaVisita = fechaActual,
-                PersonasMayoresCasa = request.PersonasMayoresCasa,
-                ProblemaPrincipal = request.ProblemaPrincipal,
                 ProblemaTexto = request.ProblemaTexto,
-                ResultadoVisita = request.ResultadoVisita,
-                RazonNoIndeciso = request.RazonNoIndeciso,
-                TemasInteres = request.TemasInteres,
                 TemaInteresReal = request.TemaInteresReal,
-                TieneReferido = request.TieneReferido,
                 ReferidoNombres = request.ReferidoNombres,
                 ReferidoTelefono = request.ReferidoTelefono,
                 NotaEncuestador = request.NotaEncuestador,
                 PosX = request.PosX,
                 PosY = request.PosY,
+               
                 EstadoSync = string.IsNullOrWhiteSpace(request.EstadoSync)
                     ? "SINCRONIZADO"
                     : request.EstadoSync,
                 Activo = true,
             };
 
-            var intencionesVoto = request.IntencionesVoto
+            var intencionesVoto = (request.IntencionesVoto ?? new List<RegistrarIntencionVotoRequest>())
                 .Where(x => !string.IsNullOrWhiteSpace(x.CodigoDignidad))
                 .GroupBy(x => x.CodigoDignidad)
                 .Select(x => x.First())
@@ -138,6 +148,7 @@ namespace Strategia360.Service.Api.Services
                     CodigoDignidad = x.CodigoDignidad,
                     CodigoIntencionVotoOpcion = x.CodigoIntencionVotoOpcion,
                     Observacion = x.Observacion,
+                   
                 })
                 .ToList();
 
@@ -153,14 +164,14 @@ namespace Strategia360.Service.Api.Services
         {
             ValidarRegistroCiudadanoVisita(request);
 
-            if (request.IdCiudadano <= 0)
+            if (!request.IdCiudadano.HasValue || request.IdCiudadano.Value <= 0)
                 throw new Exception("El IdCiudadano es obligatorio para actualizar el ciudadano.");
 
             var fechaActual = DateTime.Now;
 
             var ciudadano = new Ciudadano
             {
-                IdCiudadano = request.IdCiudadano,
+                IdCiudadano = request.IdCiudadano.Value,
                 Tienda = request.Tienda,
                 Ciudad = request.Ciudad,
                 CodigoCenturia = request.CodigoCenturia,
@@ -178,6 +189,7 @@ namespace Strategia360.Service.Api.Services
                 Direccion = request.Direccion,
                 PosX = request.PosX,
                 PosY = request.PosY,
+               
                 Activo = true
             };
 
@@ -189,38 +201,35 @@ namespace Strategia360.Service.Api.Services
                 CodigoCenturia = request.CodigoCenturia,
                 CodigoTerritorio = request.CodigoTerritorio,
                 FechaVisita = fechaActual,
-                PersonasMayoresCasa = request.PersonasMayoresCasa,
-                ProblemaPrincipal = request.ProblemaPrincipal,
+                
                 ProblemaTexto = request.ProblemaTexto,
-                ResultadoVisita = request.ResultadoVisita,
-                RazonNoIndeciso = request.RazonNoIndeciso,
-                TemasInteres = request.TemasInteres,
+                
                 TemaInteresReal = request.TemaInteresReal,
-                TieneReferido = request.TieneReferido,
+                
                 ReferidoNombres = request.ReferidoNombres,
                 ReferidoTelefono = request.ReferidoTelefono,
                 NotaEncuestador = request.NotaEncuestador,
                 PosX = request.PosX,
                 PosY = request.PosY,
+               
                 EstadoSync = string.IsNullOrWhiteSpace(request.EstadoSync)
                     ? "SINCRONIZADO"
                     : request.EstadoSync,
                 Activo = true
             };
 
-            var intencionesVoto = request.IntencionesVoto == null
-                ? new List<VisitaIntencionVoto>()
-                : request.IntencionesVoto
-                    .Where(x => !string.IsNullOrWhiteSpace(x.CodigoDignidad))
-                    .GroupBy(x => x.CodigoDignidad)
-                    .Select(x => x.First())
-                    .Select(x => new VisitaIntencionVoto
-                    {
-                        CodigoDignidad = x.CodigoDignidad,
-                        CodigoIntencionVotoOpcion = x.CodigoIntencionVotoOpcion,
-                        Observacion = x.Observacion
-                    })
-                    .ToList();
+            var intencionesVoto = (request.IntencionesVoto ?? new List<RegistrarIntencionVotoRequest>())
+                .Where(x => !string.IsNullOrWhiteSpace(x.CodigoDignidad))
+                .GroupBy(x => x.CodigoDignidad)
+                .Select(x => x.First())
+                .Select(x => new VisitaIntencionVoto
+                {
+                    CodigoDignidad = x.CodigoDignidad,
+                    CodigoIntencionVotoOpcion = x.CodigoIntencionVotoOpcion,
+                    Observacion = x.Observacion,
+                   
+                })
+                .ToList();
 
             await _visitaRepository.ActualizarAsync(
                 ciudadano,
