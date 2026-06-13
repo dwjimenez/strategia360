@@ -3,12 +3,13 @@ using DFast.Common.DataBaseSQL;
 using DFast.Common.Http.Src;
 using DFast.Common.Mvc;
 using DFast.Common.RestEase;
-using Strategia360.Service.Api.Data;
-using Strategia360.Service.Api.Persistences;
-using Strategia360.Service.Api.Repositories;
-using Strategia360.Service.Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Microsoft.AspNetCore.DataProtection.Repositories;
+using Strategia360.Service.Api.Data;
+using Strategia360.Service.Api.Persistences;
+using Strategia360.Service.Api.Services;
+using Strategia360.Service.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,15 +42,16 @@ builder.Services.AddScoped<ISqlAccess, SqlAccess>();
 builder.Services.AddSPSql();
 
 // Servicios espec�ficos
-
 builder.Services.AddScoped<IVisitaService, VisitaService>();
+
 
 // Repositorios
 builder.Services.AddScoped<IVisitaRepository, VisitaRepository>();
 
 //**FIN MANEJO DE BDD
 
-builder.Services.AddScoped<IVisitaService, VisitaService>();
+
+
 
 
 //PARA EL MANEJO DEL MONITOR DE LOGS 06/12/2024
@@ -71,8 +73,6 @@ builder.Logging.AddSerilog();
 //builder.WebHost.UseAppMetrics();
 //FIN PARA EL MANEJO DE METRICS
 
-
-// PROXY PARA SALIR A OTRO SERVICIO
 
 
 ////**REDIS PARA MANEJO DE CACHE 
