@@ -28,25 +28,17 @@ public class RegistrarCiudadanoVisitaRequest
     public decimal? PosX { get; set; }
     public decimal? PosY { get; set; }
 
-    public int PersonasMayoresCasa { get; set; }
-
-    public string? ProblemaPrincipal { get; set; }
-    public string? ProblemaTexto { get; set; }
-
-    public string? ResultadoVisita { get; set; }
-    public string? RazonNoIndeciso { get; set; }
-
-    public string TemasInteres { get; set; }
     public string? TemaInteresReal { get; set; }
 
-    public bool TieneReferido { get; set; }
     public string? ReferidoNombres { get; set; }
     public string? ReferidoTelefono { get; set; }
 
     public string? NotaEncuestador { get; set; }
-
     public string EstadoSync { get; set; } = "SINCRONIZADO";
 
+
+    
+    
     public string? UsuarioCreacion { get; set; }
     public int? OficinaCreacion { get; set; }
     public string? EstacionCreacion { get; set; }

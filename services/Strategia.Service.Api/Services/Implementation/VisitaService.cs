@@ -52,17 +52,8 @@ namespace  Strategia.Service.Api.Services
             if (string.IsNullOrWhiteSpace(request.Direccion))
                 throw new Exception("La direccion es obligatoria.");
 
-            if (string.IsNullOrWhiteSpace(request.TemasInteres))
-                throw new Exception("Los temas de interes son obligatorios.");
 
-            if (!string.IsNullOrWhiteSpace(request.ResultadoVisita))
-            {
-                var resultadosPermitidos = new[] { "PROMOVIDO", "INDECISO", "NO" };
-
-                if (!resultadosPermitidos.Contains(request.ResultadoVisita))
-                    throw new Exception("El resultado de visita debe ser PROMOVIDO, INDECISO o NO.");
-            }
-
+            
             var estadosPermitidos = new[] { "PENDIENTE", "SINCRONIZADO", "ERROR" };
 
             if (!estadosPermitidos.Contains(request.EstadoSync))
@@ -78,19 +69,18 @@ namespace  Strategia.Service.Api.Services
                     throw new Exception($"La dignidad {item.CodigoDignidad} no es valida.");
             }
 
-            if (request.TieneReferido)
-            {
-                if (string.IsNullOrWhiteSpace(request.ReferidoNombres))
-                    throw new Exception("El nombre del referido es obligatorio cuando TieneReferido es verdadero.");
+          
+            if (string.IsNullOrWhiteSpace(request.ReferidoNombres))
+                throw new Exception("El nombre del referido es obligatorio cuando TieneReferido es verdadero.");
 
-                if (string.IsNullOrWhiteSpace(request.ReferidoTelefono))
-                    throw new Exception("El telefono del referido es obligatorio cuando TieneReferido es verdadero.");
-            }
+            if (string.IsNullOrWhiteSpace(request.ReferidoTelefono))
+                throw new Exception("El telefono del referido es obligatorio cuando TieneReferido es verdadero.");
+          
         }
 
         public async Task<bool> NuevoAsync(RegistrarCiudadanoVisitaRequest request)
         {
-            ValidarRegistroCiudadanoVisita(request);
+            //ValidarRegistroCiudadanoVisita(request);
 
             var fechaActual = DateTime.Now;
 
@@ -98,8 +88,8 @@ namespace  Strategia.Service.Api.Services
             {
                 Tienda = request.Tienda,
                 Ciudad = request.Ciudad,
-                CodigoCenturia = request.CodigoCenturia,
                 CodigoTerritorio = request.CodigoTerritorio,
+                CodigoCenturia = request.CodigoCenturia,
                 Codigo = request.Codigo,
                 Nombres = request.Nombres,
                 Apellidos = request.Apellidos,
@@ -113,7 +103,6 @@ namespace  Strategia.Service.Api.Services
                 Direccion = request.Direccion,
                 PosX = request.PosX,
                 PosY = request.PosY,
-               
                 Activo = true,
             };
 
@@ -125,14 +114,13 @@ namespace  Strategia.Service.Api.Services
                 CodigoCenturia = request.CodigoCenturia,
                 CodigoTerritorio = request.CodigoTerritorio,
                 FechaVisita = fechaActual,
-                ProblemaTexto = request.ProblemaTexto,
+
                 TemaInteresReal = request.TemaInteresReal,
                 ReferidoNombres = request.ReferidoNombres,
                 ReferidoTelefono = request.ReferidoTelefono,
                 NotaEncuestador = request.NotaEncuestador,
                 PosX = request.PosX,
                 PosY = request.PosY,
-               
                 EstadoSync = string.IsNullOrWhiteSpace(request.EstadoSync)
                     ? "SINCRONIZADO"
                     : request.EstadoSync,
@@ -202,10 +190,7 @@ namespace  Strategia.Service.Api.Services
                 CodigoTerritorio = request.CodigoTerritorio,
                 FechaVisita = fechaActual,
                 
-                ProblemaTexto = request.ProblemaTexto,
-                
-                TemaInteresReal = request.TemaInteresReal,
-                
+               
                 ReferidoNombres = request.ReferidoNombres,
                 ReferidoTelefono = request.ReferidoTelefono,
                 NotaEncuestador = request.NotaEncuestador,
