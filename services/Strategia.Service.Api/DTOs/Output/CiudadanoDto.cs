@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace  Strategia.Service.Api.DTOs
 {
@@ -29,8 +30,8 @@ namespace  Strategia.Service.Api.DTOs
         public decimal? PosX { get; set; }
         public decimal? PosY { get; set; }
         public bool? Activo { get; set; }
-        
 
+        [JsonIgnore]
         public virtual ICollection<VisitaDto> Visita { get; set; }
     }
 }

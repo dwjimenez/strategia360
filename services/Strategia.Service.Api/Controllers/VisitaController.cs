@@ -20,7 +20,8 @@ public class VisitaController : ControllerBase
 
     [HttpPost("registrarvisita")]
     public async Task<IActionResult> RegistrarVisita(RegistrarCiudadanoVisitaRequest command)
-          => Ok(await _visitaService.NuevoAsync(command));
+          => 
+        Ok(await _visitaService.NuevoAsync(command));
 
     [HttpPost("actualizarvisita")]
     public async Task<IActionResult> ActualizarVisita(RegistrarCiudadanoVisitaRequest command)
@@ -42,6 +43,14 @@ public class VisitaController : ControllerBase
         [FromQuery] decimal posY,
         [FromQuery] double distanciaMetros)
         => Ok(await _visitaService.ConsultarCiudadanosCercanosAsync(tienda, ciudad, posX, posY, distanciaMetros));
+
+    [HttpGet("consultarvisitasporusuarioyfechas")]
+    public async Task<IActionResult> ConsultarVisitasPorUsuarioYFechas(
+        [FromQuery] string tienda,
+        [FromQuery] string codigoUsuario,
+        [FromQuery] DateTime fechaDesde,
+        [FromQuery] DateTime fechaHasta)
+        => Ok(await _visitaService.ConsultarVisitasPorUsuarioYFechasAsync(tienda, codigoUsuario, fechaDesde, fechaHasta));
 
 
     // [HttpGet("obtenertodos")]

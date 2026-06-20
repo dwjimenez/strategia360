@@ -224,7 +224,7 @@ namespace  Strategia.Service.Api.Services
             return true;
         }
 
-        public async Task<List<CiudadanoDto>> ConsultarCiudadanosAsync(string tienda, string ciudad, string? nombres, string? apellidos)
+        public async Task<List<VisitaDto>> ConsultarCiudadanosAsync(string tienda, string ciudad, string? nombres, string? apellidos)
         {
             if (string.IsNullOrWhiteSpace(tienda))
                 throw new Exception("La tienda es obligatoria.");
@@ -232,9 +232,9 @@ namespace  Strategia.Service.Api.Services
             if (string.IsNullOrWhiteSpace(ciudad))
                 throw new Exception("La ciudad es obligatoria.");
 
-            var ciudadanos = await _visitaRepository.ConsultarCiudadanosAsync(tienda, ciudad, nombres, apellidos);
+            var visitas = await _visitaRepository.ConsultarCiudadanosAsync(tienda, ciudad, nombres, apellidos);
 
-            return _mapper.Map<List<CiudadanoDto>>(ciudadanos);
+            return _mapper.Map<List<VisitaDto>>(visitas);
         }
 
         public async Task<List<CiudadanoDto>> ConsultarCiudadanosCercanosAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros)
@@ -251,6 +251,26 @@ namespace  Strategia.Service.Api.Services
             var ciudadanos = await _visitaRepository.ConsultarCiudadanosCercanosAsync(tienda, ciudad, posX, posY, distanciaMetros);
 
             return _mapper.Map<List<CiudadanoDto>>(ciudadanos);
+        }
+
+        public async Task<List<VisitaDto>> ConsultarVisitasPorUsuarioYFechasAsync(string tienda, string codigoUsuario, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            if (string.IsNullOrWhiteSpace(tienda))
+                throw new Exception("La tienda es obligatoria.");
+
+            if (string.IsNullOrWhiteSpace(codigoUsuario))
+                throw new Exception("El codigo de usuario es obligatorio.");
+
+            if (fechaHasta.Date < fechaDesde.Date)
+                throw new Exception("La fecha hasta no puede ser menor a la fecha desde.");
+
+            var visitas = await _visitaRepository.ConsultarVisitasPorUsuarioYFechasAsync(
+                tienda,
+                codigoUsuario,
+                fechaDesde,
+                fechaHasta);
+
+            return _mapper.Map<List<VisitaDto>>(visitas);
         }
     }
 }

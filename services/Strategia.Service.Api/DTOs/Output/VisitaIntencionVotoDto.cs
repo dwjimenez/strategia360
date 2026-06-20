@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace  Strategia.Service.Api.DTOs
 {
@@ -10,7 +11,8 @@ namespace  Strategia.Service.Api.DTOs
         public string CodigoDignidad { get; set; } = null!;
         public string CodigoIntencionVotoOpcion { get; set; } = null!;
         public string? Observacion { get; set; }
-        
-        public virtual VisitaDto IdVisitaNavigation { get; set; } = null!;
+
+        //[JsonIgnore]
+        //public virtual VisitaDto IdVisitaNavigation { get; set; } = null!;
     }
 }

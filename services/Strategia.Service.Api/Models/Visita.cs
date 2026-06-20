@@ -18,7 +18,7 @@ namespace  Strategia.Service.Api.Models
         public string? CodigoCenturia { get; set; }
         public string? CodigoTerritorio { get; set; }
         public DateTime FechaVisita { get; set; }
-        public string? ProblemaTexto { get; set; }
+        public string? ProblemaInterno { get; set; }
         public string? TemaInteresReal { get; set; }
         public string? ReferidoNombres { get; set; }
         public string? ReferidoTelefono { get; set; }

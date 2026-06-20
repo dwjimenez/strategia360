@@ -104,33 +104,36 @@ namespace  Strategia.Service.Api.Repositories
             }
         }
 
-        public async Task<List<Ciudadano>> ConsultarCiudadanosAsync(string tienda, string ciudad, string? nombres, string? apellidos)
+        public async Task<List<Visita>> ConsultarCiudadanosAsync(string tienda, string ciudad, string? nombres, string? apellidos)
         {
             var tiendaNormalizada = tienda.Trim();
             var ciudadNormalizada = ciudad.Trim();
             var nombresNormalizados = nombres?.Trim();
             var apellidosNormalizados = apellidos?.Trim();
 
-            var query = _Context.Ciudadano
+            var query = _Context.Visita
                 .AsNoTracking()
+                .Include(x => x.IdCiudadanoNavigation)
+                .Include(x => x.VisitaIntencionVotos)
                 .Where(x => x.Tienda == tiendaNormalizada
                     && x.Ciudad == ciudadNormalizada
                     && x.Activo == true);
 
             if (!string.IsNullOrWhiteSpace(nombresNormalizados))
             {
-                query = query.Where(x => EF.Functions.Like(x.Nombres, $"%{nombresNormalizados}%"));
+                query = query.Where(x => EF.Functions.Like(x.IdCiudadanoNavigation.Nombres, $"%{nombresNormalizados}%"));
             }
 
             if (!string.IsNullOrWhiteSpace(apellidosNormalizados))
             {
-                query = query.Where(x => x.Apellidos != null
-                    && EF.Functions.Like(x.Apellidos, $"%{apellidosNormalizados}%"));
+                query = query.Where(x => x.IdCiudadanoNavigation.Apellidos != null
+                    && EF.Functions.Like(x.IdCiudadanoNavigation.Apellidos, $"%{apellidosNormalizados}%"));
             }
 
             return await query
-                .OrderBy(x => x.Apellidos)
-                .ThenBy(x => x.Nombres)
+                .OrderByDescending(x => x.FechaVisita)
+                .ThenBy(x => x.IdCiudadanoNavigation.Apellidos)
+                .ThenBy(x => x.IdCiudadanoNavigation.Nombres)
                 .ToListAsync();
         }
 
@@ -139,29 +142,72 @@ namespace  Strategia.Service.Api.Repositories
             var tiendaNormalizada = tienda.Trim();
             var ciudadNormalizada = ciudad.Trim();
 
-            var ciudadanos = await _Context.Ciudadano
+            var visitas = await _Context.Visita
                 .AsNoTracking()
+                .Include(x => x.IdCiudadanoNavigation)
+                .Include(x => x.VisitaIntencionVotos)
                 .Where(x => x.Tienda == tiendaNormalizada
                     && x.Ciudad == ciudadNormalizada
                     && x.Activo == true
+                    && x.IdCiudadanoNavigation.Activo == true
                     && x.PosX.HasValue
                     && x.PosY.HasValue)
                 .ToListAsync();
 
-            return ciudadanos
-                .Where(x => CalcularDistanciaMetros(
-                    (double)posX,
-                    (double)posY,
-                    (double)x.PosX!.Value,
-                    (double)x.PosY!.Value) <= distanciaMetros)
-                .OrderBy(x => CalcularDistanciaMetros(
-                    (double)posX,
-                    (double)posY,
-                    (double)x.PosX!.Value,
-                    (double)x.PosY!.Value))
-                .ThenBy(x => x.Apellidos)
-                .ThenBy(x => x.Nombres)
+            return visitas
+                .Select(x => new
+                {
+                    Visita = x,
+                    Distancia = CalcularDistanciaMetros(
+                        (double)posX,
+                        (double)posY,
+                        (double)x.PosX!.Value,
+                        (double)x.PosY!.Value)
+                })
+                .Where(x => x.Distancia <= distanciaMetros)
+                .GroupBy(x => x.Visita.IdCiudadano)
+                .Select(x =>
+                {
+                    var ciudadano = x.First().Visita.IdCiudadanoNavigation;
+                    ciudadano.Visita = x
+                        .OrderByDescending(v => v.Visita.FechaVisita)
+                        .Select(v => v.Visita)
+                        .ToList();
+                    return new
+                    {
+                        Ciudadano = ciudadano,
+                        Distancia = x.Min(v => v.Distancia)
+                    };
+                })
+                .OrderBy(x => x.Distancia)
+                .ThenBy(x => x.Ciudadano.Apellidos)
+                .ThenBy(x => x.Ciudadano.Nombres)
+                .Select(x => x.Ciudadano)
                 .ToList();
+        }
+
+        public async Task<List<Visita>> ConsultarVisitasPorUsuarioYFechasAsync(
+            string tienda,
+            string codigoUsuario,
+            DateTime fechaDesde,
+            DateTime fechaHasta)
+        {
+            var tiendaNormalizada = tienda.Trim();
+            var codigoUsuarioNormalizado = codigoUsuario.Trim();
+            var fechaInicio = fechaDesde.Date;
+            var fechaFinExclusiva = fechaHasta.Date.AddDays(1);
+
+            return await _Context.Visita
+                .AsNoTracking()
+                .Include(x => x.IdCiudadanoNavigation)
+                .Include(x => x.VisitaIntencionVotos)
+                .Where(x => x.Tienda == tiendaNormalizada
+                    && x.CodigoUsuario == codigoUsuarioNormalizado
+                    && x.FechaVisita >= fechaInicio
+                    && x.FechaVisita < fechaFinExclusiva
+                    && x.Activo == true)
+                .OrderByDescending(x => x.FechaVisita)
+                .ToListAsync();
         }
 
         private static double CalcularDistanciaMetros(double lat1, double lon1, double lat2, double lon2)

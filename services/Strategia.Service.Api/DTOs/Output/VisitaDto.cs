@@ -18,7 +18,7 @@ namespace  Strategia.Service.Api.DTOs
         public DateTime FechaVisita { get; set; }
         public int? PersonasMayoresCasa { get; set; }
         public string? ProblemaPrincipal { get; set; }
-        public string? ProblemaTexto { get; set; }
+        public string? ProblemaInterno { get; set; }
         public string? ResultadoVisita { get; set; }
         public string? RazonNoIndeciso { get; set; }
         public string TemasInteres { get; set; } = null!;

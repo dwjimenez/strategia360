@@ -135,7 +135,7 @@ public partial class ContextDatabase : CommonContext
                 .IsUnicode(false);
 
             entity.Property(e => e.Descripcion)
-                .HasMaxLength(300)
+                .HasMaxLength(512)
                 .IsUnicode(false);
 
             entity.Property(e => e.EstacionCreacion)
@@ -225,7 +225,7 @@ public partial class ContextDatabase : CommonContext
                 .IsUnicode(false);
 
             entity.Property(e => e.Direccion)
-                .HasMaxLength(300)
+                .HasMaxLength(512)
                 .IsUnicode(false);
 
             entity.Property(e => e.EstacionCreacion)
@@ -586,7 +586,7 @@ public partial class ContextDatabase : CommonContext
             entity.Property(e => e.HorasCampo).HasColumnType("decimal(10, 2)");
 
             entity.Property(e => e.MaterialSolicitado)
-                .HasMaxLength(300)
+                .HasMaxLength(512)
                 .IsUnicode(false);
 
             entity.Property(e => e.MontoPresupuesto).HasColumnType("decimal(12, 2)");
@@ -1076,8 +1076,12 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.PosY).HasColumnType("decimal(18, 10)");
 
-            entity.Property(e => e.ProblemaTexto)
-                .HasMaxLength(300)
+            entity.Property(e => e.ProblemaInterno)
+                .HasMaxLength(512)
+                .IsUnicode(false);
+
+            entity.Property(e => e.ProblemaExterno)
+                .HasMaxLength(512)
                 .IsUnicode(false);
 
             entity.Property(e => e.ReferidoNombres)

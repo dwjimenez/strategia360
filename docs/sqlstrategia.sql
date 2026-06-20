@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     6/11/2026 10:09:31 PM                        */
+/* Created on:     6/20/2026 12:31:29 PM                        */
 /*==============================================================*/
 
 
@@ -328,7 +328,7 @@ create table dbo.AccionRecomendada (
    CodigoDignidad       varchar(32)          null,
    CodigoIntencionVotoOpcion varchar(32)          null,
    Titulo               varchar(128)         not null,
-   Motivo               varchar(500)         null,
+   Motivo               varchar(512)         null,
    Score                decimal(10,4)        not null constraint DF_AccionRecomendada_Score default 0,
    Estado               varchar(32)          not null constraint DF_AccionRecomendada_Estado default 'PENDIENTE',
    FechaCreacion        datetime             null,
@@ -492,7 +492,7 @@ create table dbo.Centuria (
    CodigoCenturia       varchar(32)          not null,
    NombreCenturia       varchar(128)         not null,
    ParroquiaPrincipal   varchar(128)         not null,
-   Descripcion          varchar(300)         null,
+   Descripcion          varchar(512)         null,
    MetaContactosSemana  int                  not null constraint DF_Centuria_MetaContactosSemana default 0,
    Activo               bit                  not null constraint DF_Centuria_Activo default 1,
    FechaCreacion        datetime             null,
@@ -652,8 +652,8 @@ create table dbo.Ciudadano (
    IdCiudadano          int                  identity(1,1),
    Tienda               varchar(32)          not null,
    Ciudad               varchar(64)          not null constraint DF_Ciudadano_Ciudad default 'PEDERNALES',
-   CodigoCenturia       varchar(32)          null,
    CodigoTerritorio     varchar(32)          null,
+   CodigoCenturia       varchar(32)          null,
    Codigo               varchar(32)          not null,
    Nombres              varchar(128)         not null,
    Apellidos            varchar(128)         null,
@@ -664,7 +664,7 @@ create table dbo.Ciudadano (
    MiembrosDiscapacidad int                  not null constraint DF_Ciudadano_MiembrosDiscapacidad default 0,
    Parroquia            varchar(128)         not null,
    Barrio               varchar(128)         not null,
-   Direccion            varchar(300)         not null,
+   Direccion            varchar(512)         not null,
    PosX                 decimal(18,10)       null,
    PosY                 decimal(18,10)       null,
    Activo               bit                  not null constraint DF_Ciudadano_Activo default 1,
@@ -1370,8 +1370,8 @@ create table dbo.ReporteOrganizacional (
    VAH                  decimal(10,2)        not null constraint DF_ReporteOrganizacional_VAH default 0,
    TendenciaVAH         varchar(32)          null,
    CoberturaPorcentaje  decimal(5,2)         not null constraint DF_ReporteOrganizacional_Cobertura default 0,
-   SectoresCompletados  varchar(500)         null,
-   SectoresPendientes   varchar(500)         null,
+   SectoresCompletados  varchar(512)         null,
+   SectoresPendientes   varchar(512)         null,
    ZonaPrioritariaManana varchar(128)         null,
    TemperaturaSocial    varchar(32)          null,
    ObjecionFrecuente    varchar(128)         null,
@@ -1381,12 +1381,12 @@ create table dbo.ReporteOrganizacional (
    SectorActividadAdversario varchar(128)         null,
    NivelAlerta          varchar(32)          null,
    NecesitaMaterial     bit                  not null constraint DF_ReporteOrganizacional_NecesitaMaterial default 0,
-   MaterialSolicitado   varchar(300)         null,
+   MaterialSolicitado   varchar(512)         null,
    NecesitaPresupuesto  bit                  not null constraint DF_ReporteOrganizacional_NecesitaPresupuesto default 0,
    MontoPresupuesto     decimal(12,2)        not null constraint DF_ReporteOrganizacional_MontoPresupuesto default 0,
    NecesitaLlamada      bit                  not null constraint DF_ReporteOrganizacional_NecesitaLlamada default 0,
    TemaLlamada          varchar(128)         null,
-   Observacion          varchar(500)         null,
+   Observacion          varchar(512)         null,
    Estado               varchar(32)          not null constraint DF_ReporteOrganizacional_Estado default 'ENVIADO',
    FechaCreacion        datetime             null,
    UsuarioCreacion      varchar(32)          null,
@@ -2246,11 +2246,12 @@ create table dbo.Visita (
    CodigoCenturia       varchar(32)          null,
    CodigoTerritorio     varchar(32)          null,
    FechaVisita          datetime             not null constraint DF_Visita_FechaVisita default getdate(),
-   ProblemaTexto        varchar(300)         null,
-   TemaInteresReal      varchar(500)         null,
+   ProblemaInterno      varchar(512)         null,
+   ProblemaFamiliar     varchar(512)         null,
+   TemaInteresReal      varchar(512)         null,
    ReferidoNombres      varchar(128)         null,
    ReferidoTelefono     varchar(16)          null,
-   NotaEncuestador      varchar(500)         null,
+   NotaEncuestador      varchar(512)         null,
    PosX                 decimal(18,10)       null,
    PosY                 decimal(18,10)       null,
    EstadoSync           varchar(32)          not null constraint DF_Visita_EstadoSync default 'SINCRONIZADO',
@@ -2265,6 +2266,38 @@ create table dbo.Visita (
    EstacionModificacion varchar(32)          null,
    constraint PK_Visita primary key (IdVisita)
 )
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('dbo.Visita')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'ProblemaInterno')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'user', 'dbo', 'table', 'Visita', 'column', 'ProblemaInterno'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   'xxxxx',
+   'user', 'dbo', 'table', 'Visita', 'column', 'ProblemaInterno'
+go
+
+if exists(select 1 from sys.extended_properties p where
+      p.major_id = object_id('dbo.Visita')
+  and p.minor_id = (select c.column_id from sys.columns c where c.object_id = p.major_id and c.name = 'ProblemaFamiliar')
+)
+begin
+   execute sp_dropextendedproperty 'MS_Description', 
+   'user', 'dbo', 'table', 'Visita', 'column', 'ProblemaFamiliar'
+
+end
+
+
+execute sp_addextendedproperty 'MS_Description', 
+   'xxxxx',
+   'user', 'dbo', 'table', 'Visita', 'column', 'ProblemaFamiliar'
 go
 
 if exists(select 1 from sys.extended_properties p where
@@ -2424,7 +2457,7 @@ create table dbo.VisitaIntencionVoto (
    IdVisita             int                  not null,
    CodigoDignidad       varchar(32)          not null,
    CodigoIntencionVotoOpcion varchar(32)          not null,
-   Observacion          varchar(500)         null,
+   Observacion          varchar(512)         null,
    FechaCreacion        datetime             null,
    UsuarioCreacion      varchar(32)          null,
    OficinaCreacion      int                  null,
