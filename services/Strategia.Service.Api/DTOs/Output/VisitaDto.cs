@@ -19,6 +19,7 @@ namespace  Strategia.Service.Api.DTOs
         public int? PersonasMayoresCasa { get; set; }
         public string? ProblemaPrincipal { get; set; }
         public string? ProblemaInterno { get; set; }
+        public string? ProblemaExterno { get; set; }
         public string? ResultadoVisita { get; set; }
         public string? RazonNoIndeciso { get; set; }
         public string TemasInteres { get; set; } = null!;

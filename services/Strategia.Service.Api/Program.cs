@@ -42,11 +42,11 @@ builder.Services.AddScoped<ISqlAccess, SqlAccess>();
 builder.Services.AddSPSql();
 
 // Servicios espec�ficos
-builder.Services.AddScoped<IVisitaService, VisitaService>();
+builder.Services.AddScoped<IVisitService, VisitService>();
 
 
 // Repositorios
-builder.Services.AddScoped<IVisitaRepository, VisitaRepository>();
+builder.Services.AddScoped<IVisitRepository, VisitRepository>();
 
 //**FIN MANEJO DE BDD
 

@@ -29,15 +29,12 @@ public class RegistrarCiudadanoVisitaRequest
     public decimal? PosY { get; set; }
 
     public string? TemaInteresReal { get; set; }
-
+    public string? ProblemaInterno { get; set; }
+    public string? ProblemaExterno { get; set; }
+    public string? NotaEncuestador { get; set; }
     public string? ReferidoNombres { get; set; }
     public string? ReferidoTelefono { get; set; }
-
-    public string? NotaEncuestador { get; set; }
     public string EstadoSync { get; set; } = "SINCRONIZADO";
-
-
-    
     
     public string? UsuarioCreacion { get; set; }
     public int? OficinaCreacion { get; set; }

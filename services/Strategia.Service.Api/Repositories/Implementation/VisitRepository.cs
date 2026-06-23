@@ -5,35 +5,70 @@ using Microsoft.EntityFrameworkCore;
 
 namespace  Strategia.Service.Api.Repositories
 {
-    public class VisitaRepository : IVisitaRepository
+    public class VisitRepository : IVisitRepository
     {
         private readonly ContextDatabase _Context;
         
-        public VisitaRepository(ContextDatabase Context )
+        public VisitRepository(ContextDatabase Context )
         {
             _Context = Context;
         }
 
 
-        public async Task<Visita> NuevaAsync(
-                Ciudadano ciudadano,
-                Visita visita,
-                List<VisitaIntencionVoto> visitaIntencionesVoto
-            )
+       
+
+        public async Task<Visita> SaveCitizenAndVisitAsync(
+            Ciudadano ciudadano,
+            Visita visita,
+            List<VisitaIntencionVoto> visitaIntencionesVoto)
         {
             await using var transaction = await _Context.Database.BeginTransactionAsync();
 
             try
             {
-                await _Context.Ciudadano.AddAsync(ciudadano);
-                await _Context.SaveChangesAsync();
+                Ciudadano? ciudadanoActual = null;
 
-                visita.IdCiudadano = ciudadano.IdCiudadano;
+                if (ciudadano.IdCiudadano > 0)
+                {
+                    ciudadanoActual = await _Context.Ciudadano
+                        .FirstOrDefaultAsync(x => x.IdCiudadano == ciudadano.IdCiudadano);
+                }
+
+                if (ciudadanoActual == null && !string.IsNullOrWhiteSpace(ciudadano.Codigo))
+                {
+                    ciudadanoActual = await _Context.Ciudadano
+                        .FirstOrDefaultAsync(x => x.Tienda == ciudadano.Tienda
+                            && x.Ciudad == ciudadano.Ciudad
+                            && x.Codigo == ciudadano.Codigo);
+                }
+
+                //if (ciudadanoActual == null && !string.IsNullOrWhiteSpace(ciudadano.NumeroCelular))
+                //{
+                //    ciudadanoActual = await _Context.Ciudadano
+                //        .FirstOrDefaultAsync(x => x.Tienda == ciudadano.Tienda
+                //            && x.Ciudad == ciudadano.Ciudad
+                //            && x.NumeroCelular == ciudadano.NumeroCelular);
+                //}
+
+                if (ciudadanoActual == null)
+                {
+                    await _Context.Ciudadano.AddAsync(ciudadano);
+                    await _Context.SaveChangesAsync();
+                    ciudadanoActual = ciudadano;
+                }
+                else
+                {
+                    ciudadano.IdCiudadano = ciudadanoActual.IdCiudadano;
+                    _Context.Entry(ciudadanoActual).CurrentValues.SetValues(ciudadano);
+                    await _Context.SaveChangesAsync();
+                }
+
+                visita.IdCiudadano = ciudadanoActual.IdCiudadano;
 
                 await _Context.Visita.AddAsync(visita);
                 await _Context.SaveChangesAsync();
 
-                if (visitaIntencionesVoto != null && visitaIntencionesVoto.Any())
+                if (visitaIntencionesVoto?.Any() == true)
                 {
                     foreach (var item in visitaIntencionesVoto)
                     {
@@ -55,56 +90,7 @@ namespace  Strategia.Service.Api.Repositories
             }
         }
 
-        public async Task<Visita> ActualizarAsync(
-                Ciudadano ciudadanoEditado,
-                Visita nuevaVisita,
-                List<VisitaIntencionVoto> nuevasIntencionesVoto)
-        {
-            await using var transaction = await _Context.Database.BeginTransactionAsync();
-
-            try
-            {
-                // 1. Buscar ciudadano existente
-                var ciudadanoActual = await _Context.Ciudadano.FirstOrDefaultAsync(x => x.IdCiudadano == ciudadanoEditado.IdCiudadano);
-
-                if (ciudadanoActual == null)
-                    throw new Exception("No se encontró el ciudadano que desea actualizar.");
-
-                // 2. Actualizar datos del ciudadano
-                _Context.Entry(ciudadanoActual).CurrentValues.SetValues(ciudadanoEditado);
-
-                // 3. Crear nueva visita relacionada al ciudadano existente
-                nuevaVisita.IdCiudadano = ciudadanoActual.IdCiudadano;
-
-                await _Context.Visita.AddAsync(nuevaVisita);
-                
-
-                // 4. Crear nueva lista de intenciones de voto para la nueva visita
-                if (nuevasIntencionesVoto?.Any() == true)
-                {
-                    foreach (var item in nuevasIntencionesVoto)
-                    {
-                        item.IdVisita = nuevaVisita.IdVisita;
-                    }
-
-                    await _Context.VisitaIntencionVoto.AddRangeAsync(nuevasIntencionesVoto);
-                }
-
-                // 5. Guardar todo
-                await _Context.SaveChangesAsync();
-
-                await transaction.CommitAsync();
-
-                return nuevaVisita;
-            }
-            catch
-            {
-                await transaction.RollbackAsync();
-                throw;
-            }
-        }
-
-        public async Task<List<Visita>> ConsultarCiudadanosAsync(string tienda, string ciudad, string? nombres, string? apellidos)
+        public async Task<List<Visita>> GetCitizensAsync(string tienda, string ciudad, string? nombres, string? apellidos)
         {
             var tiendaNormalizada = tienda.Trim();
             var ciudadNormalizada = ciudad.Trim();
@@ -137,7 +123,7 @@ namespace  Strategia.Service.Api.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Ciudadano>> ConsultarCiudadanosCercanosAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros)
+        public async Task<List<Ciudadano>> GetNearbyCitizensAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros)
         {
             var tiendaNormalizada = tienda.Trim();
             var ciudadNormalizada = ciudad.Trim();
@@ -158,7 +144,7 @@ namespace  Strategia.Service.Api.Repositories
                 .Select(x => new
                 {
                     Visita = x,
-                    Distancia = CalcularDistanciaMetros(
+                    Distancia = CalculateDistanceInMeters(
                         (double)posX,
                         (double)posY,
                         (double)x.PosX!.Value,
@@ -186,14 +172,14 @@ namespace  Strategia.Service.Api.Repositories
                 .ToList();
         }
 
-        public async Task<List<Visita>> ConsultarVisitasPorUsuarioYFechasAsync(
+        public async Task<List<Visita>> GetVisitsByUserAndDateRangeAsync(
             string tienda,
             string codigoUsuario,
             DateTime fechaDesde,
             DateTime fechaHasta)
         {
-            var tiendaNormalizada = tienda.Trim();
-            var codigoUsuarioNormalizado = codigoUsuario.Trim();
+            var tiendaNormalizada = tienda.Trim().ToUpper();
+            var codigoUsuarioNormalizado = codigoUsuario.Trim().ToUpper();
             var fechaInicio = fechaDesde.Date;
             var fechaFinExclusiva = fechaHasta.Date.AddDays(1);
 
@@ -201,22 +187,24 @@ namespace  Strategia.Service.Api.Repositories
                 .AsNoTracking()
                 .Include(x => x.IdCiudadanoNavigation)
                 .Include(x => x.VisitaIntencionVotos)
-                .Where(x => x.Tienda == tiendaNormalizada
-                    && x.CodigoUsuario == codigoUsuarioNormalizado
+                .Where(x => x.Tienda != null
+                    && x.CodigoUsuario != null
+                    && x.Tienda.Trim().ToUpper() == tiendaNormalizada
+                    && x.CodigoUsuario.Trim().ToUpper() == codigoUsuarioNormalizado
                     && x.FechaVisita >= fechaInicio
                     && x.FechaVisita < fechaFinExclusiva
-                    && x.Activo == true)
+                    && x.Activo != false)
                 .OrderByDescending(x => x.FechaVisita)
                 .ToListAsync();
         }
 
-        private static double CalcularDistanciaMetros(double lat1, double lon1, double lat2, double lon2)
+        private static double CalculateDistanceInMeters(double lat1, double lon1, double lat2, double lon2)
         {
             const double radioTierraMetros = 6371000d;
-            var dLat = GradosARadianes(lat2 - lat1);
-            var dLon = GradosARadianes(lon2 - lon1);
-            var origenLat = GradosARadianes(lat1);
-            var destinoLat = GradosARadianes(lat2);
+            var dLat = DegreesToRadians(lat2 - lat1);
+            var dLon = DegreesToRadians(lon2 - lon1);
+            var origenLat = DegreesToRadians(lat1);
+            var destinoLat = DegreesToRadians(lat2);
 
             var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
                     Math.Cos(origenLat) * Math.Cos(destinoLat) *
@@ -227,7 +215,7 @@ namespace  Strategia.Service.Api.Repositories
             return radioTierraMetros * c;
         }
 
-        private static double GradosARadianes(double grados)
+        private static double DegreesToRadians(double grados)
         {
             return grados * (Math.PI / 180d);
         }
