@@ -43,10 +43,12 @@ builder.Services.AddSPSql();
 
 // Servicios espec�ficos
 builder.Services.AddScoped<IVisitService, VisitService>();
+builder.Services.AddScoped<ICenturiaService, CenturiaService>();
 
 
 // Repositorios
 builder.Services.AddScoped<IVisitRepository, VisitRepository>();
+builder.Services.AddScoped<ICenturiaRepository, CenturiaRepository>();
 
 //**FIN MANEJO DE BDD
 

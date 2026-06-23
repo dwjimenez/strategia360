@@ -21,6 +21,7 @@ namespace  Strategia.Service.Helper
             CreateMap<Visita, VisitaDto>().ReverseMap();
             CreateMap<Ciudadano, CiudadanoDto>().ReverseMap();
             CreateMap<VisitaIntencionVoto, VisitaIntencionVotoDto>().ReverseMap();
+            CreateMap<Centuria, CenturiaDto>().ReverseMap();
 
 
 
