@@ -44,11 +44,15 @@ builder.Services.AddSPSql();
 // Servicios espec�ficos
 builder.Services.AddScoped<IVisitService, VisitService>();
 builder.Services.AddScoped<ICenturiaService, CenturiaService>();
+builder.Services.AddScoped<ITerritoryService, TerritoryService>();
+builder.Services.AddScoped<IVoteIntentOptionService, VoteIntentOptionService>();
 
 
 // Repositorios
 builder.Services.AddScoped<IVisitRepository, VisitRepository>();
 builder.Services.AddScoped<ICenturiaRepository, CenturiaRepository>();
+builder.Services.AddScoped<ITerritoryRepository, TerritoryRepository>();
+builder.Services.AddScoped<IVoteIntentOptionRepository, VoteIntentOptionRepository>();
 
 //**FIN MANEJO DE BDD
 
