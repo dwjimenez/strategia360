@@ -15,6 +15,6 @@ public class VoteIntentOptionController : ControllerBase
     }
 
     [HttpGet("getbystore")]
-    public async Task<IActionResult> GetByStore([FromQuery] string tienda)
-        => Ok(await _intencionVotoOpcionService.GetByStoreAsync(tienda));
+    public async Task<IActionResult> GetByStore([FromQuery] string tienda, [FromQuery] bool includeInactive = false)
+        => Ok(await _intencionVotoOpcionService.GetByStoreAsync(tienda, includeInactive));
 }

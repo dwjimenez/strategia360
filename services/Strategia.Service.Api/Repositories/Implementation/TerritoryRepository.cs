@@ -13,7 +13,7 @@ namespace  Strategia.Service.Api.Repositories
             _context = context;
         }
 
-        public async Task<List<Territorio>> GetByStoreAndCityAsync(string tienda, string ciudad)
+        public async Task<List<Territorio>> GetByStoreAndCityAsync(string tienda, string ciudad, bool includeInactive)
         {
             var normalizedStore = tienda.Trim().ToUpper();
             var normalizedCity = ciudad.Trim().ToUpper();
@@ -24,7 +24,7 @@ namespace  Strategia.Service.Api.Repositories
                     && x.Ciudad != null
                     && x.Tienda.Trim().ToUpper() == normalizedStore
                     && x.Ciudad.Trim().ToUpper() == normalizedCity
-                    && x.Activo != false)
+                    && (includeInactive || x.Activo != false))
                 .OrderBy(x => x.NombreTerritorio)
                 .ToListAsync();
         }

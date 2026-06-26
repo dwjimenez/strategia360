@@ -15,12 +15,12 @@ namespace  Strategia.Service.Api.Services
             _mapper = mapper;
         }
 
-        public async Task<List<VoteIntentOptionDto>> GetByStoreAsync(string tienda)
+        public async Task<List<VoteIntentOptionDto>> GetByStoreAsync(string tienda, bool includeInactive)
         {
             if (string.IsNullOrWhiteSpace(tienda))
                 throw new Exception("La tienda es obligatoria.");
 
-            var opciones = await _intencionVotoOpcionRepository.GetByStoreAsync(tienda);
+            var opciones = await _intencionVotoOpcionRepository.GetByStoreAsync(tienda, includeInactive);
 
             return _mapper.Map<List<VoteIntentOptionDto>>(opciones);
         }

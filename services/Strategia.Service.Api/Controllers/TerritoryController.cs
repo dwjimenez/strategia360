@@ -17,6 +17,7 @@ public class TerritoryController : ControllerBase
     [HttpGet("getbystoreandcity")]
     public async Task<IActionResult> GetByStoreAndCity(
         [FromQuery] string tienda,
-        [FromQuery] string ciudad)
-        => Ok(await _territorioService.GetByStoreAndCityAsync(tienda, ciudad));
+        [FromQuery] string ciudad,
+        [FromQuery] bool includeInactive = false)
+        => Ok(await _territorioService.GetByStoreAndCityAsync(tienda, ciudad, includeInactive));
 }

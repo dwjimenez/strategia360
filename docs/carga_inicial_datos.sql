@@ -1,4 +1,4 @@
-SET NOCOUNT ON;
+﻿SET NOCOUNT ON;
 GO
 
 /*
@@ -8,12 +8,12 @@ GO
     - docs/Especificacion_Tecnica.docx
 
     Criterios:
-    - Idempotente: usa IF NOT EXISTS para no duplicar catálogos ni datos base.
-    - Cubre todas las tablas físicas del modelo actual.
-    - Inserta catálogos operativos y un set pequeño de datos transaccionales de ejemplo.
+    - Idempotente: usa IF NOT EXISTS para no duplicar catÃ¡logos ni datos base.
+    - Cubre todas las tablas fÃ­sicas del modelo actual.
+    - Inserta catÃ¡logos operativos y un set pequeÃ±o de datos transaccionales de ejemplo.
 */
 
-DECLARE @Tienda VARCHAR(32) = 'STRATEGIA';
+DECLARE @Tienda VARCHAR(32) = 'ADN';
 DECLARE @Ciudad VARCHAR(64) = 'PEDERNALES';
 DECLARE @UsuarioSistema VARCHAR(32) = 'SEED';
 DECLARE @Oficina INT = 1;
@@ -34,10 +34,10 @@ SELECT v.Tienda, v.CodigoRol, v.NombreRol, v.NivelJerarquico, v.EsComando, 1,
 FROM
 (
     VALUES
-    (@Tienda, 'CONSUL',        'Jefe de Campaña',      1, 1),
+    (@Tienda, 'CONSUL',        'Jefe de CampaÃ±a',      1, 1),
     (@Tienda, 'GRAL_TIERRA',   'General de Tierra',    2, 1),
     (@Tienda, 'GRAL_ESTRAT',   'General Estratega',    2, 1),
-    (@Tienda, 'CENTURION',     'Centurión',            3, 0),
+    (@Tienda, 'CENTURION',     'CenturiÃ³n',            3, 0),
     (@Tienda, 'RELATOR',       'Relator',              4, 0),
     (@Tienda, 'SOLDADO',       'Soldado',              4, 0),
     (@Tienda, 'EXPLORADOR',    'Explorador',           4, 0)
@@ -66,10 +66,10 @@ SELECT v.Tienda, v.Ciudad, v.CodigoCenturia, v.NombreCenturia, v.ParroquiaPrinci
 FROM
 (
     VALUES
-    ('STRATEGIA', 'PEDERNALES', 'PEDERNALES',    'Centuria Pedernales',    'PEDERNALES',   'Casco urbano de Pedernales; 9 circuitos electorales; mayor densidad electoral.', 833),
-    ('STRATEGIA', 'PEDERNALES', 'COJIMIES',      'Centuria Cojimíes',      'COJIMIES',     'Zona costera y comunidades remotas con acceso mixto vial y fluvial.',              833),
-    ('STRATEGIA', 'PEDERNALES', '10_DE_AGOSTO',  'Centuria 10 de Agosto',  '10 DE AGOSTO', 'Zona agropecuaria; necesidades frecuentes de vialidad y riego.',                    833),
-    ('STRATEGIA', 'PEDERNALES', 'ATAHUALPA',     'Centuria Atahualpa',     'ATAHUALPA',    'Zona de arraigo natural de la candidata y valor estratégico territorial.',          833)
+    ('ADN', 'PEDERNALES', 'PEDERNALES',    'Centuria Pedernales',    'PEDERNALES',   'Casco urbano de Pedernales; 9 circuitos electorales; mayor densidad electoral.', 833),
+    ('ADN', 'PEDERNALES', 'COJIMIES',      'Centuria CojimÃ­es',      'COJIMIES',     'Zona costera y comunidades remotas con acceso mixto vial y fluvial.',              833),
+    ('ADN', 'PEDERNALES', '10_DE_AGOSTO',  'Centuria 10 de Agosto',  '10 DE AGOSTO', 'Zona agropecuaria; necesidades frecuentes de vialidad y riego.',                    833),
+    ('ADN', 'PEDERNALES', 'ATAHUALPA',     'Centuria Atahualpa',     'ATAHUALPA',    'Zona de arraigo natural de la candidata y valor estratÃ©gico territorial.',          833)
 ) v(Tienda, Ciudad, CodigoCenturia, NombreCenturia, ParroquiaPrincipal, Descripcion, MetaContactosSemana)
 WHERE NOT EXISTS
 (
@@ -96,128 +96,128 @@ SELECT v.Tienda, v.Ciudad, v.CodigoTerritorio, v.CodigoCenturia, v.TipoTerritori
 FROM
 (
     VALUES
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_DOGOLA',            'COJIMIES',     'SECTOR',   'Dogola',                                      'COJIMIES',     'DOGOLA',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_DOGILITA_ARRIBA',   'COJIMIES',     'SECTOR',   'Dogilita Arriba',                             'COJIMIES',     'DOGILITA ARRIBA',     'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_DOGILITA_ABAJO',    'COJIMIES',     'SECTOR',   'Dogilita Abajo',                              'COJIMIES',     'DOGILITA ABAJO',      'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_AGUACATAL',         'COJIMIES',     'SECTOR',   'Aguacatal',                                   'COJIMIES',     'AGUACATAL',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_AGUA_FRIA',         'COJIMIES',     'SECTOR',   'Agua Fria',                                   'COJIMIES',     'AGUA FRIA',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'DOGOLA',                     'COJIMIES',     'SECTOR',   'Dogola',                                      'COJIMIES',     'DOGOLA',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'DOGILITA_ARRIBA',            'COJIMIES',     'SECTOR',   'Dogilita Arriba',                             'COJIMIES',     'DOGILITA ARRIBA',     'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'DOGILITA_ABAJO',             'COJIMIES',     'SECTOR',   'Dogilita Abajo',                              'COJIMIES',     'DOGILITA ABAJO',      'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'AGUACATAL',                  'COJIMIES',     'SECTOR',   'Aguacatal',                                   'COJIMIES',     'AGUACATAL',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'AGUA_FRIA',                  'COJIMIES',     'SECTOR',   'Agua Fria',                                   'COJIMIES',     'AGUA FRIA',           'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_COJIMIES',          'COJIMIES',     'SECTOR',   'Cojimies',                                    'COJIMIES',     'COJIMIES',            'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_CHARCA_LECHUGAL',   'COJIMIES',     'SECTOR',   'Charca de Lechugal',                          'COJIMIES',     'CHARCA DE LECHUGAL',  'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_LECHUGAL',          'COJIMIES',     'SECTOR',   'Lechugal',                                    'COJIMIES',     'LECHUGAL',            'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_CEDRAL',            'COJIMIES',     'SECTOR',   'Cedral',                                      'COJIMIES',     'CEDRAL',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_CARRIZAL',          'COJIMIES',     'SECTOR',   'Carrizal',                                    'COJIMIES',     'CARRIZAL',            'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_GUIONAL',           'COJIMIES',     'SECTOR',   'Guional',                                     'COJIMIES',     'GUIONAL',             'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_ACHIOTAL',          'COJIMIES',     'SECTOR',   'Achiotal',                                    'COJIMIES',     'ACHIOTAL',            'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_JUANANU',           'COJIMIES',     'SECTOR',   'Juananu',                                     'COJIMIES',     'JUANANU',             'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_PALMAR',            'COJIMIES',     'SECTOR',   'Palmar',                                      'COJIMIES',     'PALMAR',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_LA_VIRGINIA',       'COJIMIES',     'SECTOR',   'La Virginia',                                 'COJIMIES',     'LA VIRGINIA',         'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_COCOMAR',           'COJIMIES',     'SECTOR',   'Cocomar',                                     'COJIMIES',     'COCOMAR',             'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_EL_CHURO',          'COJIMIES',     'SECTOR',   'El Churo',                                    'COJIMIES',     'EL CHURO',            'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_CANAVERAL',         'COJIMIES',     'SECTOR',   'Canaveral',                                   'COJIMIES',     'CANAVERAL',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_LA_BONILLA',        'COJIMIES',     'SECTOR',   'La Bonilla',                                  'COJIMIES',     'LA BONILLA',          'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_PALANCONA',         'COJIMIES',     'SECTOR',   'Palancona',                                   'COJIMIES',     'PALANCONA',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_CASA_BLANCA',       'COJIMIES',     'SECTOR',   'Casa Blanca',                                 'COJIMIES',     'CASA BLANCA',         'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_EL_MATE',           'COJIMIES',     'SECTOR',   'El Mate',                                     'COJIMIES',     'EL MATE',             'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_ZURRONES',          'COJIMIES',     'SECTOR',   'Zurrones',                                    'COJIMIES',     'ZURRONES',            'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'COJIMIES',                   'COJIMIES',     'SECTOR',   'Cojimies',                                    'COJIMIES',     'COJIMIES',            'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CHARCA_LECHUGAL',            'COJIMIES',     'SECTOR',   'Charca de Lechugal',                          'COJIMIES',     'CHARCA DE LECHUGAL',  'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LECHUGAL',                   'COJIMIES',     'SECTOR',   'Lechugal',                                    'COJIMIES',     'LECHUGAL',            'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CEDRAL',                     'COJIMIES',     'SECTOR',   'Cedral',                                      'COJIMIES',     'CEDRAL',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CARRIZAL',                   'COJIMIES',     'SECTOR',   'Carrizal',                                    'COJIMIES',     'CARRIZAL',            'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'GUIONAL',                    'COJIMIES',     'SECTOR',   'Guional',                                     'COJIMIES',     'GUIONAL',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'ACHIOTAL',                   'COJIMIES',     'SECTOR',   'Achiotal',                                    'COJIMIES',     'ACHIOTAL',            'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'JUANANU',                    'COJIMIES',     'SECTOR',   'Juananu',                                     'COJIMIES',     'JUANANU',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PALMAR',                     'COJIMIES',     'SECTOR',   'Palmar',                                      'COJIMIES',     'PALMAR',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LA_VIRGINIA',                'COJIMIES',     'SECTOR',   'La Virginia',                                 'COJIMIES',     'LA VIRGINIA',         'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'COCOMAR',                    'COJIMIES',     'SECTOR',   'Cocomar',                                     'COJIMIES',     'COCOMAR',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'EL_CHURO',                   'COJIMIES',     'SECTOR',   'El Churo',                                    'COJIMIES',     'EL CHURO',            'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CANAVERAL',                  'COJIMIES',     'SECTOR',   'Canaveral',                                   'COJIMIES',     'CANAVERAL',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LA_BONILLA',                 'COJIMIES',     'SECTOR',   'La Bonilla',                                  'COJIMIES',     'LA BONILLA',          'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PALANCONA',                  'COJIMIES',     'SECTOR',   'Palancona',                                   'COJIMIES',     'PALANCONA',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CASA_BLANCA',                'COJIMIES',     'SECTOR',   'Casa Blanca',                                 'COJIMIES',     'CASA BLANCA',         'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'EL_MATE',                    'COJIMIES',     'SECTOR',   'El Mate',                                     'COJIMIES',     'EL MATE',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'ZURRONES',                   'COJIMIES',     'SECTOR',   'Zurrones',                                    'COJIMIES',     'ZURRONES',            'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_SURRONES',          'COJIMIES',     'SECTOR',   'Surrones',                                   'COJIMIES',     'SURRONES',            'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_SURRONES_PLAYA',    'COJIMIES',     'SECTOR',   'Surrones Playa',                             'COJIMIES',     'SURRONES PLAYA',      'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_EL_TORO',           'COJIMIES',     'SECTOR',   'El Toro',                                    'COJIMIES',     'EL TORO',             'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_CADIAL_SURRONES',   'COJIMIES',     'SECTOR',   'Cadial de Surrones',                         'COJIMIES',     'CADIAL DE SURRONES',  'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'SURRONES',                   'COJIMIES',     'SECTOR',   'Surrones',                                   'COJIMIES',     'SURRONES',            'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'SURRONES_PLAYA',             'COJIMIES',     'SECTOR',   'Surrones Playa',                             'COJIMIES',     'SURRONES PLAYA',      'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'EL_TORO',                    'COJIMIES',     'SECTOR',   'El Toro',                                    'COJIMIES',     'EL TORO',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CADIAL_SURRONES',            'COJIMIES',     'SECTOR',   'Cadial de Surrones',                         'COJIMIES',     'CADIAL DE SURRONES',  'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_MARCOS',            'COJIMIES',     'SECTOR',   'Marcos',                                     'COJIMIES',     'MARCOS',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_MARCO_ARRIBA',      'COJIMIES',     'SECTOR',   'Marco Arriba',                               'COJIMIES',     'MARCO ARRIBA',        'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_CANAR',             'COJIMIES',     'SECTOR',   'Canar',                                      'COJIMIES',     'CANAR',               'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_CHONTAL',           'COJIMIES',     'SECTOR',   'Chontal',                                    'COJIMIES',     'CHONTAL',             'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_LA_MOCORA',         'COJIMIES',     'SECTOR',   'La Mocora',                                  'COJIMIES',     'LA MOCORA',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_COJ_IGUANA',            'COJIMIES',     'SECTOR',   'Iguana',                                     'COJIMIES',     'IGUANA',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'MARCOS',                     'COJIMIES',     'SECTOR',   'Marcos',                                     'COJIMIES',     'MARCOS',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'MARCO_ARRIBA',               'COJIMIES',     'SECTOR',   'Marco Arriba',                               'COJIMIES',     'MARCO ARRIBA',        'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CANAR',                      'COJIMIES',     'SECTOR',   'Canar',                                      'COJIMIES',     'CANAR',               'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CHONTAL',                    'COJIMIES',     'SECTOR',   'Chontal',                                    'COJIMIES',     'CHONTAL',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LA_MOCORA',                  'COJIMIES',     'SECTOR',   'La Mocora',                                  'COJIMIES',     'LA MOCORA',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'IGUANA',                     'COJIMIES',     'SECTOR',   'Iguana',                                     'COJIMIES',     'IGUANA',              'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_PALMAR',            'PEDERNALES',   'SECTOR',   'Palmar',                                     'PEDERNALES',   'PALMAR',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_LA_CABUYA',         'PEDERNALES',   'SECTOR',   'La Cabuya',                                  'PEDERNALES',   'LA CABUYA',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_TABUGA',            'PEDERNALES',   'SECTOR',   'Tabuga',                                     'PEDERNALES',   'TABUGA',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_FLORIDA',           'PEDERNALES',   'SECTOR',   'Florida',                                    'PEDERNALES',   'FLORIDA',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PALMAR',                     'PEDERNALES',   'SECTOR',   'Palmar',                                     'PEDERNALES',   'PALMAR',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LA_CABUYA',                  'PEDERNALES',   'SECTOR',   'La Cabuya',                                  'PEDERNALES',   'LA CABUYA',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'TABUGA',                     'PEDERNALES',   'SECTOR',   'Tabuga',                                     'PEDERNALES',   'TABUGA',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'FLORIDA',                    'PEDERNALES',   'SECTOR',   'Florida',                                    'PEDERNALES',   'FLORIDA',             'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_GENARO',            'PEDERNALES',   'SECTOR',   'Genaro',                                     'PEDERNALES',   'GENARO',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_GARRAPATA',         'PEDERNALES',   'SECTOR',   'Garrapata',                                  'PEDERNALES',   'GARRAPATA',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_TALAMO',            'PEDERNALES',   'SECTOR',   'Talamo',                                     'PEDERNALES',   'TALAMO',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_COAQUE',            'PEDERNALES',   'SECTOR',   'Coaque',                                     'PEDERNALES',   'COAQUE',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_CHIQUIMBLE',        'PEDERNALES',   'SECTOR',   'Chiquimble',                                 'PEDERNALES',   'CHIQUIMBLE',          'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'GENARO',                     'PEDERNALES',   'SECTOR',   'Genaro',                                     'PEDERNALES',   'GENARO',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'GARRAPATA',                  'PEDERNALES',   'SECTOR',   'Garrapata',                                  'PEDERNALES',   'GARRAPATA',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'TALAMO',                     'PEDERNALES',   'SECTOR',   'Talamo',                                     'PEDERNALES',   'TALAMO',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'COAQUE',                     'PEDERNALES',   'SECTOR',   'Coaque',                                     'PEDERNALES',   'COAQUE',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CHIQUIMBLE',                 'PEDERNALES',   'SECTOR',   'Chiquimble',                                 'PEDERNALES',   'CHIQUIMBLE',          'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_ARRASTRADERO',      'PEDERNALES',   'SECTOR',   'Arrastradero',                               'PEDERNALES',   'ARRASTRADERO',        'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_PEDERNALES',        'PEDERNALES',   'SECTOR',   'Pedernales',                                 'PEDERNALES',   'PEDERNALES',          'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_PUERTO_TIZAL',      'PEDERNALES',   'SECTOR',   'Puerto Tizal',                               'PEDERNALES',   'PUERTO TIZAL',        'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'ARRASTRADERO',               'PEDERNALES',   'SECTOR',   'Arrastradero',                               'PEDERNALES',   'ARRASTRADERO',        'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PEDERNALES',                 'PEDERNALES',   'SECTOR',   'Pedernales',                                 'PEDERNALES',   'PEDERNALES',          'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PUERTO_TIZAL',               'PEDERNALES',   'SECTOR',   'Puerto Tizal',                               'PEDERNALES',   'PUERTO TIZAL',        'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_AGUAS_AMARGAS',     'PEDERNALES',   'SECTOR',   'Aguas Amargas',                              'PEDERNALES',   'AGUAS AMARGAS',       'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_LA_FRONDA',         'PEDERNALES',   'SECTOR',   'La Fronda',                                  'PEDERNALES',   'LA FRONDA',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_LAGUNA_NALPE',      'PEDERNALES',   'SECTOR',   'Laguna de Nalpe',                            'PEDERNALES',   'LAGUNA DE NALPE',     'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'AGUAS_AMARGAS',              'PEDERNALES',   'SECTOR',   'Aguas Amargas',                              'PEDERNALES',   'AGUAS AMARGAS',       'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LA_FRONDA',                  'PEDERNALES',   'SECTOR',   'La Fronda',                                  'PEDERNALES',   'LA FRONDA',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LAGUNA_NALPE',               'PEDERNALES',   'SECTOR',   'Laguna de Nalpe',                            'PEDERNALES',   'LAGUNA DE NALPE',     'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_EL_ACHIOTE',        'PEDERNALES',   'SECTOR',   'El Achiote',                                 'PEDERNALES',   'EL ACHIOTE',          'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_EL_RETIRO',         'PEDERNALES',   'SECTOR',   'El Retiro',                                  'PEDERNALES',   'EL RETIRO',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_GUAYAQUILITO',      'PEDERNALES',   'SECTOR',   'Guayaquilito',                               'PEDERNALES',   'GUAYAQUILITO',        'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'EL_ACHIOTE',                 'PEDERNALES',   'SECTOR',   'El Achiote',                                 'PEDERNALES',   'EL ACHIOTE',          'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'EL_RETIRO',                  'PEDERNALES',   'SECTOR',   'El Retiro',                                  'PEDERNALES',   'EL RETIRO',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'GUAYAQUILITO',               'PEDERNALES',   'SECTOR',   'Guayaquilito',                               'PEDERNALES',   'GUAYAQUILITO',        'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_ESTERO_HONDO',      'PEDERNALES',   'SECTOR',   'Estero Hondo',                               'PEDERNALES',   'ESTERO HONDO',        'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_VILELA',            'PEDERNALES',   'SECTOR',   'Vilela',                                     'PEDERNALES',   'VILELA',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_ZAPATA',            'PEDERNALES',   'SECTOR',   'Zapata',                                     'PEDERNALES',   'ZAPATA',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_LA_PUNTILLA',       'PEDERNALES',   'SECTOR',   'La Puntilla',                                'PEDERNALES',   'LA PUNTILLA',         'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'ESTERO_HONDO',               'PEDERNALES',   'SECTOR',   'Estero Hondo',                               'PEDERNALES',   'ESTERO HONDO',        'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'VILELA',                     'PEDERNALES',   'SECTOR',   'Vilela',                                     'PEDERNALES',   'VILELA',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'ZAPATA',                     'PEDERNALES',   'SECTOR',   'Zapata',                                     'PEDERNALES',   'ZAPATA',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LA_PUNTILLA',                'PEDERNALES',   'SECTOR',   'La Puntilla',                                'PEDERNALES',   'LA PUNTILLA',         'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_BOCA_DE_PUEBLO',    'PEDERNALES',   'SECTOR',   'Boca de Pueblo',                              'PEDERNALES',   'BOCA DE PUEBLO',      'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_LOS_LAS_TRES',      'PEDERNALES',   'SECTOR',   'Los Las Tres',                                'PEDERNALES',   'LOS LAS TRES',        'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_PLATANO',           'PEDERNALES',   'SECTOR',   'Platano',                                     'PEDERNALES',   'PLATANO',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'BOCA_DE_PUEBLO',             'PEDERNALES',   'SECTOR',   'Boca de Pueblo',                              'PEDERNALES',   'BOCA DE PUEBLO',      'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LOS_LAS_TRES',               'PEDERNALES',   'SECTOR',   'Los Las Tres',                                'PEDERNALES',   'LOS LAS TRES',        'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PLATANO',                    'PEDERNALES',   'SECTOR',   'Platano',                                     'PEDERNALES',   'PLATANO',             'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_ISLA_BLASA',        'PEDERNALES',   'SECTOR',   'Isla Blasa',                                  'PEDERNALES',   'ISLA BLASA',          'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_LAJERO',            'PEDERNALES',   'SECTOR',   'Lajero',                                     'PEDERNALES',   'LAJERO',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_PRECIADO',          'PEDERNALES',   'SECTOR',   'Preciado',                                   'PEDERNALES',   'PRECIADO',            'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'ISLA_BLASA',                 'PEDERNALES',   'SECTOR',   'Isla Blasa',                                  'PEDERNALES',   'ISLA BLASA',          'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LAJERO',                     'PEDERNALES',   'SECTOR',   'Lajero',                                     'PEDERNALES',   'LAJERO',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PRECIADO',                   'PEDERNALES',   'SECTOR',   'Preciado',                                   'PEDERNALES',   'PRECIADO',            'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_LAS_PALOMAS',       'PEDERNALES',   'SECTOR',   'Las Palomas',                                'PEDERNALES',   'LAS PALOMAS',         'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_TRES_CAMINO',       'PEDERNALES',   'SECTOR',   'Tres Camino',                                'PEDERNALES',   'TRES CAMINO',         'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_VENADO',            'PEDERNALES',   'SECTOR',   'Venado',                                     'PEDERNALES',   'VENADO',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LAS_PALOMAS',                'PEDERNALES',   'SECTOR',   'Las Palomas',                                'PEDERNALES',   'LAS PALOMAS',         'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'TRES_CAMINO',                'PEDERNALES',   'SECTOR',   'Tres Camino',                                'PEDERNALES',   'TRES CAMINO',         'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'VENADO',                     'PEDERNALES',   'SECTOR',   'Venado',                                     'PEDERNALES',   'VENADO',              'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_LA_PIMIENTA',       'PEDERNALES',   'SECTOR',   'La Pimienta',                                'PEDERNALES',   'LA PIMIENTA',         'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_GUACHARACAL',       'PEDERNALES',   'SECTOR',   'Guacharacal',                                'PEDERNALES',   'GUACHARACAL',         'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_CIEGO',             'PEDERNALES',   'SECTOR',   'Ciego',                                      'PEDERNALES',   'CIEGO',               'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LA_PIMIENTA',                'PEDERNALES',   'SECTOR',   'La Pimienta',                                'PEDERNALES',   'LA PIMIENTA',         'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'GUACHARACAL',                'PEDERNALES',   'SECTOR',   'Guacharacal',                                'PEDERNALES',   'GUACHARACAL',         'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CIEGO',                      'PEDERNALES',   'SECTOR',   'Ciego',                                      'PEDERNALES',   'CIEGO',               'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_LAS_BALSAS',        'PEDERNALES',   'SECTOR',   'Las Balsas',                                 'PEDERNALES',   'LAS BALSAS',          'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_SERRANO',           'PEDERNALES',   'SECTOR',   'Serrano',                                    'PEDERNALES',   'SERRANO',             'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_PED_CHEMERE',           'PEDERNALES',   'SECTOR',   'Chemere',                                    'PEDERNALES',   'CHEMERE',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LAS_BALSAS',                 'PEDERNALES',   'SECTOR',   'Las Balsas',                                 'PEDERNALES',   'LAS BALSAS',          'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'SERRANO',                    'PEDERNALES',   'SECTOR',   'Serrano',                                    'PEDERNALES',   'SERRANO',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CHEMERE',                    'PEDERNALES',   'SECTOR',   'Chemere',                                    'PEDERNALES',   'CHEMERE',             'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_PIEDRA_NALUCA',     'ATAHUALPA',    'SECTOR',   'Piedra Naluca',                              'ATAHUALPA',    'PIEDRA NALUCA',       'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_CADIALES',          'ATAHUALPA',    'SECTOR',   'Cadiales',                                   'ATAHUALPA',    'CADIALES',            'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_EL_SALADO',         'ATAHUALPA',    'SECTOR',   'El Salado',                                  'ATAHUALPA',    'EL SALADO',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_VALENTIN',          'ATAHUALPA',    'SECTOR',   'Valentin',                                   'ATAHUALPA',    'VALENTIN',            'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PIEDRA_NALUCA',              'ATAHUALPA',    'SECTOR',   'Piedra Naluca',                              'ATAHUALPA',    'PIEDRA NALUCA',       'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CADIALES',                   'ATAHUALPA',    'SECTOR',   'Cadiales',                                   'ATAHUALPA',    'CADIALES',            'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'EL_SALADO',                  'ATAHUALPA',    'SECTOR',   'El Salado',                                  'ATAHUALPA',    'EL SALADO',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'VALENTIN',                   'ATAHUALPA',    'SECTOR',   'Valentin',                                   'ATAHUALPA',    'VALENTIN',            'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_PIEDRA_MALUCA',     'ATAHUALPA',    'SECTOR',   'Piedra Maluca',                              'ATAHUALPA',    'PIEDRA MALUCA',       'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_PATA_DE_PAJARO',    'ATAHUALPA',    'SECTOR',   'Pata de Pajaro',                             'ATAHUALPA',    'PATA DE PAJARO',      'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_PERALTA',           'ATAHUALPA',    'SECTOR',   'Peralta',                                    'ATAHUALPA',    'PERALTA',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PIEDRA_MALUCA',              'ATAHUALPA',    'SECTOR',   'Piedra Maluca',                              'ATAHUALPA',    'PIEDRA MALUCA',       'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PATA_DE_PAJARO',             'ATAHUALPA',    'SECTOR',   'Pata de Pajaro',                             'ATAHUALPA',    'PATA DE PAJARO',      'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PERALTA',                    'ATAHUALPA',    'SECTOR',   'Peralta',                                    'ATAHUALPA',    'PERALTA',             'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_LOS_PLATOS',        'ATAHUALPA',    'SECTOR',   'Los Platos',                                 'ATAHUALPA',    'LOS PLATOS',          'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_LA_MUERTE',         'ATAHUALPA',    'SECTOR',   'La Muerte',                                  'ATAHUALPA',    'LA MUERTE',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_PALMAR',            'ATAHUALPA',    'SECTOR',   'Palmar',                                     'ATAHUALPA',    'PALMAR',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LOS_PLATOS',                 'ATAHUALPA',    'SECTOR',   'Los Platos',                                 'ATAHUALPA',    'LOS PLATOS',          'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LA_MUERTE',                  'ATAHUALPA',    'SECTOR',   'La Muerte',                                  'ATAHUALPA',    'LA MUERTE',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'PALMAR',                     'ATAHUALPA',    'SECTOR',   'Palmar',                                     'ATAHUALPA',    'PALMAR',              'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_DON_PEPE',          'ATAHUALPA',    'SECTOR',   'Don Pepe',                                   'ATAHUALPA',    'DON PEPE',            'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_CHIAL',             'ATAHUALPA',    'SECTOR',   'Chial',                                      'ATAHUALPA',    'CHIAL',               'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_ATA_SANTA_ROSA',        'ATAHUALPA',    'SECTOR',   'Santa Rosa',                                 'ATAHUALPA',    'SANTA ROSA',          'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'DON_PEPE',                   'ATAHUALPA',    'SECTOR',   'Don Pepe',                                   'ATAHUALPA',    'DON PEPE',            'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'CHIAL',                      'ATAHUALPA',    'SECTOR',   'Chial',                                      'ATAHUALPA',    'CHIAL',               'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'SANTA_ROSA',                 'ATAHUALPA',    'SECTOR',   'Santa Rosa',                                 'ATAHUALPA',    'SANTA ROSA',          'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_SAN_JOSE_DE_JAMA',  '10_DE_AGOSTO', 'SECTOR',   'San Jose de Jama',                           '10 DE AGOSTO', 'SAN JOSE DE JAMA',    'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_SAN_JOSE_ARRIBA',   '10_DE_AGOSTO', 'SECTOR',   'San Jose de Arriba',                         '10 DE AGOSTO', 'SAN JOSE DE ARRIBA',  'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_SAN_JOSE_MEDIO',    '10_DE_AGOSTO', 'SECTOR',   'San Jose de Medio',                          '10 DE AGOSTO', 'SAN JOSE DE MEDIO',   'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_SAN_JOSE_ABAJO',    '10_DE_AGOSTO', 'SECTOR',   'San Jose de Abajo',                          '10 DE AGOSTO', 'SAN JOSE DE ABAJO',   'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_10_DE_AGOSTO',      '10_DE_AGOSTO', 'SECTOR',   '10 de Agosto',                               '10 DE AGOSTO', '10 DE AGOSTO',        'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'SAN_JOSE_DE_JAMA',           '10_DE_AGOSTO', 'SECTOR',   'San Jose de Jama',                           '10 DE AGOSTO', 'SAN JOSE DE JAMA',    'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'SAN_JOSE_ARRIBA',            '10_DE_AGOSTO', 'SECTOR',   'San Jose de Arriba',                         '10 DE AGOSTO', 'SAN JOSE DE ARRIBA',  'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'SAN_JOSE_MEDIO',             '10_DE_AGOSTO', 'SECTOR',   'San Jose de Medio',                          '10 DE AGOSTO', 'SAN JOSE DE MEDIO',   'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'SAN_JOSE_ABAJO',             '10_DE_AGOSTO', 'SECTOR',   'San Jose de Abajo',                          '10 DE AGOSTO', 'SAN JOSE DE ABAJO',   'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', '10_DE_AGOSTO',               '10_DE_AGOSTO', 'SECTOR',   '10 de Agosto',                               '10 DE AGOSTO', '10 DE AGOSTO',        'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_SAN_RAMON',         '10_DE_AGOSTO', 'SECTOR',   'San Ramon',                                  '10 DE AGOSTO', 'SAN RAMON',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_GUINEAL',           '10_DE_AGOSTO', 'SECTOR',   'Guineal',                                    '10 DE AGOSTO', 'GUINEAL',             'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_AGUA_FRIA',         '10_DE_AGOSTO', 'SECTOR',   'Agua Fria',                                  '10 DE AGOSTO', 'AGUA FRIA',           'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_LA_HUMEDAD',        '10_DE_AGOSTO', 'SECTOR',   'La Humedad',                                 '10 DE AGOSTO', 'LA HUMEDAD',          'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'SAN_RAMON',                  '10_DE_AGOSTO', 'SECTOR',   'San Ramon',                                  '10 DE AGOSTO', 'SAN RAMON',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'GUINEAL',                    '10_DE_AGOSTO', 'SECTOR',   'Guineal',                                    '10 DE AGOSTO', 'GUINEAL',             'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'AGUA_FRIA',                  '10_DE_AGOSTO', 'SECTOR',   'Agua Fria',                                  '10 DE AGOSTO', 'AGUA FRIA',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LA_HUMEDAD',                 '10_DE_AGOSTO', 'SECTOR',   'La Humedad',                                 '10 DE AGOSTO', 'LA HUMEDAD',          'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_SANTA_ROSA',        '10_DE_AGOSTO', 'SECTOR',   'Santa Rosa',                                 '10 DE AGOSTO', 'SANTA ROSA',          'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_ZAPALLO_ABAJO',     '10_DE_AGOSTO', 'SECTOR',   'Zapallo Abajo',                              '10 DE AGOSTO', 'ZAPALLO ABAJO',       'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_TAVIZA',            '10_DE_AGOSTO', 'SECTOR',   'Taviza',                                     '10 DE AGOSTO', 'TAVIZA',              'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_EL_JORDAN',         '10_DE_AGOSTO', 'SECTOR',   'El Jordan',                                  '10 DE AGOSTO', 'EL JORDAN',           'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'SANTA_ROSA',                 '10_DE_AGOSTO', 'SECTOR',   'Santa Rosa',                                 '10 DE AGOSTO', 'SANTA ROSA',          'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'ZAPALLO_ABAJO',              '10_DE_AGOSTO', 'SECTOR',   'Zapallo Abajo',                              '10 DE AGOSTO', 'ZAPALLO ABAJO',       'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'TAVIZA',                     '10_DE_AGOSTO', 'SECTOR',   'Taviza',                                     '10 DE AGOSTO', 'TAVIZA',              'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'EL_JORDAN',                  '10_DE_AGOSTO', 'SECTOR',   'El Jordan',                                  '10 DE AGOSTO', 'EL JORDAN',           'SIN_CONTACTO'),
 
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_LA_BELLA_DE_TAVIZA','10_DE_AGOSTO', 'SECTOR',   'La Bella de Taviza',                         '10 DE AGOSTO', 'LA BELLA DE TAVIZA',  'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_BOCA_DE_TIGRE',     '10_DE_AGOSTO', 'SECTOR',   'Boca de Tigre',                              '10 DE AGOSTO', 'BOCA DE TIGRE',       'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_SANTA_TEREZA',      '10_DE_AGOSTO', 'SECTOR',   'Santa Tereza',                               '10 DE AGOSTO', 'SANTA TEREZA',        'SIN_CONTACTO'),
-    ('STRATEGIA', 'PEDERNALES', 'TERR_10A_LA_GLORIA',         '10_DE_AGOSTO', 'SECTOR',   'La Gloria',                                  '10 DE AGOSTO', 'LA GLORIA',           'SIN_CONTACTO')
+    ('ADN', 'PEDERNALES', 'LA_BELLA_DE_TAVIZA',         '10_DE_AGOSTO', 'SECTOR',   'La Bella de Taviza',                         '10 DE AGOSTO', 'LA BELLA DE TAVIZA',  'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'BOCA_DE_TIGRE',              '10_DE_AGOSTO', 'SECTOR',   'Boca de Tigre',                              '10 DE AGOSTO', 'BOCA DE TIGRE',       'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'SANTA_TEREZA',               '10_DE_AGOSTO', 'SECTOR',   'Santa Tereza',                               '10 DE AGOSTO', 'SANTA TEREZA',        'SIN_CONTACTO'),
+    ('ADN', 'PEDERNALES', 'LA_GLORIA',                  '10_DE_AGOSTO', 'SECTOR',   'La Gloria',                                  '10 DE AGOSTO', 'LA GLORIA',           'SIN_CONTACTO')
 ) v(Tienda, Ciudad, CodigoTerritorio, CodigoCenturia, TipoTerritorio, NombreTerritorio, Parroquia, Barrio, EstadoCobertura)
 WHERE NOT EXISTS
 (
@@ -225,6 +225,7 @@ WHERE NOT EXISTS
     FROM dbo.Territorio t
     WHERE t.Tienda = v.Tienda
       AND t.Ciudad = v.Ciudad
+      AND t.CodigoCenturia = v.CodigoCenturia
       AND t.CodigoTerritorio = v.CodigoTerritorio
 );
 GO
@@ -244,22 +245,22 @@ SELECT v.Tienda, v.CodigoUsuario, v.CodigoRol, v.CodigoCenturia, v.Nombres, v.Ap
 FROM
 (
     VALUES
-    ('STRATEGIA', 'USR_CONSUL',  'CONSUL',      NULL,      'OMAR',      'TOAPANTA',  '0990000001', 'consul@strategia.local'),
-    ('STRATEGIA', 'USR_GT001',   'GRAL_TIERRA', NULL,      'PATRICIO',  'MENDOZA',   '0990000002', 'gtierra@strategia.local'),
-    ('STRATEGIA', 'USR_GE001',   'GRAL_ESTRAT', NULL,      'ANA',       'CEVALLOS',  '0990000003', 'gestratega@strategia.local'),
-    ('STRATEGIA', 'USR_CEN_PED', 'CENTURION',   'PEDERNALES',   'MARIO',     'ALCIVAR',   '0990000011', 'centurion.ped@strategia.local'),
-    ('STRATEGIA', 'USR_CEN_COJ', 'CENTURION',   'COJIMIES',     'LUCIA',     'MENDOZA',   '0990000012', 'centurion.coj@strategia.local'),
-    ('STRATEGIA', 'USR_CEN_10A', 'CENTURION',   '10_DE_AGOSTO', 'JORGE',     'MOREIRA',   '0990000013', 'centurion.10a@strategia.local'),
-    ('STRATEGIA', 'USR_CEN_ATA', 'CENTURION',   'ATAHUALPA',    'KARINA',    'INTRIAGO',  '0990000014', 'centurion.ata@strategia.local'),
-    ('STRATEGIA', 'USR_REL_001', 'RELATOR',     'PEDERNALES',   'PAOLA',     'ZAMBRANO',  '0990000021', 'relator.001@strategia.local'),
-    ('STRATEGIA', 'USR_REL_002', 'RELATOR',     'COJIMIES',     'JONATHAN',  'PALMA',     '0990000022', 'relator.002@strategia.local'),
-    ('STRATEGIA', 'USR_REL_003', 'RELATOR',     '10_DE_AGOSTO', 'MELISSA',   'MORA',      '0990000023', 'relator.003@strategia.local'),
-    ('STRATEGIA', 'USR_REL_004', 'RELATOR',     'ATAHUALPA',    'DAVID',     'CHAVEZ',    '0990000024', 'relator.004@strategia.local'),
-    ('STRATEGIA', 'USR_SOL_001', 'SOLDADO',     'PEDERNALES',   'ELVIS',     'MIELES',    '0990000031', 'soldado.001@strategia.local'),
-    ('STRATEGIA', 'USR_EXP_001', 'EXPLORADOR',  'PEDERNALES',   'SOFIA',     'VELASQUEZ', '0990000041', 'explorador.001@strategia.local'),
-    ('STRATEGIA', 'USR_EXP_002', 'EXPLORADOR',  'COJIMIES',     'DIANA',     'SANTOS',    '0990000042', 'explorador.002@strategia.local'),
-    ('STRATEGIA', 'USR_EXP_003', 'EXPLORADOR',  '10_DE_AGOSTO', 'ROBERTO',   'MENDOZA',   '0990000043', 'explorador.003@strategia.local'),
-    ('STRATEGIA', 'USR_EXP_004', 'EXPLORADOR',  'ATAHUALPA',    'MARIANA',   'FARIAS',    '0990000044', 'explorador.004@strategia.local')
+    ('ADN', 'USR_CONSUL',  'CONSUL',      NULL,      'OMAR',      'TOAPANTA',  '0990000001', 'consul@strategia.local'),
+    ('ADN', 'USR_GT001',   'GRAL_TIERRA', NULL,      'PATRICIO',  'MENDOZA',   '0990000002', 'gtierra@strategia.local'),
+    ('ADN', 'USR_GE001',   'GRAL_ESTRAT', NULL,      'ANA',       'CEVALLOS',  '0990000003', 'gestratega@strategia.local'),
+    ('ADN', 'USR_CEN_PED', 'CENTURION',   'PEDERNALES',   'MARIO',     'ALCIVAR',   '0990000011', 'centurion.ped@strategia.local'),
+    ('ADN', 'USR_CEN_COJ', 'CENTURION',   'COJIMIES',     'LUCIA',     'MENDOZA',   '0990000012', 'centurion.coj@strategia.local'),
+    ('ADN', 'USR_CEN_10A', 'CENTURION',   '10_DE_AGOSTO', 'JORGE',     'MOREIRA',   '0990000013', 'centurion.10a@strategia.local'),
+    ('ADN', 'USR_CEN_ATA', 'CENTURION',   'ATAHUALPA',    'KARINA',    'INTRIAGO',  '0990000014', 'centurion.ata@strategia.local'),
+    ('ADN', 'USR_REL_001', 'RELATOR',     'PEDERNALES',   'PAOLA',     'ZAMBRANO',  '0990000021', 'relator.001@strategia.local'),
+    ('ADN', 'USR_REL_002', 'RELATOR',     'COJIMIES',     'JONATHAN',  'PALMA',     '0990000022', 'relator.002@strategia.local'),
+    ('ADN', 'USR_REL_003', 'RELATOR',     '10_DE_AGOSTO', 'MELISSA',   'MORA',      '0990000023', 'relator.003@strategia.local'),
+    ('ADN', 'USR_REL_004', 'RELATOR',     'ATAHUALPA',    'DAVID',     'CHAVEZ',    '0990000024', 'relator.004@strategia.local'),
+    ('ADN', 'USR_SOL_001', 'SOLDADO',     'PEDERNALES',   'ELVIS',     'MIELES',    '0990000031', 'soldado.001@strategia.local'),
+    ('ADN', 'USR_EXP_001', 'EXPLORADOR',  'PEDERNALES',   'SOFIA',     'VELASQUEZ', '0990000041', 'explorador.001@strategia.local'),
+    ('ADN', 'USR_EXP_002', 'EXPLORADOR',  'COJIMIES',     'DIANA',     'SANTOS',    '0990000042', 'explorador.002@strategia.local'),
+    ('ADN', 'USR_EXP_003', 'EXPLORADOR',  '10_DE_AGOSTO', 'ROBERTO',   'MENDOZA',   '0990000043', 'explorador.003@strategia.local'),
+    ('ADN', 'USR_EXP_004', 'EXPLORADOR',  'ATAHUALPA',    'MARIANA',   'FARIAS',    '0990000044', 'explorador.004@strategia.local')
 ) v(Tienda, CodigoUsuario, CodigoRol, CodigoCenturia, Nombres, Apellidos, Telefono, UsuarioLogin)
 WHERE NOT EXISTS
 (
@@ -271,8 +272,31 @@ WHERE NOT EXISTS
 GO
 
 /*==============================================================*/
-/* 5. OPCIONES DE INTENCION DE VOTO                             */
+/* 5. MAESTRO DETALLE DE INTENCION DE VOTO                      */
 /*==============================================================*/
+INSERT INTO dbo.IntencionVotoGrupo
+(
+    Tienda, CodigoDignidad, FieldName, ObsFieldName, ObsLabel, Titulo, Orden, Activo,
+    FechaCreacion, UsuarioCreacion, OficinaCreacion, EstacionCreacion
+)
+SELECT v.Tienda, v.CodigoDignidad, v.FieldName, v.ObsFieldName, v.ObsLabel, v.Titulo, v.Orden, 1,
+       GETDATE(), 'SEED', 1, 'SCRIPT'
+FROM
+(
+    VALUES
+    ('ADN', 'ALCALDE',  'votoAlcalde',  'obsAlcalde',  'Observación para alcalde',  'Alcalde',  1),
+    ('ADN', 'CONCEJAL', 'votoConcejal', 'obsConcejal', 'Observación para concejal', 'Concejal', 2),
+    ('ADN', 'VOCALES',  'votoVocales',  'obsVocales',  'Observación para vocales',  'Vocales',  3)
+) v(Tienda, CodigoDignidad, FieldName, ObsFieldName, ObsLabel, Titulo, Orden)
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM dbo.IntencionVotoGrupo g
+    WHERE g.Tienda = v.Tienda
+      AND g.CodigoDignidad = v.CodigoDignidad
+);
+GO
+
 INSERT INTO dbo.IntencionVotoOpcion
 (
     Tienda, CodigoIntencionVotoOpcion, CodigoDignidad, NombreOpcion, Orden, Activo,
@@ -283,25 +307,35 @@ SELECT v.Tienda, v.CodigoIntencionVotoOpcion, v.CodigoDignidad, v.NombreOpcion, 
 FROM
 (
     VALUES
-    ('STRATEGIA', 'ALC_NUESTRO',   'ALCALDE',  'Nuestro candidato', 1),
-    ('STRATEGIA', 'ALC_OTRO',      'ALCALDE',  'Otro candidato',    2),
-    ('STRATEGIA', 'ALC_INDECISO',  'ALCALDE',  'Indeciso',          3),
-    ('STRATEGIA', 'ALC_NSR',       'ALCALDE',  'No sabe / no responde', 4),
+    ('ADN', 'PATRICIA_SALTOS', 'ALCALDE',  'Patricia Saltos', 1),
+    ('ADN', 'DIEGO_CELORIO',   'ALCALDE',  'Diego Celorio',   2),
+    ('ADN', 'SANTOS_CEDENO',   'ALCALDE',  'Santos Cedeño',   3),
+    ('ADN', 'ROSY_PUERTAS',    'ALCALDE',  'Rosy Puertas',    4),
+    ('ADN', 'DAVID_ZAMBRANO',  'ALCALDE',  'David Zambrano',  5),
+    ('ADN', 'EDUARDO_CHICA',   'ALCALDE',  'Eduardo Chica',   6),
+    ('ADN', 'ALC_INDECISO',        'ALCALDE',  'Indeciso',        7),
+    ('ADN', 'ALC_BLANCO',          'ALCALDE',  'Voto blanco',     8),
+    ('ADN', 'ALC_NULO',            'ALCALDE',  'Voto nulo',       9),
+    ('ADN', 'ALC_NO_VOTA',         'ALCALDE',  'No vota',         10),
+    ('ADN', 'ALC_NO_RESPONDE',     'ALCALDE',  'No responde',     11),
 
-    ('STRATEGIA', 'PRE_NUESTRO',   'PREFECTO', 'Nuestro candidato', 1),
-    ('STRATEGIA', 'PRE_OTRO',      'PREFECTO', 'Otro candidato',    2),
-    ('STRATEGIA', 'PRE_INDECISO',  'PREFECTO', 'Indeciso',          3),
-    ('STRATEGIA', 'PRE_NSR',       'PREFECTO', 'No sabe / no responde', 4),
+    ('ADN', 'CON_NUESTRO',     'CONCEJAL', 'Nuestra lista',     1),
+    ('ADN', 'CON_COMP_A',      'CONCEJAL', 'Contrincante A',    2),
+    ('ADN', 'CON_COMP_B',      'CONCEJAL', 'Contrincante B',    3),
+    ('ADN', 'CON_INDECISO',    'CONCEJAL', 'Indeciso',          4),
+    ('ADN', 'CON_BLANCO',      'CONCEJAL', 'Voto blanco',       5),
+    ('ADN', 'CON_NULO',        'CONCEJAL', 'Voto nulo',         6),
+    ('ADN', 'CON_NO_VOTA',     'CONCEJAL', 'No vota',           7),
+    ('ADN', 'CON_NO_RESPONDE', 'CONCEJAL', 'No responde',       8),
 
-    ('STRATEGIA', 'CON_NUESTRO',   'CONCEJAL', 'Nuestra lista',     1),
-    ('STRATEGIA', 'CON_OTRO',      'CONCEJAL', 'Otra lista',        2),
-    ('STRATEGIA', 'CON_INDECISO',  'CONCEJAL', 'Indeciso',          3),
-    ('STRATEGIA', 'CON_NSR',       'CONCEJAL', 'No sabe / no responde', 4),
-
-    ('STRATEGIA', 'VOC_NUESTRO',   'VOCALES',  'Nuestra lista',     1),
-    ('STRATEGIA', 'VOC_OTRO',      'VOCALES',  'Otra lista',        2),
-    ('STRATEGIA', 'VOC_INDECISO',  'VOCALES',  'Indeciso',          3),
-    ('STRATEGIA', 'VOC_NSR',       'VOCALES',  'No sabe / no responde', 4)
+    ('ADN', 'VOC_NUESTRO',     'VOCALES',  'Nuestra lista',     1),
+    ('ADN', 'VOC_COMP_A',      'VOCALES',  'Contrincante A',    2),
+    ('ADN', 'VOC_COMP_B',      'VOCALES',  'Contrincante B',    3),
+    ('ADN', 'VOC_INDECISO',    'VOCALES',  'Indeciso',          4),
+    ('ADN', 'VOC_BLANCO',      'VOCALES',  'Voto blanco',       5),
+    ('ADN', 'VOC_NULO',        'VOCALES',  'Voto nulo',         6),
+    ('ADN', 'VOC_NO_VOTA',     'VOCALES',  'No vota',           7),
+    ('ADN', 'VOC_NO_RESPONDE', 'VOCALES',  'No responde',       8)
 ) v(Tienda, CodigoIntencionVotoOpcion, CodigoDignidad, NombreOpcion, Orden)
 WHERE NOT EXISTS
 (
@@ -329,10 +363,10 @@ SELECT v.Tienda, v.Ciudad, v.CodigoCenturia, v.CodigoTerritorio, v.Codigo, v.Nom
 FROM
 (
     VALUES
-    ('STRATEGIA', 'PEDERNALES', 'PEDERNALES',   'TERR_PED_PEDERNALES',   'CED001', 'JUAN CARLOS', 'PEREZ LOPEZ', '0991111111', 'masculino', 4, 3, 0, 'PEDERNALES',   'PEDERNALES',   'Calle 1 y Avenida 2',      CAST(-0.071234 AS DECIMAL(18,10)), CAST(-80.052345 AS DECIMAL(18,10))),
-    ('STRATEGIA', 'PEDERNALES', 'COJIMIES',     'TERR_COJ_COJIMIES',     'CED002', 'MARIA JOSE',  'SUAREZ GILER','0992222222', 'femenino',  5, 4, 1, 'COJIMIES',     'COJIMIES',     'Malecon de Cojimies',      CAST( 0.068200 AS DECIMAL(18,10)), CAST(-80.045100 AS DECIMAL(18,10))),
-    ('STRATEGIA', 'PEDERNALES', '10_DE_AGOSTO', 'TERR_10A_10_DE_AGOSTO', 'CED003', 'LUIS ALBERTO','MENDOZA RUIZ','0993333333', 'masculino', 6, 4, 0, '10 DE AGOSTO', '10 DE AGOSTO', 'Via principal junto al UPC', CAST(-0.088410 AS DECIMAL(18,10)), CAST(-79.989500 AS DECIMAL(18,10))),
-    ('STRATEGIA', 'PEDERNALES', 'ATAHUALPA',    'TERR_ATA_PALMAR',       'CED004', 'ROSA ELENA',  'ZAMBRANO',    '0994444444', 'femenino',  3, 2, 0, 'ATAHUALPA',    'PALMAR',       'Frente al parque central', CAST(-0.105630 AS DECIMAL(18,10)), CAST(-79.958700 AS DECIMAL(18,10)))
+    ('ADN', 'PEDERNALES', 'PEDERNALES',   'PEDERNALES',   'CED001', 'JUAN CARLOS', 'PEREZ LOPEZ', '0991111111', 'masculino', 4, 3, 0, 'PEDERNALES',   'PEDERNALES',   'Calle 1 y Avenida 2',      CAST(-0.071234 AS DECIMAL(18,10)), CAST(-80.052345 AS DECIMAL(18,10))),
+    ('ADN', 'PEDERNALES', 'COJIMIES',     'COJIMIES',     'CED002', 'MARIA JOSE',  'SUAREZ GILER','0992222222', 'femenino',  5, 4, 1, 'COJIMIES',     'COJIMIES',     'Malecon de Cojimies',      CAST( 0.068200 AS DECIMAL(18,10)), CAST(-80.045100 AS DECIMAL(18,10))),
+    ('ADN', 'PEDERNALES', '10_DE_AGOSTO', '10_DE_AGOSTO', 'CED003', 'LUIS ALBERTO','MENDOZA RUIZ','0993333333', 'masculino', 6, 4, 0, '10 DE AGOSTO', '10 DE AGOSTO', 'Via principal junto al UPC', CAST(-0.088410 AS DECIMAL(18,10)), CAST(-79.989500 AS DECIMAL(18,10))),
+    ('ADN', 'PEDERNALES', 'ATAHUALPA',    'PALMAR',       'CED004', 'ROSA ELENA',  'ZAMBRANO',    '0994444444', 'femenino',  3, 2, 0, 'ATAHUALPA',    'PALMAR',       'Frente al parque central', CAST(-0.105630 AS DECIMAL(18,10)), CAST(-79.958700 AS DECIMAL(18,10)))
 ) v(Tienda, Ciudad, CodigoCenturia, CodigoTerritorio, Codigo, Nombres, Apellidos, NumeroCelular, Genero, MiembrosFamilia, MiembrosVotan, MiembrosDiscapacidad, Parroquia, Barrio, Direccion, PosX, PosY)
 WHERE NOT EXISTS
 (
@@ -347,30 +381,30 @@ GO
 /*==============================================================*/
 /* 7. VISITAS BASE                                              */
 /*==============================================================*/
-DECLARE @IdCiudadano1 INT = (SELECT TOP 1 IdCiudadano FROM dbo.Ciudadano WHERE Tienda = 'STRATEGIA' AND Codigo = 'CED001');
-DECLARE @IdCiudadano2 INT = (SELECT TOP 1 IdCiudadano FROM dbo.Ciudadano WHERE Tienda = 'STRATEGIA' AND Codigo = 'CED002');
-DECLARE @IdCiudadano3 INT = (SELECT TOP 1 IdCiudadano FROM dbo.Ciudadano WHERE Tienda = 'STRATEGIA' AND Codigo = 'CED003');
-DECLARE @IdCiudadano4 INT = (SELECT TOP 1 IdCiudadano FROM dbo.Ciudadano WHERE Tienda = 'STRATEGIA' AND Codigo = 'CED004');
+DECLARE @IdCiudadano1 INT = (SELECT TOP 1 IdCiudadano FROM dbo.Ciudadano WHERE Tienda = 'ADN' AND Codigo = 'CED001');
+DECLARE @IdCiudadano2 INT = (SELECT TOP 1 IdCiudadano FROM dbo.Ciudadano WHERE Tienda = 'ADN' AND Codigo = 'CED002');
+DECLARE @IdCiudadano3 INT = (SELECT TOP 1 IdCiudadano FROM dbo.Ciudadano WHERE Tienda = 'ADN' AND Codigo = 'CED003');
+DECLARE @IdCiudadano4 INT = (SELECT TOP 1 IdCiudadano FROM dbo.Ciudadano WHERE Tienda = 'ADN' AND Codigo = 'CED004');
 
 INSERT INTO dbo.Visita
 (
     IdCiudadano, Tienda, Ciudad, CodigoUsuario, CodigoCenturia, CodigoTerritorio,
-    FechaVisita, ProblemaInterno, ProblemaExterno, TemaInteresReal, ReferidoNombres, ReferidoTelefono,
+    FechaVisita, ProblemaInterno, ProblemaFamiliar, TemaInteresReal, ReferidoNombres, ReferidoTelefono,
     NotaEncuestador, PosX, PosY, EstadoSync, Activo,
     FechaCreacion, UsuarioCreacion, OficinaCreacion, EstacionCreacion
 )
 SELECT v.IdCiudadano, v.Tienda, v.Ciudad, v.CodigoUsuario, v.CodigoCenturia, v.CodigoTerritorio,
-       v.FechaVisita, v.ProblemaInterno, v.ProblemaExterno, v.TemaInteresReal, v.ReferidoNombres, v.ReferidoTelefono,
+       v.FechaVisita, v.ProblemaInterno, v.ProblemaFamiliar, v.TemaInteresReal, v.ReferidoNombres, v.ReferidoTelefono,
        v.NotaEncuestador, v.PosX, v.PosY, v.EstadoSync, 1,
        GETDATE(), 'SEED', 1, 'SCRIPT'
 FROM
 (
     VALUES
-    (@IdCiudadano1, 'STRATEGIA', 'PEDERNALES', 'USR_REL_001', 'PEDERNALES',   'TERR_PED_PEDERNALES',   DATEADD(DAY, -2, GETDATE()), 'Organizacion barrial debil.',   'Falta de alumbrado publico.', 'Seguridad ciudadana', 'PEDRO VERA', '0995555501', 'Ciudadano promovido con buen nivel de aceptacion.', CAST(-0.071234 AS DECIMAL(18,10)), CAST(-80.052345 AS DECIMAL(18,10)), 'SINCRONIZADO'),
-    (@IdCiudadano2, 'STRATEGIA', 'PEDERNALES', 'USR_REL_002', 'COJIMIES',     'TERR_COJ_COJIMIES',     DATEADD(DAY, -2, GETDATE()), 'Baja coordinacion comunitaria.','Preocupacion por empleo local.', 'Empleo y turismo',    NULL,         NULL,         'Visita con interes medio y seguimiento pendiente.', CAST( 0.068200 AS DECIMAL(18,10)), CAST(-80.045100 AS DECIMAL(18,10)), 'SINCRONIZADO'),
-    (@IdCiudadano3, 'STRATEGIA', 'PEDERNALES', 'USR_REL_003', '10_DE_AGOSTO', 'TERR_10A_10_DE_AGOSTO', DATEADD(DAY, -1, GETDATE()), 'Poca articulacion productiva.', 'Vias en mal estado.',           'Vialidad y riego',    NULL,         NULL,         'Necesita segunda visita para confirmar voto.',      CAST(-0.088410 AS DECIMAL(18,10)), CAST(-79.989500 AS DECIMAL(18,10)), 'SINCRONIZADO'),
-    (@IdCiudadano4, 'STRATEGIA', 'PEDERNALES', 'USR_REL_004', 'ATAHUALPA',    'TERR_ATA_PALMAR',       DATEADD(DAY, -1, GETDATE()), 'Liderazgo local disperso.',     'Solicita apoyo productivo.',    'Apoyo productivo',    'MARTA LUZ',  '0995555504', 'Buen recibimiento; generar visita al referido.',    CAST(-0.105630 AS DECIMAL(18,10)), CAST(-79.958700 AS DECIMAL(18,10)), 'SINCRONIZADO')
-) v(IdCiudadano, Tienda, Ciudad, CodigoUsuario, CodigoCenturia, CodigoTerritorio, FechaVisita, ProblemaInterno, ProblemaExterno, TemaInteresReal, ReferidoNombres, ReferidoTelefono, NotaEncuestador, PosX, PosY, EstadoSync)
+    (@IdCiudadano1, 'ADN', 'PEDERNALES', 'USR_REL_001', 'PEDERNALES',   'PEDERNALES',   DATEADD(DAY, -2, GETDATE()), 'Organizacion barrial debil.',   'Falta de alumbrado publico.', 'Seguridad ciudadana', 'PEDRO VERA', '0995555501', 'Ciudadano promovido con buen nivel de aceptacion.', CAST(-0.071234 AS DECIMAL(18,10)), CAST(-80.052345 AS DECIMAL(18,10)), 'SINCRONIZADO'),
+    (@IdCiudadano2, 'ADN', 'PEDERNALES', 'USR_REL_002', 'COJIMIES',     'COJIMIES',     DATEADD(DAY, -2, GETDATE()), 'Baja coordinacion comunitaria.','Preocupacion por empleo local.', 'Empleo y turismo',    NULL,         NULL,         'Visita con interes medio y seguimiento pendiente.', CAST( 0.068200 AS DECIMAL(18,10)), CAST(-80.045100 AS DECIMAL(18,10)), 'SINCRONIZADO'),
+    (@IdCiudadano3, 'ADN', 'PEDERNALES', 'USR_REL_003', '10_DE_AGOSTO', '10_DE_AGOSTO', DATEADD(DAY, -1, GETDATE()), 'Poca articulacion productiva.', 'Vias en mal estado.',           'Vialidad y riego',    NULL,         NULL,         'Necesita segunda visita para confirmar voto.',      CAST(-0.088410 AS DECIMAL(18,10)), CAST(-79.989500 AS DECIMAL(18,10)), 'SINCRONIZADO'),
+    (@IdCiudadano4, 'ADN', 'PEDERNALES', 'USR_REL_004', 'ATAHUALPA',    'PALMAR',       DATEADD(DAY, -1, GETDATE()), 'Liderazgo local disperso.',     'Solicita apoyo productivo.',    'Apoyo productivo',    'MARTA LUZ',  '0995555504', 'Buen recibimiento; generar visita al referido.',    CAST(-0.105630 AS DECIMAL(18,10)), CAST(-79.958700 AS DECIMAL(18,10)), 'SINCRONIZADO')
+) v(IdCiudadano, Tienda, Ciudad, CodigoUsuario, CodigoCenturia, CodigoTerritorio, FechaVisita, ProblemaInterno, ProblemaFamiliar, TemaInteresReal, ReferidoNombres, ReferidoTelefono, NotaEncuestador, PosX, PosY, EstadoSync)
 WHERE v.IdCiudadano IS NOT NULL
   AND NOT EXISTS
 (
@@ -402,25 +436,21 @@ FROM VisitasBase vb
 INNER JOIN
 (
     VALUES
-    ('USR_REL_001', 'ALCALDE',  'ALC_NUESTRO',  'Apoyo claro a la candidata.'),
-    ('USR_REL_001', 'PREFECTO', 'PRE_NUESTRO',  'Buena percepción general.'),
-    ('USR_REL_001', 'CONCEJAL', 'CON_NUESTRO',  'Prefiere nuestra lista.'),
-    ('USR_REL_001', 'VOCALES',  'VOC_NUESTRO',  'Alineado con la campaña.'),
+    ('USR_REL_001', 'ALCALDE',  'PATRICIA_SALTOS', 'Apoyo claro a Patricia Saltos.'),
+    ('USR_REL_001', 'CONCEJAL', 'CON_NUESTRO',     'Prefiere nuestra lista.'),
+    ('USR_REL_001', 'VOCALES',  'VOC_NUESTRO',     'Alineado con la campaña.'),
 
-    ('USR_REL_002', 'ALCALDE',  'ALC_INDECISO', 'Escucha propuesta pero no define.'),
-    ('USR_REL_002', 'PREFECTO', 'PRE_OTRO',     'Tendencia hacia otro candidato.'),
-    ('USR_REL_002', 'CONCEJAL', 'CON_INDECISO', 'Aun evaluando listas.'),
-    ('USR_REL_002', 'VOCALES',  'VOC_INDECISO', 'Sin definición actual.'),
+    ('USR_REL_002', 'ALCALDE',  'ALC_INDECISO',    'Escucha propuesta pero no define.'),
+    ('USR_REL_002', 'CONCEJAL', 'CON_INDECISO',    'Aun evaluando listas.'),
+    ('USR_REL_002', 'VOCALES',  'VOC_INDECISO',    'Sin definición actual.'),
 
-    ('USR_REL_003', 'ALCALDE',  'ALC_OTRO',     'Menciona afinidad previa con otro candidato.'),
-    ('USR_REL_003', 'PREFECTO', 'PRE_INDECISO', 'No tiene decisión tomada.'),
-    ('USR_REL_003', 'CONCEJAL', 'CON_OTRO',     'Apoya lista rival local.'),
-    ('USR_REL_003', 'VOCALES',  'VOC_NSR',      'No desea responder.'),
+    ('USR_REL_003', 'ALCALDE',  'DIEGO_CELORIO',  'Menciona afinidad previa con Diego Celorio.'),
+    ('USR_REL_003', 'CONCEJAL', 'CON_COMP_B',      'Apoya lista rival local.'),
+    ('USR_REL_003', 'VOCALES',  'VOC_NO_RESPONDE', 'No desea responder.'),
 
-    ('USR_REL_004', 'ALCALDE',  'ALC_NUESTRO',  'Muy buena aceptación.'),
-    ('USR_REL_004', 'PREFECTO', 'PRE_NUESTRO',  'Coherente con apoyo principal.'),
-    ('USR_REL_004', 'CONCEJAL', 'CON_NUESTRO',  'Alineado con nuestra lista.'),
-    ('USR_REL_004', 'VOCALES',  'VOC_NUESTRO',  'Respaldo completo.')
+    ('USR_REL_004', 'ALCALDE',  'PATRICIA_SALTOS', 'Muy buena aceptación.'),
+    ('USR_REL_004', 'CONCEJAL', 'CON_NUESTRO',     'Alineado con nuestra lista.'),
+    ('USR_REL_004', 'VOCALES',  'VOC_NUESTRO',     'Respaldo completo.')
 ) s(CodigoUsuario, CodigoDignidad, CodigoIntencionVotoOpcion, Observacion)
     ON s.CodigoUsuario = vb.CodigoUsuario
 WHERE NOT EXISTS
@@ -454,10 +484,10 @@ Semilla AS
             ELSE 'ATAHUALPA'
         END AS CodigoCenturia,
         CASE ((n - 1) % 4)
-            WHEN 0 THEN 'TERR_PED_PEDERNALES'
-            WHEN 1 THEN 'TERR_COJ_COJIMIES'
-            WHEN 2 THEN 'TERR_10A_10_DE_AGOSTO'
-            ELSE 'TERR_ATA_PALMAR'
+            WHEN 0 THEN 'PEDERNALES'
+            WHEN 1 THEN 'COJIMIES'
+            WHEN 2 THEN '10_DE_AGOSTO'
+            ELSE 'PALMAR'
         END AS CodigoTerritorio,
         CASE ((n - 1) % 4)
             WHEN 0 THEN 'PEDERNALES'
@@ -499,7 +529,7 @@ INSERT INTO dbo.Ciudadano
     FechaCreacion, UsuarioCreacion, OficinaCreacion, EstacionCreacion
 )
 SELECT
-    'STRATEGIA',
+    'ADN',
     'PEDERNALES',
     s.CodigoCenturia,
     s.CodigoTerritorio,
@@ -526,7 +556,7 @@ WHERE NOT EXISTS
 (
     SELECT 1
     FROM dbo.Ciudadano c
-    WHERE c.Tienda = 'STRATEGIA'
+    WHERE c.Tienda = 'ADN'
       AND c.Codigo = 'CED' + RIGHT('0000' + CAST(1000 + s.n AS VARCHAR(10)), 4)
 )
 OPTION (MAXRECURSION 0);
@@ -551,19 +581,19 @@ GO
         END AS CodigoUsuario,
         TRY_CAST(RIGHT(c.Codigo, 4) AS INT) AS NumSemilla
     FROM dbo.Ciudadano c
-    WHERE c.Tienda = 'STRATEGIA'
+    WHERE c.Tienda = 'ADN'
       AND c.Codigo LIKE 'CED1%'
 )
 INSERT INTO dbo.Visita
 (
     IdCiudadano, Tienda, Ciudad, CodigoUsuario, CodigoCenturia, CodigoTerritorio,
-    FechaVisita, ProblemaInterno, ProblemaExterno, TemaInteresReal, ReferidoNombres, ReferidoTelefono,
+    FechaVisita, ProblemaInterno, ProblemaFamiliar, TemaInteresReal, ReferidoNombres, ReferidoTelefono,
     NotaEncuestador, PosX, PosY, EstadoSync, Activo,
     FechaCreacion, UsuarioCreacion, OficinaCreacion, EstacionCreacion
 )
 SELECT
     s.IdCiudadano,
-    'STRATEGIA',
+    'ADN',
     'PEDERNALES',
     s.CodigoUsuario,
     s.CodigoCenturia,
@@ -618,7 +648,7 @@ GO
     FROM dbo.Visita v
     INNER JOIN dbo.Ciudadano c
         ON c.IdCiudadano = v.IdCiudadano
-    WHERE c.Tienda = 'STRATEGIA'
+    WHERE c.Tienda = 'ADN'
       AND c.Codigo LIKE 'CED1%'
 )
 INSERT INTO dbo.VisitaIntencionVoto
@@ -630,10 +660,10 @@ SELECT
     v.IdVisita,
     'ALCALDE',
     CASE v.CodigoCenturia
-        WHEN 'PEDERNALES' THEN 'ALC_NUESTRO'
+        WHEN 'PEDERNALES' THEN 'PATRICIA_SALTOS'
         WHEN 'COJIMIES' THEN 'ALC_INDECISO'
-        WHEN '10_DE_AGOSTO' THEN 'ALC_OTRO'
-        ELSE 'ALC_NUESTRO'
+        WHEN '10_DE_AGOSTO' THEN 'DIEGO_CELORIO'
+        ELSE 'PATRICIA_SALTOS'
     END,
     'Intencion semilla generada para pruebas masivas.',
     GETDATE(),
@@ -669,7 +699,7 @@ SELECT v.*
 FROM
 (
     SELECT
-        'STRATEGIA' AS Tienda, 'PEDERNALES' AS Ciudad, 'FEXP-PEDERNALES-' + CONVERT(VARCHAR(8), CAST(GETDATE() AS DATE), 112) AS CodigoReporte,
+        'ADN' AS Tienda, 'PEDERNALES' AS Ciudad, 'FEXP-PEDERNALES-' + CONVERT(VARCHAR(8), CAST(GETDATE() AS DATE), 112) AS CodigoReporte,
         'F-EXP' AS TipoReporte, 'USR_EXP_001' AS CodigoUsuario, 'EXPLORADOR' AS CodigoRol, 'PEDERNALES' AS CodigoCenturia,
         CAST(CAST(GETDATE() AS DATE) AS DATETIME) AS FechaReporte, DATEADD(MINUTE, 30, CAST(CAST(GETDATE() AS DATE) AS DATETIME)) AS FechaEnvio,
         4 AS RelatoresActivos, 1 AS SoldadosActivos, CAST(8.0 AS DECIMAL(12,2)) AS HorasCampo,
@@ -685,17 +715,17 @@ FROM
     UNION ALL
 
     SELECT
-        'STRATEGIA', 'PEDERNALES', 'FCEN-PEDERNALES-' + CONVERT(VARCHAR(8), CAST(GETDATE() AS DATE), 112),
+        'ADN', 'PEDERNALES', 'FCEN-PEDERNALES-' + CONVERT(VARCHAR(8), CAST(GETDATE() AS DATE), 112),
         'F-CEN', 'USR_CEN_PED', 'CENTURION', 'PEDERNALES',
         CAST(CAST(GETDATE() AS DATE) AS DATETIME), DATEADD(HOUR, 20, CAST(CAST(GETDATE() AS DATE) AS DATETIME)),
         4, 1, CAST(8.0 AS DECIMAL(12,2)),
         12, 2, 3, CAST(1.8750 AS DECIMAL(10,2)),
         'Subio', CAST(45.00 AS DECIMAL(5,2)),
         'CENTRO, MALECON', 'LOS TAMARINDOS', 'LOS TAMARINDOS',
-        'Regular', 'No la conoce', 1, 'Santos Cedeño',
+        'Regular', 'No la conoce', 1, 'Santos CedeÃ±o',
         'Recorrido', 'MALECON', 'AMARILLO',
         1, 'Camisetas y volantes', 1, CAST(35.00 AS DECIMAL(12,2)),
-        1, 'Definir apoyo logístico del fin de semana', 'Reporte base del centurión para pruebas.', 'ENVIADO',
+        1, 'Definir apoyo logÃ­stico del fin de semana', 'Reporte base del centuriÃ³n para pruebas.', 'ENVIADO',
         GETDATE(), 'SEED', 1, 'SCRIPT'
 ) v
 WHERE NOT EXISTS
@@ -720,17 +750,17 @@ SELECT v.*
 FROM
 (
     SELECT
-        'STRATEGIA' AS Tienda, 'PEDERNALES' AS Ciudad, 'DIARIO' AS TipoCorte,
+        'ADN' AS Tienda, 'PEDERNALES' AS Ciudad, 'DIARIO' AS TipoCorte,
         CAST(CAST(GETDATE() AS DATE) AS DATETIME) AS FechaInicio, CAST(CAST(GETDATE() AS DATE) AS DATETIME) AS FechaFin,
-        'PEDERNALES' AS CodigoCenturia, 'TERR_PED_PEDERNALES' AS CodigoTerritorio,
+        'PEDERNALES' AS CodigoCenturia, 'PEDERNALES' AS CodigoTerritorio,
         'PEDERNALES' AS Parroquia, 'CENTRO' AS Barrio,
-        'PROMOVIDOS' AS TipoContador, 'ALCALDE' AS CodigoDignidad, 'ALC_NUESTRO' AS CodigoIntencionVotoOpcion, 12 AS Total,
+        'PROMOVIDOS' AS TipoContador, 'ALCALDE' AS CodigoDignidad, 'PATRICIA_SALTOS' AS CodigoIntencionVotoOpcion, 12 AS Total,
         GETDATE() AS FechaCreacion, 'SEED' AS UsuarioCreacion, 1 AS OficinaCreacion, 'SCRIPT' AS EstacionCreacion
 
     UNION ALL
 
     SELECT
-        'STRATEGIA', 'PEDERNALES', 'SEMANAL',
+        'ADN', 'PEDERNALES', 'SEMANAL',
         DATEADD(DAY, -6, CAST(CAST(GETDATE() AS DATE) AS DATETIME)), CAST(CAST(GETDATE() AS DATE) AS DATETIME),
         'PEDERNALES', 'TODOS',
         'PEDERNALES', 'TODOS',
@@ -771,9 +801,9 @@ SELECT v.Tienda, v.Ciudad, v.TipoEstado, v.ClaveEstado, v.TipoAccion, v.ValorApr
 FROM
 (
     VALUES
-    ('STRATEGIA', 'PEDERNALES', 'BARRIO',    'CENTRO|PROMOVIDO',       'REFORZAR_RELATORES', 0.800000, 5, 0.650000),
-    ('STRATEGIA', 'PEDERNALES', 'COBERTURA', 'SIN_CONTACTO|7_DIAS',    'VISITA_PRIORITARIA', 0.920000, 3, 0.720000),
-    ('STRATEGIA', 'PEDERNALES', 'OBJECION',  'NO_LA_CONOCE',           'MICRO_MENSAJE',      0.700000, 4, 0.550000)
+    ('ADN', 'PEDERNALES', 'BARRIO',    'CENTRO|PROMOVIDO',       'REFORZAR_RELATORES', 0.800000, 5, 0.650000),
+    ('ADN', 'PEDERNALES', 'COBERTURA', 'SIN_CONTACTO|7_DIAS',    'VISITA_PRIORITARIA', 0.920000, 3, 0.720000),
+    ('ADN', 'PEDERNALES', 'OBJECION',  'NO_LA_CONOCE',           'MICRO_MENSAJE',      0.700000, 4, 0.550000)
 ) v(Tienda, Ciudad, TipoEstado, ClaveEstado, TipoAccion, ValorAprendido, VecesProbado, RecompensaPromedio)
 WHERE NOT EXISTS
 (
@@ -802,8 +832,8 @@ SELECT v.Tienda, v.Ciudad, GETDATE(), v.TipoAccion, v.CodigoCenturia, v.CodigoTe
 FROM
 (
     VALUES
-    ('STRATEGIA', 'PEDERNALES', 'REFORZAR_VISITA', 'PEDERNALES', 'TERR_PED_PEDERNALES', 'ALCALDE', 'ALC_INDECISO', 'Refuerzo en Malecon', 'Zona con indecisos y cobertura parcial.', CAST(0.8700 AS DECIMAL(10,4)), 'PENDIENTE'),
-    ('STRATEGIA', 'PEDERNALES', 'LLAMADA_SEGMENTADA', 'COJIMIES', 'TERR_COJ_COJIMIES', 'PREFECTO', 'PRE_OTRO', 'Seguimiento Cojimies', 'Competencia detectada en preferencia de prefectura.', CAST(0.7600 AS DECIMAL(10,4)), 'PENDIENTE')
+    ('ADN', 'PEDERNALES', 'REFORZAR_VISITA', 'PEDERNALES', 'PEDERNALES', 'ALCALDE', 'ALC_INDECISO', 'Refuerzo en Malecon', 'Zona con indecisos y cobertura parcial.', CAST(0.8700 AS DECIMAL(10,4)), 'PENDIENTE'),
+    ('ADN', 'PEDERNALES', 'LLAMADA_SEGMENTADA', 'COJIMIES', 'COJIMIES', 'CONCEJAL', 'CON_COMP_A', 'Seguimiento Cojimies', 'Competencia detectada en preferencia de concejal.', CAST(0.7600 AS DECIMAL(10,4)), 'PENDIENTE')
 ) v(Tienda, Ciudad, TipoAccion, CodigoCenturia, CodigoTerritorio, CodigoDignidad, CodigoIntencionVotoOpcion, Titulo, Motivo, Score, Estado)
 WHERE NOT EXISTS
 (
@@ -825,9 +855,9 @@ DECLARE @IdAccionRefuerzo BIGINT =
 (
     SELECT TOP 1 IdAccionRecomendada
     FROM dbo.AccionRecomendada
-    WHERE Tienda = 'STRATEGIA'
+    WHERE Tienda = 'ADN'
       AND Ciudad = 'PEDERNALES'
-      AND Titulo = 'Refuerzo en Malecón'
+      AND Titulo = 'Refuerzo en Malecon'
 );
 
 IF @IdAccionRefuerzo IS NOT NULL
@@ -848,7 +878,7 @@ BEGIN
     VALUES
     (
         @IdAccionRefuerzo, GETDATE(), 'PROMOVIDOS', 8, 11, 3,
-        0.3750, 'La acción elevó el número de promovidos en el sector.',
+        0.3750, 'La acciÃ³n elevÃ³ el nÃºmero de promovidos en el sector.',
         GETDATE(), 'SEED', 1, 'SCRIPT'
     );
 END
@@ -856,3 +886,5 @@ GO
 
 PRINT 'Carga inicial completada.';
 GO
+
+

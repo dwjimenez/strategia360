@@ -4,6 +4,6 @@ namespace  Strategia.Service.Api.Services
 {
     public interface ITerritoryService
     {
-        Task<List<TerritoryDto>> GetByStoreAndCityAsync(string tienda, string ciudad);
+        Task<List<TerritoryDto>> GetByStoreAndCityAsync(string tienda, string ciudad, bool includeInactive);
     }
 }

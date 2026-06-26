@@ -15,7 +15,7 @@ namespace  Strategia.Service.Api.Services
             _mapper = mapper;
         }
 
-        public async Task<List<TerritoryDto>> GetByStoreAndCityAsync(string tienda, string ciudad)
+        public async Task<List<TerritoryDto>> GetByStoreAndCityAsync(string tienda, string ciudad, bool includeInactive)
         {
             if (string.IsNullOrWhiteSpace(tienda))
                 throw new Exception("La tienda es obligatoria.");
@@ -23,7 +23,7 @@ namespace  Strategia.Service.Api.Services
             if (string.IsNullOrWhiteSpace(ciudad))
                 throw new Exception("La ciudad es obligatoria.");
 
-            var territorios = await _territorioRepository.GetByStoreAndCityAsync(tienda, ciudad);
+            var territorios = await _territorioRepository.GetByStoreAndCityAsync(tienda, ciudad, includeInactive);
 
             return _mapper.Map<List<TerritoryDto>>(territorios);
         }

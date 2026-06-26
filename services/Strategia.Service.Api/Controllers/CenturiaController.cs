@@ -17,6 +17,7 @@ public class CenturiaController : ControllerBase
     [HttpGet("getbystoreandcity")]
     public async Task<IActionResult> GetByStoreAndCity(
         [FromQuery] string tienda,
-        [FromQuery] string ciudad)
-        => Ok(await _centuriaService.GetByStoreAndCityAsync(tienda, ciudad));
+        [FromQuery] string ciudad,
+        [FromQuery] bool includeInactive = false)
+        => Ok(await _centuriaService.GetByStoreAndCityAsync(tienda, ciudad, includeInactive));
 }

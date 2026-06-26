@@ -1,4 +1,4 @@
-/*==============================================================*/
+ï»¿/*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
 /* Created on:     6/20/2026 12:31:29 PM                        */
 /*==============================================================*/
@@ -99,6 +99,32 @@ if exists (select 1
 go
 
 if exists (select 1
+            from  sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+           where  r.fkeyid = object_id('dbo.IntencionVotoOpcion')
+            and   o.name = 'FK_IntencionVotoOpcion_Grupo')
+   alter table dbo.IntencionVotoOpcion
+      drop constraint FK_IntencionVotoOpcion_Grupo
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('dbo.IntencionVotoGrupo')
+            and   name  = 'IX_IntencionVotoGrupo_Orden'
+            and   indid > 0
+            and   indid < 255)
+   drop index dbo.IntencionVotoGrupo.IX_IntencionVotoGrupo_Orden
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('dbo.IntencionVotoGrupo')
+            and   name  = 'UX_IntencionVotoGrupo_Codigo'
+            and   indid > 0
+            and   indid < 255)
+   drop index dbo.IntencionVotoGrupo.UX_IntencionVotoGrupo_Codigo
+go
+
+if exists (select 1
             from  sysindexes
            where  id    = object_id('dbo.IntencionVotoOpcion')
             and   name  = 'IX_IntencionVotoOpcion_Dignidad'
@@ -121,6 +147,13 @@ if exists (select 1
            where  id = object_id('dbo.IntencionVotoOpcion')
             and   type = 'U')
    drop table dbo.IntencionVotoOpcion
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('dbo.IntencionVotoGrupo')
+            and   type = 'U')
+   drop table dbo.IntencionVotoGrupo
 go
 
 if exists (select 1
@@ -305,15 +338,6 @@ if exists (select 1
    drop table dbo.VisitaIntencionVoto
 go
 
-drop schema dbo
-go
-
-/*==============================================================*/
-/* User: dbo                                                    */
-/*==============================================================*/
-create schema dbo
-go
-
 /*==============================================================*/
 /* Table: AccionRecomendada                                     */
 /*==============================================================*/
@@ -355,7 +379,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'AccionRecomendada', 'column', 'FechaCreacion'
 go
 
@@ -371,7 +395,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'AccionRecomendada', 'column', 'UsuarioCreacion'
 go
 
@@ -387,7 +411,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'AccionRecomendada', 'column', 'OficinaCreacion'
 go
 
@@ -419,7 +443,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'AccionRecomendada', 'column', 'FechaModificacion'
 go
 
@@ -435,7 +459,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'AccionRecomendada', 'column', 'UsuarioModificacion'
 go
 
@@ -451,7 +475,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'AccionRecomendada', 'column', 'OficinaModificacion'
 go
 
@@ -519,7 +543,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'Centuria', 'column', 'FechaCreacion'
 go
 
@@ -535,7 +559,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'Centuria', 'column', 'UsuarioCreacion'
 go
 
@@ -551,7 +575,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'Centuria', 'column', 'OficinaCreacion'
 go
 
@@ -583,7 +607,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Centuria', 'column', 'FechaModificacion'
 go
 
@@ -599,7 +623,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Centuria', 'column', 'UsuarioModificacion'
 go
 
@@ -615,7 +639,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Centuria', 'column', 'OficinaModificacion'
 go
 
@@ -692,7 +716,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'Ciudadano', 'column', 'FechaCreacion'
 go
 
@@ -708,7 +732,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'Ciudadano', 'column', 'UsuarioCreacion'
 go
 
@@ -724,7 +748,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'Ciudadano', 'column', 'OficinaCreacion'
 go
 
@@ -756,7 +780,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Ciudadano', 'column', 'FechaModificacion'
 go
 
@@ -772,7 +796,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Ciudadano', 'column', 'UsuarioModificacion'
 go
 
@@ -788,7 +812,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Ciudadano', 'column', 'OficinaModificacion'
 go
 
@@ -874,7 +898,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'DashboardContador', 'column', 'FechaCreacion'
 go
 
@@ -890,7 +914,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'DashboardContador', 'column', 'UsuarioCreacion'
 go
 
@@ -906,7 +930,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'DashboardContador', 'column', 'OficinaCreacion'
 go
 
@@ -938,7 +962,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'DashboardContador', 'column', 'FechaModificacion'
 go
 
@@ -954,7 +978,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'DashboardContador', 'column', 'UsuarioModificacion'
 go
 
@@ -970,7 +994,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'DashboardContador', 'column', 'OficinaModificacion'
 go
 
@@ -1010,6 +1034,50 @@ CodigoIntencionVotoOpcion ASC
 go
 
 /*==============================================================*/
+/* Table: IntencionVotoGrupo                                    */
+/*==============================================================*/
+create table dbo.IntencionVotoGrupo (
+   IdIntencionVotoGrupo int                  identity(1,1),
+   Tienda               varchar(32)          not null,
+   CodigoDignidad       varchar(32)          not null,
+   FieldName            varchar(64)          not null,
+   ObsFieldName         varchar(64)          not null,
+   ObsLabel             varchar(128)         not null,
+   Titulo               varchar(64)          not null,
+   Orden                int                  not null constraint DF_IntencionVotoGrupo_Orden default 0,
+   Activo               bit                  not null constraint DF_IntencionVotoGrupo_Activo default 1,
+   FechaCreacion        datetime             null,
+   UsuarioCreacion      varchar(32)          null,
+   OficinaCreacion      int                  null,
+   EstacionCreacion     varchar(32)          null,
+   FechaModificacion    datetime             null,
+   UsuarioModificacion  varchar(32)          null,
+   OficinaModificacion  int                  null,
+   EstacionModificacion varchar(32)          null,
+   constraint PK_IntencionVotoGrupo primary key (IdIntencionVotoGrupo)
+)
+go
+
+/*==============================================================*/
+/* Index: UX_IntencionVotoGrupo_Codigo                          */
+/*==============================================================*/
+create unique index UX_IntencionVotoGrupo_Codigo on dbo.IntencionVotoGrupo (
+Tienda ASC,
+CodigoDignidad ASC
+)
+go
+
+/*==============================================================*/
+/* Index: IX_IntencionVotoGrupo_Orden                           */
+/*==============================================================*/
+create index IX_IntencionVotoGrupo_Orden on dbo.IntencionVotoGrupo (
+Tienda ASC,
+Activo ASC,
+Orden ASC
+)
+go
+
+/*==============================================================*/
 /* Table: IntencionVotoOpcion                                   */
 /*==============================================================*/
 create table dbo.IntencionVotoOpcion (
@@ -1044,7 +1112,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'IntencionVotoOpcion', 'column', 'FechaCreacion'
 go
 
@@ -1060,7 +1128,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'IntencionVotoOpcion', 'column', 'UsuarioCreacion'
 go
 
@@ -1076,7 +1144,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'IntencionVotoOpcion', 'column', 'OficinaCreacion'
 go
 
@@ -1108,7 +1176,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'IntencionVotoOpcion', 'column', 'FechaModificacion'
 go
 
@@ -1124,7 +1192,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'IntencionVotoOpcion', 'column', 'UsuarioModificacion'
 go
 
@@ -1140,7 +1208,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'IntencionVotoOpcion', 'column', 'OficinaModificacion'
 go
 
@@ -1178,6 +1246,11 @@ CodigoDignidad ASC,
 Activo ASC,
 Orden ASC
 )
+go
+
+alter table dbo.IntencionVotoOpcion
+   add constraint FK_IntencionVotoOpcion_Grupo foreign key (Tienda, CodigoDignidad)
+      references dbo.IntencionVotoGrupo (Tienda, CodigoDignidad)
 go
 
 /*==============================================================*/
@@ -1219,7 +1292,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'PoliticaAprendida', 'column', 'FechaCreacion'
 go
 
@@ -1235,7 +1308,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'PoliticaAprendida', 'column', 'UsuarioCreacion'
 go
 
@@ -1251,7 +1324,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'PoliticaAprendida', 'column', 'OficinaCreacion'
 go
 
@@ -1283,7 +1356,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'PoliticaAprendida', 'column', 'FechaModificacion'
 go
 
@@ -1299,7 +1372,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'PoliticaAprendida', 'column', 'UsuarioModificacion'
 go
 
@@ -1315,7 +1388,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'PoliticaAprendida', 'column', 'OficinaModificacion'
 go
 
@@ -1412,7 +1485,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'ReporteOrganizacional', 'column', 'FechaCreacion'
 go
 
@@ -1428,7 +1501,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'ReporteOrganizacional', 'column', 'UsuarioCreacion'
 go
 
@@ -1444,7 +1517,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'ReporteOrganizacional', 'column', 'OficinaCreacion'
 go
 
@@ -1476,7 +1549,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'ReporteOrganizacional', 'column', 'FechaModificacion'
 go
 
@@ -1492,7 +1565,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'ReporteOrganizacional', 'column', 'UsuarioModificacion'
 go
 
@@ -1508,7 +1581,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'ReporteOrganizacional', 'column', 'OficinaModificacion'
 go
 
@@ -1597,7 +1670,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'ResultadoAccion', 'column', 'FechaCreacion'
 go
 
@@ -1613,7 +1686,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'ResultadoAccion', 'column', 'UsuarioCreacion'
 go
 
@@ -1629,7 +1702,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'ResultadoAccion', 'column', 'OficinaCreacion'
 go
 
@@ -1661,7 +1734,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'ResultadoAccion', 'column', 'FechaModificacion'
 go
 
@@ -1677,7 +1750,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'ResultadoAccion', 'column', 'UsuarioModificacion'
 go
 
@@ -1693,7 +1766,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'ResultadoAccion', 'column', 'OficinaModificacion'
 go
 
@@ -1757,7 +1830,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'RolOrganizacional', 'column', 'FechaCreacion'
 go
 
@@ -1773,7 +1846,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'RolOrganizacional', 'column', 'UsuarioCreacion'
 go
 
@@ -1789,7 +1862,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'RolOrganizacional', 'column', 'OficinaCreacion'
 go
 
@@ -1821,7 +1894,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'RolOrganizacional', 'column', 'FechaModificacion'
 go
 
@@ -1837,7 +1910,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'RolOrganizacional', 'column', 'UsuarioModificacion'
 go
 
@@ -1853,7 +1926,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'RolOrganizacional', 'column', 'OficinaModificacion'
 go
 
@@ -1921,7 +1994,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'Territorio', 'column', 'FechaCreacion'
 go
 
@@ -1937,7 +2010,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'Territorio', 'column', 'UsuarioCreacion'
 go
 
@@ -1953,7 +2026,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'Territorio', 'column', 'OficinaCreacion'
 go
 
@@ -1985,7 +2058,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Territorio', 'column', 'FechaModificacion'
 go
 
@@ -2001,7 +2074,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Territorio', 'column', 'UsuarioModificacion'
 go
 
@@ -2017,7 +2090,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Territorio', 'column', 'OficinaModificacion'
 go
 
@@ -2043,6 +2116,7 @@ go
 create unique index UX_Territorio_Codigo on dbo.Territorio (
 Tienda ASC,
 Ciudad ASC,
+CodigoCenturia ASC,
 CodigoTerritorio ASC
 )
 go
@@ -2098,7 +2172,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'UsuarioOrganizacional', 'column', 'FechaCreacion'
 go
 
@@ -2114,7 +2188,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'UsuarioOrganizacional', 'column', 'UsuarioCreacion'
 go
 
@@ -2130,7 +2204,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'UsuarioOrganizacional', 'column', 'OficinaCreacion'
 go
 
@@ -2162,7 +2236,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'UsuarioOrganizacional', 'column', 'FechaModificacion'
 go
 
@@ -2178,7 +2252,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'UsuarioOrganizacional', 'column', 'UsuarioModificacion'
 go
 
@@ -2194,7 +2268,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'UsuarioOrganizacional', 'column', 'OficinaModificacion'
 go
 
@@ -2312,7 +2386,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'Visita', 'column', 'FechaCreacion'
 go
 
@@ -2328,7 +2402,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'Visita', 'column', 'UsuarioCreacion'
 go
 
@@ -2344,7 +2418,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'Visita', 'column', 'OficinaCreacion'
 go
 
@@ -2376,7 +2450,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Visita', 'column', 'FechaModificacion'
 go
 
@@ -2392,7 +2466,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Visita', 'column', 'UsuarioModificacion'
 go
 
@@ -2408,7 +2482,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'Visita', 'column', 'OficinaModificacion'
 go
 
@@ -2482,7 +2556,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Creación',
+   'Fecha de CreaciÃ³n',
    'user', 'dbo', 'table', 'VisitaIntencionVoto', 'column', 'FechaCreacion'
 go
 
@@ -2498,7 +2572,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Creación',
+   'Usuario de CreaciÃ³n',
    'user', 'dbo', 'table', 'VisitaIntencionVoto', 'column', 'UsuarioCreacion'
 go
 
@@ -2514,7 +2588,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Creación',
+   'Oficina de CreaciÃ³n',
    'user', 'dbo', 'table', 'VisitaIntencionVoto', 'column', 'OficinaCreacion'
 go
 
@@ -2546,7 +2620,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Fecha de Actualización',
+   'Fecha de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'VisitaIntencionVoto', 'column', 'FechaModificacion'
 go
 
@@ -2562,7 +2636,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Usuario de Actualización',
+   'Usuario de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'VisitaIntencionVoto', 'column', 'UsuarioModificacion'
 go
 
@@ -2578,7 +2652,7 @@ end
 
 
 execute sp_addextendedproperty 'MS_Description', 
-   'Oficina de Actualización',
+   'Oficina de ActualizaciÃ³n',
    'user', 'dbo', 'table', 'VisitaIntencionVoto', 'column', 'OficinaModificacion'
 go
 
@@ -2630,4 +2704,5 @@ alter table dbo.VisitaIntencionVoto
    add constraint FK_VisitaIntencionVoto_Visita foreign key (IdVisita)
       references dbo.Visita (IdVisita)
 go
+
 

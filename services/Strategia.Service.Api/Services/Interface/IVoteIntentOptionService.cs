@@ -4,6 +4,6 @@ namespace  Strategia.Service.Api.Services
 {
     public interface IVoteIntentOptionService
     {
-        Task<List<VoteIntentOptionDto>> GetByStoreAsync(string tienda);
+        Task<List<VoteIntentOptionDto>> GetByStoreAsync(string tienda, bool includeInactive);
     }
 }

@@ -29,8 +29,9 @@ public class VisitController : ControllerBase
         [FromQuery] string tienda,
         [FromQuery] string ciudad,
         [FromQuery] string? nombres,
-        [FromQuery] string? apellidos)
-        => Ok(await _visitaService.GetCitizensAsync(tienda, ciudad, nombres, apellidos));
+        [FromQuery] string? apellidos,
+        [FromQuery] bool includeInactive = false)
+        => Ok(await _visitaService.GetCitizensAsync(tienda, ciudad, nombres, apellidos, includeInactive));
 
     [HttpGet("getnearbycitizens")]
     public async Task<IActionResult> GetNearbyCitizens(
@@ -38,16 +39,18 @@ public class VisitController : ControllerBase
         [FromQuery] string ciudad,
         [FromQuery] decimal posX,
         [FromQuery] decimal posY,
-        [FromQuery] double distanciaMetros)
-        => Ok(await _visitaService.GetNearbyCitizensAsync(tienda, ciudad, posX, posY, distanciaMetros));
+        [FromQuery] double distanciaMetros,
+        [FromQuery] bool includeInactive = false)
+        => Ok(await _visitaService.GetNearbyCitizensAsync(tienda, ciudad, posX, posY, distanciaMetros, includeInactive));
 
     [HttpGet("getvisitsbyuseranddaterange")]
     public async Task<IActionResult> GetVisitsByUserAndDateRange(
         [FromQuery] string tienda,
         [FromQuery] string codigoUsuario,
         [FromQuery] DateTime fechaDesde,
-        [FromQuery] DateTime fechaHasta)
-        => Ok(await _visitaService.GetVisitsByUserAndDateRangeAsync(tienda, codigoUsuario, fechaDesde, fechaHasta));
+        [FromQuery] DateTime fechaHasta,
+        [FromQuery] bool includeInactive = false)
+        => Ok(await _visitaService.GetVisitsByUserAndDateRangeAsync(tienda, codigoUsuario, fechaDesde, fechaHasta, includeInactive));
 
 
     

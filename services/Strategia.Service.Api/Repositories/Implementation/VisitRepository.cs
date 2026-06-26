@@ -90,7 +90,7 @@ namespace  Strategia.Service.Api.Repositories
             }
         }
 
-        public async Task<List<Visita>> GetCitizensAsync(string tienda, string ciudad, string? nombres, string? apellidos)
+        public async Task<List<Visita>> GetCitizensAsync(string tienda, string ciudad, string? nombres, string? apellidos, bool includeInactive)
         {
             var tiendaNormalizada = tienda.Trim();
             var ciudadNormalizada = ciudad.Trim();
@@ -103,7 +103,7 @@ namespace  Strategia.Service.Api.Repositories
                 .Include(x => x.VisitaIntencionVotos)
                 .Where(x => x.Tienda == tiendaNormalizada
                     && x.Ciudad == ciudadNormalizada
-                    && x.Activo == true);
+                    && (includeInactive || x.Activo == true));
 
             if (!string.IsNullOrWhiteSpace(nombresNormalizados))
             {
@@ -123,7 +123,7 @@ namespace  Strategia.Service.Api.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Ciudadano>> GetNearbyCitizensAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros)
+        public async Task<List<Ciudadano>> GetNearbyCitizensAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros, bool includeInactive)
         {
             var tiendaNormalizada = tienda.Trim();
             var ciudadNormalizada = ciudad.Trim();
@@ -134,8 +134,8 @@ namespace  Strategia.Service.Api.Repositories
                 .Include(x => x.VisitaIntencionVotos)
                 .Where(x => x.Tienda == tiendaNormalizada
                     && x.Ciudad == ciudadNormalizada
-                    && x.Activo == true
-                    && x.IdCiudadanoNavigation.Activo == true
+                    && (includeInactive || x.Activo == true)
+                    && (includeInactive || x.IdCiudadanoNavigation.Activo == true)
                     && x.PosX.HasValue
                     && x.PosY.HasValue)
                 .ToListAsync();
@@ -176,7 +176,8 @@ namespace  Strategia.Service.Api.Repositories
             string tienda,
             string codigoUsuario,
             DateTime fechaDesde,
-            DateTime fechaHasta)
+            DateTime fechaHasta,
+            bool includeInactive)
         {
             var tiendaNormalizada = tienda.Trim().ToUpper();
             var codigoUsuarioNormalizado = codigoUsuario.Trim().ToUpper();
@@ -193,7 +194,7 @@ namespace  Strategia.Service.Api.Repositories
                     && x.CodigoUsuario.Trim().ToUpper() == codigoUsuarioNormalizado
                     && x.FechaVisita >= fechaInicio
                     && x.FechaVisita < fechaFinExclusiva
-                    && x.Activo != false)
+                    && (includeInactive || x.Activo != false))
                 .OrderByDescending(x => x.FechaVisita)
                 .ToListAsync();
         }

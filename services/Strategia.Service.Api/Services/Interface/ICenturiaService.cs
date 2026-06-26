@@ -4,6 +4,6 @@ namespace  Strategia.Service.Api.Services
 {
     public interface ICenturiaService
     {
-        Task<List<CenturiaDto>> GetByStoreAndCityAsync(string tienda, string ciudad);
+        Task<List<CenturiaDto>> GetByStoreAndCityAsync(string tienda, string ciudad, bool includeInactive);
     }
 }

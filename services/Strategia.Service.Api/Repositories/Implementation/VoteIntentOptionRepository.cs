@@ -13,7 +13,7 @@ namespace  Strategia.Service.Api.Repositories
             _context = context;
         }
 
-        public async Task<List<IntencionVotoOpcion>> GetByStoreAsync(string tienda)
+        public async Task<List<IntencionVotoOpcion>> GetByStoreAsync(string tienda, bool includeInactive)
         {
             var normalizedStore = tienda.Trim().ToUpper();
 
@@ -21,7 +21,7 @@ namespace  Strategia.Service.Api.Repositories
                 .AsNoTracking()
                 .Where(x => x.Tienda != null
                     && x.Tienda.Trim().ToUpper() == normalizedStore
-                    && x.Activo != false)
+                    && (includeInactive || x.Activo != false))
                 .OrderBy(x => x.CodigoDignidad)
                 .ThenBy(x => x.Orden)
                 .ThenBy(x => x.NombreOpcion)

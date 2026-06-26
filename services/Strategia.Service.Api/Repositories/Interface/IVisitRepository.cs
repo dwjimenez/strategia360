@@ -13,8 +13,8 @@ namespace  Strategia.Service.Api.Repositories
             Visita visita,
             List<VisitaIntencionVoto> visitaIntencionesVoto);
 
-        Task<List<Visita>> GetCitizensAsync(string tienda, string ciudad, string? nombres, string? apellidos);
-        Task<List<Ciudadano>> GetNearbyCitizensAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros);
-        Task<List<Visita>> GetVisitsByUserAndDateRangeAsync(string tienda, string codigoUsuario, DateTime fechaDesde, DateTime fechaHasta);
+        Task<List<Visita>> GetCitizensAsync(string tienda, string ciudad, string? nombres, string? apellidos, bool includeInactive);
+        Task<List<Ciudadano>> GetNearbyCitizensAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros, bool includeInactive);
+        Task<List<Visita>> GetVisitsByUserAndDateRangeAsync(string tienda, string codigoUsuario, DateTime fechaDesde, DateTime fechaHasta, bool includeInactive);
     }
 }

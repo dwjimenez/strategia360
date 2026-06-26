@@ -22,9 +22,8 @@ public partial class ContextDatabase : CommonContext
     public virtual DbSet<RolOrganizacional> RolOrganizacional { get; set; } = null!;
     public virtual DbSet<Territorio> Territorio { get; set; } = null!;
     public virtual DbSet<UsuarioOrganizacional> UsuarioOrganizacional { get; set; } = null!;
-    public virtual DbSet<VisitaIntencionVoto> VisitaIntencionVoto { get; set; } = null!;
     public virtual DbSet<Visita> Visita { get; set; } = null!;
-    public virtual DbSet<VwMejoresAccionesPorSegmento> VwMejoresAccionesPorSegmentos { get; set; } = null!;
+    public virtual DbSet<VisitaIntencionVoto> VisitaIntencionVoto { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -57,38 +56,28 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.Estado)
                 .HasMaxLength(32)
                 .IsUnicode(false)
                 .HasDefaultValueSql("('PENDIENTE')");
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
             entity.Property(e => e.FechaGeneracion)
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("(getdate())");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.Motivo)
-                .HasMaxLength(500)
+                .HasMaxLength(512)
                 .IsUnicode(false);
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
 
             entity.Property(e => e.Score).HasColumnType("decimal(10, 4)");
 
@@ -106,13 +95,11 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Centuria>(entity =>
@@ -140,29 +127,19 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.NombreCenturia)
                 .HasMaxLength(128)
                 .IsUnicode(false);
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
 
             entity.Property(e => e.ParroquiaPrincipal)
                 .HasMaxLength(128)
@@ -174,20 +151,16 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Ciudadano>(entity =>
         {
             entity.HasKey(e => e.IdCiudadano);
-
-            entity.ToTable("Ciudadano");
 
             entity.HasIndex(e => new { e.Tienda, e.Ciudad, e.CodigoCenturia, e.CodigoTerritorio, e.Parroquia, e.Barrio }, "IX_Ciudadano_Ubicacion");
 
@@ -230,21 +203,15 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.Genero)
                 .HasMaxLength(32)
@@ -257,10 +224,6 @@ public partial class ContextDatabase : CommonContext
             entity.Property(e => e.NumeroCelular)
                 .HasMaxLength(16)
                 .IsUnicode(false);
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
 
             entity.Property(e => e.Parroquia)
                 .HasMaxLength(128)
@@ -276,20 +239,16 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<DashboardContador>(entity =>
         {
             entity.HasKey(e => e.IdDashboardContador);
-
-            entity.ToTable("DashboardContador");
 
             entity.HasIndex(e => new { e.Tienda, e.Ciudad, e.TipoCorte, e.FechaInicio, e.FechaFin, e.CodigoCenturia, e.CodigoTerritorio, e.Parroquia, e.Barrio, e.TipoContador, e.CodigoDignidad, e.CodigoIntencionVotoOpcion }, "UX_DashboardContador_Corte")
                 .IsUnique();
@@ -325,29 +284,19 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
             entity.Property(e => e.FechaFin).HasColumnType("date");
 
             entity.Property(e => e.FechaInicio).HasColumnType("date");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.Parroquia)
                 .HasMaxLength(128)
@@ -368,20 +317,16 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<IntencionVotoOpcion>(entity =>
         {
             entity.HasKey(e => e.IdIntencionVotoOpcion);
-
-            entity.ToTable("IntencionVotoOpcion");
 
             entity.HasIndex(e => new { e.Tienda, e.CodigoDignidad, e.Activo, e.Orden }, "IX_IntencionVotoOpcion_Dignidad");
 
@@ -402,29 +347,19 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.NombreOpcion)
                 .HasMaxLength(128)
                 .IsUnicode(false);
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
 
             entity.Property(e => e.Tienda)
                 .HasMaxLength(32)
@@ -432,13 +367,11 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<PoliticaAprendida>(entity =>
@@ -462,25 +395,15 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.RecompensaPromedio).HasColumnType("decimal(18, 6)");
 
@@ -502,13 +425,11 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
+                .IsUnicode(false);
 
             entity.Property(e => e.ValorAprendido).HasColumnType("decimal(18, 6)");
         });
@@ -516,8 +437,6 @@ public partial class ContextDatabase : CommonContext
         modelBuilder.Entity<ReporteOrganizacional>(entity =>
         {
             entity.HasKey(e => e.IdReporteOrganizacional);
-
-            entity.ToTable("ReporteOrganizacional");
 
             entity.HasIndex(e => new { e.Tienda, e.CodigoUsuario, e.FechaReporte }, "IX_ReporteOrganizacional_Usuario_Fecha");
 
@@ -556,30 +475,24 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.Estado)
                 .HasMaxLength(32)
                 .IsUnicode(false)
                 .HasDefaultValueSql("('ENVIADO')");
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
             entity.Property(e => e.FechaEnvio)
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("(getdate())");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.FechaReporte).HasColumnType("date");
 
@@ -600,23 +513,19 @@ public partial class ContextDatabase : CommonContext
                 .IsUnicode(false);
 
             entity.Property(e => e.Observacion)
-                .HasMaxLength(500)
+                .HasMaxLength(512)
                 .IsUnicode(false);
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
 
             entity.Property(e => e.SectorActividadAdversario)
                 .HasMaxLength(128)
                 .IsUnicode(false);
 
             entity.Property(e => e.SectoresCompletados)
-                .HasMaxLength(500)
+                .HasMaxLength(512)
                 .IsUnicode(false);
 
             entity.Property(e => e.SectoresPendientes)
-                .HasMaxLength(500)
+                .HasMaxLength(512)
                 .IsUnicode(false);
 
             entity.Property(e => e.TemaLlamada)
@@ -646,13 +555,11 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
+                .IsUnicode(false);
 
             entity.Property(e => e.Vah)
                 .HasColumnType("decimal(10, 2)")
@@ -667,27 +574,19 @@ public partial class ContextDatabase : CommonContext
         {
             entity.HasKey(e => e.IdResultadoAccion);
 
-            entity.ToTable("ResultadoAccion");
-
             entity.HasIndex(e => new { e.IdAccionRecomendada, e.FechaResultado }, "IX_ResultadoAccion_Accion");
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.FechaResultado)
                 .HasColumnType("datetime")
@@ -697,10 +596,6 @@ public partial class ContextDatabase : CommonContext
                 .HasMaxLength(500)
                 .IsUnicode(false);
 
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
-
             entity.Property(e => e.Recompensa).HasColumnType("decimal(10, 4)");
 
             entity.Property(e => e.TipoMetrica)
@@ -709,16 +604,14 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
+                .IsUnicode(false);
 
             entity.HasOne(d => d.IdAccionRecomendadaNavigation)
-                .WithMany(p => p.ResultadoAccions)
+                .WithMany(p => p.ResultadoAccion)
                 .HasForeignKey(d => d.IdAccionRecomendada)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ResultadoAccion_AccionRecomendada");
@@ -727,8 +620,6 @@ public partial class ContextDatabase : CommonContext
         modelBuilder.Entity<RolOrganizacional>(entity =>
         {
             entity.HasKey(e => e.IdRolOrganizacional);
-
-            entity.ToTable("RolOrganizacional");
 
             entity.HasIndex(e => new { e.Tienda, e.CodigoRol }, "UX_RolOrganizacional")
                 .IsUnique();
@@ -743,29 +634,19 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.NombreRol)
                 .HasMaxLength(128)
                 .IsUnicode(false);
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
 
             entity.Property(e => e.Tienda)
                 .HasMaxLength(32)
@@ -773,20 +654,16 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Territorio>(entity =>
         {
             entity.HasKey(e => e.IdTerritorio);
-
-            entity.ToTable("Territorio");
 
             entity.HasIndex(e => new { e.Tienda, e.Ciudad, e.CodigoCenturia, e.TipoTerritorio, e.Parroquia, e.Barrio }, "IX_Territorio_Centuria");
 
@@ -815,34 +692,24 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstadoCobertura)
                 .HasMaxLength(32)
                 .IsUnicode(false)
                 .HasDefaultValueSql("('SIN_CONTACTO')");
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.NombreTerritorio)
                 .HasMaxLength(128)
                 .IsUnicode(false);
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
 
             entity.Property(e => e.Parroquia)
                 .HasMaxLength(128)
@@ -858,20 +725,16 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<UsuarioOrganizacional>(entity =>
         {
             entity.HasKey(e => e.IdUsuarioOrganizacional);
-
-            entity.ToTable("UsuarioOrganizacional");
 
             entity.HasIndex(e => new { e.Tienda, e.CodigoRol, e.CodigoCenturia, e.Activo }, "IX_UsuarioOrganizacional_Rol_Centuria");
 
@@ -900,29 +763,19 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.Nombres)
                 .HasMaxLength(128)
                 .IsUnicode(false);
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
 
             entity.Property(e => e.Telefono)
                 .HasMaxLength(16)
@@ -934,8 +787,7 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioLogin)
                 .HasMaxLength(120)
@@ -943,70 +795,7 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
-        });
-
-        modelBuilder.Entity<VisitaIntencionVoto>(entity =>
-        {
-            entity.HasKey(e => e.IdVisitaIntencionVoto);
-
-            entity.ToTable("VisitaIntencionVoto");
-
-            entity.HasIndex(e => new { e.CodigoDignidad, e.CodigoIntencionVotoOpcion }, "IX_VisitaIntencionVoto_Opcion");
-
-            entity.HasIndex(e => new { e.IdVisita, e.CodigoDignidad }, "UX_VisitaIntencionVoto_Visita_Dignidad")
-                .IsUnique();
-
-            entity.Property(e => e.CodigoDignidad)
-                .HasMaxLength(32)
                 .IsUnicode(false);
-
-            entity.Property(e => e.CodigoIntencionVotoOpcion)
-                .HasMaxLength(32)
-                .IsUnicode(false);
-
-            entity.Property(e => e.EstacionCreacion)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
-
-            entity.Property(e => e.EstacionModificacion)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
-
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
-
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
-
-            entity.Property(e => e.Observacion)
-                .HasMaxLength(500)
-                .IsUnicode(false);
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
-
-            entity.Property(e => e.UsuarioCreacion)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
-
-            entity.Property(e => e.UsuarioModificacion)
-                .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
-
-            entity.HasOne(d => d.IdVisitaNavigation)
-                .WithMany(p => p.VisitaIntencionVotos)
-                .HasForeignKey(d => d.IdVisita)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_VisitaIntencionVoto_Visita");
         });
 
         modelBuilder.Entity<Visita>(entity =>
@@ -1039,48 +828,38 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.EstacionCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstacionModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Estacion Creacion");
+                .IsUnicode(false);
 
             entity.Property(e => e.EstadoSync)
                 .HasMaxLength(32)
                 .IsUnicode(false)
                 .HasDefaultValueSql("('SINCRONIZADO')");
 
-            entity.Property(e => e.FechaCreacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Creación");
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
 
-            entity.Property(e => e.FechaModificacion)
-                .HasColumnType("datetime")
-                .HasComment("Fecha de Actualización");
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
 
             entity.Property(e => e.FechaVisita)
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("(getdate())");
 
             entity.Property(e => e.NotaEncuestador)
-                .HasMaxLength(500)
+                .HasMaxLength(512)
                 .IsUnicode(false);
-
-            entity.Property(e => e.OficinaCreacion).HasComment("Oficina de Creación");
-
-            entity.Property(e => e.OficinaModificacion).HasComment("Oficina de Actualización");
 
             entity.Property(e => e.PosX).HasColumnType("decimal(18, 10)");
 
             entity.Property(e => e.PosY).HasColumnType("decimal(18, 10)");
 
-            entity.Property(e => e.ProblemaInterno)
+            entity.Property(e => e.ProblemaExterno)
                 .HasMaxLength(512)
                 .IsUnicode(false);
 
-            entity.Property(e => e.ProblemaExterno)
+            entity.Property(e => e.ProblemaInterno)
                 .HasMaxLength(512)
                 .IsUnicode(false);
 
@@ -1093,7 +872,7 @@ public partial class ContextDatabase : CommonContext
                 .IsUnicode(false);
 
             entity.Property(e => e.TemaInteresReal)
-                .HasMaxLength(500)
+                .HasMaxLength(512)
                 .IsUnicode(false);
 
             entity.Property(e => e.Tienda)
@@ -1102,13 +881,11 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.UsuarioCreacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Creación");
+                .IsUnicode(false);
 
             entity.Property(e => e.UsuarioModificacion)
                 .HasMaxLength(32)
-                .IsUnicode(false)
-                .HasComment("Usuario de Actualización");
+                .IsUnicode(false);
 
             entity.HasOne(d => d.IdCiudadanoNavigation)
                 .WithMany(p => p.Visita)
@@ -1117,39 +894,52 @@ public partial class ContextDatabase : CommonContext
                 .HasConstraintName("FK_Visita_Ciudadano");
         });
 
-        modelBuilder.Entity<VwMejoresAccionesPorSegmento>(entity =>
+        modelBuilder.Entity<VisitaIntencionVoto>(entity =>
         {
-            entity.HasNoKey();
+            entity.HasKey(e => e.IdVisitaIntencionVoto);
 
-            entity.ToView("vw_MejoresAccionesPorSegmento");
+            entity.HasIndex(e => new { e.CodigoDignidad, e.CodigoIntencionVotoOpcion }, "IX_VisitaIntencionVoto_Opcion");
 
-            entity.Property(e => e.AccionCodigo)
-                .HasMaxLength(64)
+            entity.HasIndex(e => new { e.IdVisita, e.CodigoDignidad }, "UX_VisitaIntencionVoto_Visita_Dignidad")
+                .IsUnique();
+
+            entity.Property(e => e.CodigoDignidad)
+                .HasMaxLength(32)
                 .IsUnicode(false);
 
-            entity.Property(e => e.AccionNombre)
-                .HasMaxLength(256)
+            entity.Property(e => e.CodigoIntencionVotoOpcion)
+                .HasMaxLength(32)
                 .IsUnicode(false);
 
-            entity.Property(e => e.ModeloOrigen)
-                .HasMaxLength(128)
+            entity.Property(e => e.EstacionCreacion)
+                .HasMaxLength(32)
                 .IsUnicode(false);
 
-            entity.Property(e => e.RecompensaPromedio).HasColumnType("decimal(10, 4)");
-
-            entity.Property(e => e.SegmentoCodigo)
-                .HasMaxLength(256)
+            entity.Property(e => e.EstacionModificacion)
+                .HasMaxLength(32)
                 .IsUnicode(false);
 
-            entity.Property(e => e.SegmentoDescripcion)
+            entity.Property(e => e.FechaCreacion).HasColumnType("datetime");
+
+            entity.Property(e => e.FechaModificacion).HasColumnType("datetime");
+
+            entity.Property(e => e.Observacion)
                 .HasMaxLength(512)
                 .IsUnicode(false);
 
-            entity.Property(e => e.ValorQ).HasColumnType("decimal(10, 4)");
-
-            entity.Property(e => e.VersionModelo)
-                .HasMaxLength(64)
+            entity.Property(e => e.UsuarioCreacion)
+                .HasMaxLength(32)
                 .IsUnicode(false);
+
+            entity.Property(e => e.UsuarioModificacion)
+                .HasMaxLength(32)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.IdVisitaNavigation)
+                .WithMany(p => p.VisitaIntencionVoto)
+                .HasForeignKey(d => d.IdVisita)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_VisitaIntencionVoto_Visita");
         });
 
         OnModelCreatingPartial(modelBuilder);
@@ -1157,4 +947,4 @@ public partial class ContextDatabase : CommonContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
-
+}

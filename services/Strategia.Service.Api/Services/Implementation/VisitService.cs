@@ -163,7 +163,7 @@ namespace  Strategia.Service.Api.Services
             return true;
         }
 
-        public async Task<List<VisitaDto>> GetCitizensAsync(string tienda, string ciudad, string? nombres, string? apellidos)
+        public async Task<List<VisitaDto>> GetCitizensAsync(string tienda, string ciudad, string? nombres, string? apellidos, bool includeInactive)
         {
             if (string.IsNullOrWhiteSpace(tienda))
                 throw new Exception("La tienda es obligatoria.");
@@ -171,12 +171,12 @@ namespace  Strategia.Service.Api.Services
             if (string.IsNullOrWhiteSpace(ciudad))
                 throw new Exception("La ciudad es obligatoria.");
 
-            var visitas = await _visitaRepository.GetCitizensAsync(tienda, ciudad, nombres, apellidos);
+            var visitas = await _visitaRepository.GetCitizensAsync(tienda, ciudad, nombres, apellidos, includeInactive);
 
             return _mapper.Map<List<VisitaDto>>(visitas);
         }
 
-        public async Task<List<CiudadanoDto>> GetNearbyCitizensAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros)
+        public async Task<List<CiudadanoDto>> GetNearbyCitizensAsync(string tienda, string ciudad, decimal posX, decimal posY, double distanciaMetros, bool includeInactive)
         {
             if (string.IsNullOrWhiteSpace(tienda))
                 throw new Exception("La tienda es obligatoria.");
@@ -187,12 +187,12 @@ namespace  Strategia.Service.Api.Services
             if (distanciaMetros <= 0)
                 throw new Exception("La distancia en metros debe ser mayor a cero.");
 
-            var ciudadanos = await _visitaRepository.GetNearbyCitizensAsync(tienda, ciudad, posX, posY, distanciaMetros);
+            var ciudadanos = await _visitaRepository.GetNearbyCitizensAsync(tienda, ciudad, posX, posY, distanciaMetros, includeInactive);
 
             return _mapper.Map<List<CiudadanoDto>>(ciudadanos);
         }
 
-        public async Task<List<VisitaDto>> GetVisitsByUserAndDateRangeAsync(string tienda, string codigoUsuario, DateTime fechaDesde, DateTime fechaHasta)
+        public async Task<List<VisitaDto>> GetVisitsByUserAndDateRangeAsync(string tienda, string codigoUsuario, DateTime fechaDesde, DateTime fechaHasta, bool includeInactive)
         {
             if (string.IsNullOrWhiteSpace(tienda))
                 throw new Exception("La tienda es obligatoria.");
@@ -207,7 +207,8 @@ namespace  Strategia.Service.Api.Services
                 tienda,
                 codigoUsuario,
                 fechaDesde,
-                fechaHasta);
+                fechaHasta,
+                includeInactive);
 
             return _mapper.Map<List<VisitaDto>>(visitas);
         }
