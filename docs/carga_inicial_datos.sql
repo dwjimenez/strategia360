@@ -276,73 +276,77 @@ GO
 /*==============================================================*/
 INSERT INTO dbo.IntencionVotoGrupo
 (
-    Tienda, CodigoDignidad, FieldName, ObsFieldName, ObsLabel, Titulo, Orden, Activo,
+    Tienda, Ciudad, CodigoDignidad, FieldName, ObsFieldName, ObsLabel, Titulo, Orden, Activo,
     FechaCreacion, UsuarioCreacion, OficinaCreacion, EstacionCreacion
 )
-SELECT v.Tienda, v.CodigoDignidad, v.FieldName, v.ObsFieldName, v.ObsLabel, v.Titulo, v.Orden, 1,
+SELECT v.Tienda, v.Ciudad, v.CodigoDignidad, v.FieldName, v.ObsFieldName, v.ObsLabel, v.Titulo, v.Orden, 1,
        GETDATE(), 'SEED', 1, 'SCRIPT'
 FROM
 (
     VALUES
-    ('ADN', 'ALCALDE',  'votoAlcalde',  'obsAlcalde',  'Observación para alcalde',  'Alcalde',  1),
-    ('ADN', 'CONCEJAL', 'votoConcejal', 'obsConcejal', 'Observación para concejal', 'Concejal', 2),
-    ('ADN', 'VOCALES',  'votoVocales',  'obsVocales',  'Observación para vocales',  'Vocales',  3)
-) v(Tienda, CodigoDignidad, FieldName, ObsFieldName, ObsLabel, Titulo, Orden)
+    ('ADN', 'PEDERNALES', 'ALCALDE',  'votoAlcalde',  'obsAlcalde',  'Observación para alcalde',  'Alcalde',  1),
+    ('ADN', 'PEDERNALES', 'CONCEJAL', 'votoConcejal', 'obsConcejal', 'Observación para concejal', 'Concejal', 2),
+    ('ADN', 'PEDERNALES', 'VOCALES',  'votoVocales',  'obsVocales',  'Observación para vocales',  'Vocales',  3)
+) v(Tienda, Ciudad, CodigoDignidad, FieldName, ObsFieldName, ObsLabel, Titulo, Orden)
 WHERE NOT EXISTS
 (
     SELECT 1
     FROM dbo.IntencionVotoGrupo g
     WHERE g.Tienda = v.Tienda
+      AND g.Ciudad = v.Ciudad
       AND g.CodigoDignidad = v.CodigoDignidad
 );
 GO
 
 INSERT INTO dbo.IntencionVotoOpcion
 (
-    Tienda, CodigoIntencionVotoOpcion, CodigoDignidad, NombreOpcion, Orden, Activo,
+    IdIntencionVotoGrupo, CodigoIntencionVotoOpcion, NombreOpcion, Orden, Activo,
     FechaCreacion, UsuarioCreacion, OficinaCreacion, EstacionCreacion
 )
-SELECT v.Tienda, v.CodigoIntencionVotoOpcion, v.CodigoDignidad, v.NombreOpcion, v.Orden, 1,
+SELECT g.IdIntencionVotoGrupo, v.CodigoIntencionVotoOpcion, v.NombreOpcion, v.Orden, 1,
        GETDATE(), 'SEED', 1, 'SCRIPT'
 FROM
 (
     VALUES
-    ('ADN', 'PATRICIA_SALTOS', 'ALCALDE',  'Patricia Saltos', 1),
-    ('ADN', 'DIEGO_CELORIO',   'ALCALDE',  'Diego Celorio',   2),
-    ('ADN', 'SANTOS_CEDENO',   'ALCALDE',  'Santos Cedeño',   3),
-    ('ADN', 'ROSY_PUERTAS',    'ALCALDE',  'Rosy Puertas',    4),
-    ('ADN', 'DAVID_ZAMBRANO',  'ALCALDE',  'David Zambrano',  5),
-    ('ADN', 'EDUARDO_CHICA',   'ALCALDE',  'Eduardo Chica',   6),
-    ('ADN', 'ALC_INDECISO',        'ALCALDE',  'Indeciso',        7),
-    ('ADN', 'ALC_BLANCO',          'ALCALDE',  'Voto blanco',     8),
-    ('ADN', 'ALC_NULO',            'ALCALDE',  'Voto nulo',       9),
-    ('ADN', 'ALC_NO_VOTA',         'ALCALDE',  'No vota',         10),
-    ('ADN', 'ALC_NO_RESPONDE',     'ALCALDE',  'No responde',     11),
+    ('ADN', 'ALCALDE',  'PATRICIA_SALTOS', 'Patricia Saltos',   1),
+    ('ADN', 'ALCALDE',  'DIEGO_CELORIO',   'Diego Celorio',     2),
+    ('ADN', 'ALCALDE',  'SANTOS_CEDENO',   'Santos Cedeño',     3),
+    ('ADN', 'ALCALDE',  'ROSY_PUERTAS',    'Rosy Puertas',      4),
+    ('ADN', 'ALCALDE',  'DAVID_ZAMBRANO',  'David Zambrano',    5),
+    ('ADN', 'ALCALDE',  'EDUARDO_CHICA',   'Eduardo Chica',     6),
+    ('ADN', 'ALCALDE',  'ALC_INDECISO',    'Indeciso',          7),
+    ('ADN', 'ALCALDE',  'ALC_BLANCO',      'Voto blanco',       8),
+    ('ADN', 'ALCALDE',  'ALC_NULO',        'Voto nulo',         9),
+    ('ADN', 'ALCALDE',  'ALC_NO_VOTA',     'No vota',           10),
+    ('ADN', 'ALCALDE',  'ALC_NO_RESPONDE', 'No responde',       11),
 
-    ('ADN', 'CON_NUESTRO',     'CONCEJAL', 'Nuestra lista',     1),
-    ('ADN', 'CON_COMP_A',      'CONCEJAL', 'Contrincante A',    2),
-    ('ADN', 'CON_COMP_B',      'CONCEJAL', 'Contrincante B',    3),
-    ('ADN', 'CON_INDECISO',    'CONCEJAL', 'Indeciso',          4),
-    ('ADN', 'CON_BLANCO',      'CONCEJAL', 'Voto blanco',       5),
-    ('ADN', 'CON_NULO',        'CONCEJAL', 'Voto nulo',         6),
-    ('ADN', 'CON_NO_VOTA',     'CONCEJAL', 'No vota',           7),
-    ('ADN', 'CON_NO_RESPONDE', 'CONCEJAL', 'No responde',       8),
+    ('ADN', 'CONCEJAL', 'CON_NUESTRO',     'Nuestra lista',     1),
+    ('ADN', 'CONCEJAL', 'CON_COMP_A',      'Contrincante A',    2),
+    ('ADN', 'CONCEJAL', 'CON_COMP_B',      'Contrincante B',    3),
+    ('ADN', 'CONCEJAL', 'CON_INDECISO',    'Indeciso',          4),
+    ('ADN', 'CONCEJAL', 'CON_BLANCO',      'Voto blanco',       5),
+    ('ADN', 'CONCEJAL', 'CON_NULO',        'Voto nulo',         6),
+    ('ADN', 'CONCEJAL', 'CON_NO_VOTA',     'No vota',           7),
+    ('ADN', 'CONCEJAL', 'CON_NO_RESPONDE', 'No responde',       8),
 
-    ('ADN', 'VOC_NUESTRO',     'VOCALES',  'Nuestra lista',     1),
-    ('ADN', 'VOC_COMP_A',      'VOCALES',  'Contrincante A',    2),
-    ('ADN', 'VOC_COMP_B',      'VOCALES',  'Contrincante B',    3),
-    ('ADN', 'VOC_INDECISO',    'VOCALES',  'Indeciso',          4),
-    ('ADN', 'VOC_BLANCO',      'VOCALES',  'Voto blanco',       5),
-    ('ADN', 'VOC_NULO',        'VOCALES',  'Voto nulo',         6),
-    ('ADN', 'VOC_NO_VOTA',     'VOCALES',  'No vota',           7),
-    ('ADN', 'VOC_NO_RESPONDE', 'VOCALES',  'No responde',       8)
-) v(Tienda, CodigoIntencionVotoOpcion, CodigoDignidad, NombreOpcion, Orden)
+    ('ADN', 'VOCALES',  'VOC_NUESTRO',     'Nuestra lista',     1),
+    ('ADN', 'VOCALES',  'VOC_COMP_A',      'Contrincante A',    2),
+    ('ADN', 'VOCALES',  'VOC_COMP_B',      'Contrincante B',    3),
+    ('ADN', 'VOCALES',  'VOC_INDECISO',    'Indeciso',          4),
+    ('ADN', 'VOCALES',  'VOC_BLANCO',      'Voto blanco',       5),
+    ('ADN', 'VOCALES',  'VOC_NULO',        'Voto nulo',         6),
+    ('ADN', 'VOCALES',  'VOC_NO_VOTA',     'No vota',           7),
+    ('ADN', 'VOCALES',  'VOC_NO_RESPONDE', 'No responde',       8)
+) v(Tienda, CodigoDignidad, CodigoIntencionVotoOpcion, NombreOpcion, Orden)
+INNER JOIN dbo.IntencionVotoGrupo g
+    ON g.Tienda = v.Tienda
+   AND g.Ciudad = 'PEDERNALES'
+   AND g.CodigoDignidad = v.CodigoDignidad
 WHERE NOT EXISTS
 (
     SELECT 1
     FROM dbo.IntencionVotoOpcion i
-    WHERE i.Tienda = v.Tienda
-      AND i.CodigoIntencionVotoOpcion = v.CodigoIntencionVotoOpcion
+    WHERE i.CodigoIntencionVotoOpcion = v.CodigoIntencionVotoOpcion
 );
 GO
 

@@ -100,7 +100,7 @@ namespace  Strategia.Service.Api.Repositories
             var query = _Context.Visita
                 .AsNoTracking()
                 .Include(x => x.IdCiudadanoNavigation)
-                .Include(x => x.VisitaIntencionVotos)
+                .Include(x => x.VisitaIntencionVoto)
                 .Where(x => x.Tienda == tiendaNormalizada
                     && x.Ciudad == ciudadNormalizada
                     && (includeInactive || x.Activo == true));
@@ -131,7 +131,7 @@ namespace  Strategia.Service.Api.Repositories
             var visitas = await _Context.Visita
                 .AsNoTracking()
                 .Include(x => x.IdCiudadanoNavigation)
-                .Include(x => x.VisitaIntencionVotos)
+                .Include(x => x.VisitaIntencionVoto)
                 .Where(x => x.Tienda == tiendaNormalizada
                     && x.Ciudad == ciudadNormalizada
                     && (includeInactive || x.Activo == true)
@@ -187,7 +187,7 @@ namespace  Strategia.Service.Api.Repositories
             return await _Context.Visita
                 .AsNoTracking()
                 .Include(x => x.IdCiudadanoNavigation)
-                .Include(x => x.VisitaIntencionVotos)
+                .Include(x => x.VisitaIntencionVoto)
                 .Where(x => x.Tienda != null
                     && x.CodigoUsuario != null
                     && x.Tienda.Trim().ToUpper() == tiendaNormalizada

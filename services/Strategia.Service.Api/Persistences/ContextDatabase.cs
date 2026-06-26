@@ -947,4 +947,3 @@ public partial class ContextDatabase : CommonContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
-}
