@@ -18,7 +18,14 @@ namespace  Strategia.Service.Helper
             //CreateMap<Menu, MenuDto>().ReverseMap();
             //CreateMap<UsuarioSistema, UsuarioSistemaDto>().ReverseMap();
 
-            CreateMap<Visita, VisitaDto>().ReverseMap();
+            CreateMap<Visita, VisitaDto>()
+                .ForMember(
+                    dest => dest.VisitaIntencionVotos,
+                    opt => opt.MapFrom(src => src.VisitaIntencionVoto))
+                .ReverseMap()
+                .ForMember(
+                    dest => dest.VisitaIntencionVoto,
+                    opt => opt.MapFrom(src => src.VisitaIntencionVotos));
             CreateMap<Ciudadano, CiudadanoDto>().ReverseMap();
             CreateMap<VisitaIntencionVoto, VisitaIntencionVotoDto>().ReverseMap();
             CreateMap<Centuria, CenturiaDto>().ReverseMap();
