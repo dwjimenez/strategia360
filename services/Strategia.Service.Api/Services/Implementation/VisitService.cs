@@ -114,7 +114,7 @@ namespace  Strategia.Service.Api.Services
                 CodigoCenturia = request.CodigoCenturia,
                 CodigoTerritorio = request.CodigoTerritorio,
                 FechaVisita = fechaActual,
-                ProblemaExterno = request.ProblemaExterno,
+                ProblemaFamiliar = request.ProblemaFamiliar,
                 ProblemaInterno = request.ProblemaInterno,
                 TemaInteresReal = request.TemaInteresReal,
                 ReferidoNombres = request.ReferidoNombres,

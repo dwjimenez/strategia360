@@ -30,7 +30,7 @@ public class RegistrarCiudadanoVisitaRequest
 
     public string? TemaInteresReal { get; set; }
     public string? ProblemaInterno { get; set; }
-    public string? ProblemaExterno { get; set; }
+    public string? ProblemaFamiliar { get; set; }
     public string? NotaEncuestador { get; set; }
     public string? ReferidoNombres { get; set; }
     public string? ReferidoTelefono { get; set; }

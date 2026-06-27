@@ -51,9 +51,4 @@ public class VisitController : ControllerBase
         [FromQuery] DateTime fechaHasta,
         [FromQuery] bool includeInactive = false)
         => Ok(await _visitaService.GetVisitsByUserAndDateRangeAsync(tienda, codigoUsuario, fechaDesde, fechaHasta, includeInactive));
-
-
-    
 }
-
-

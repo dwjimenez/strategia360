@@ -855,7 +855,7 @@ public partial class ContextDatabase : CommonContext
 
             entity.Property(e => e.PosY).HasColumnType("decimal(18, 10)");
 
-            entity.Property(e => e.ProblemaExterno)
+            entity.Property(e => e.ProblemaFamiliar)
                 .HasMaxLength(512)
                 .IsUnicode(false);
 

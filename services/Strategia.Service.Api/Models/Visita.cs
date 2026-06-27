@@ -19,7 +19,7 @@ namespace Strategia.Service.Api.Models
         public string? CodigoTerritorio { get; set; }
         public DateTime? FechaVisita { get; set; }
         public string? ProblemaInterno { get; set; }
-        public string? ProblemaExterno { get; set; }
+        public string? ProblemaFamiliar { get; set; }
         public string? TemaInteresReal { get; set; }
         public string? ReferidoNombres { get; set; }
         public string? ReferidoTelefono { get; set; }
