@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Strategia.Service.Api.Models
+﻿namespace Strategia.Service.Api.Models
 {
     public partial class ResultadoAccion
     {

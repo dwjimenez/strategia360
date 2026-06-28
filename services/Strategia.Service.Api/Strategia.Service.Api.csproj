@@ -29,12 +29,7 @@
 	  <Reference Include="DFast.Common">
 	    <HintPath>..\Assemblies\DFast.Common.dll</HintPath>
 	  </Reference>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="DTOs\ProxyInput\" />
-	  <Folder Include="Proxy\" />
-	</ItemGroup>
+	</ItemGroup>	
 
 	<ProjectExtensions>
 		<VisualStudio>

@@ -18,3 +18,7 @@ coverage/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Ignore a specific file
+docs/deploy-development.ps1
+docs/deploy-production.ps1
